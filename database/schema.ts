@@ -32,6 +32,109 @@ export class AuthAccessTokenSchema extends BaseModel {
   declare updatedAt: DateTime | null
 }
 
+export class CommentSchema extends BaseModel {
+  static $columns = ['content', 'createdAt', 'id', 'parentCommentId', 'postId', 'updatedAt', 'userId'] as const
+  $columns = CommentSchema.$columns
+  @column()
+  declare content: string
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime
+  @column({ isPrimary: true })
+  declare id: number
+  @column()
+  declare parentCommentId: number | null
+  @column()
+  declare postId: number
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime | null
+  @column()
+  declare userId: number
+}
+
+export class FollowSchema extends BaseModel {
+  static $columns = ['createdAt', 'followerId', 'followingId', 'id'] as const
+  $columns = FollowSchema.$columns
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime
+  @column()
+  declare followerId: number
+  @column()
+  declare followingId: number
+  @column({ isPrimary: true })
+  declare id: number
+}
+
+export class LikeSchema extends BaseModel {
+  static $columns = ['commentId', 'createdAt', 'id', 'userId'] as const
+  $columns = LikeSchema.$columns
+  @column()
+  declare commentId: number
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime
+  @column({ isPrimary: true })
+  declare id: number
+  @column()
+  declare userId: number
+}
+
+export class PlaceSchema extends BaseModel {
+  static $columns = ['aiDescription', 'createdAt', 'id', 'latitude', 'longitude'] as const
+  $columns = PlaceSchema.$columns
+  @column()
+  declare aiDescription: string
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime
+  @column({ isPrimary: true })
+  declare id: number
+  @column()
+  declare latitude: number
+  @column()
+  declare longitude: number
+}
+
+export class PostImageSchema extends BaseModel {
+  static $columns = ['id', 'imagePath', 'postId'] as const
+  $columns = PostImageSchema.$columns
+  @column({ isPrimary: true })
+  declare id: number
+  @column()
+  declare imagePath: string
+  @column()
+  declare postId: number
+}
+
+export class PostSchema extends BaseModel {
+  static $columns = ['createdAt', 'description', 'id', 'placeId', 'updatedAt', 'userId'] as const
+  $columns = PostSchema.$columns
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime
+  @column()
+  declare description: string
+  @column({ isPrimary: true })
+  declare id: number
+  @column()
+  declare placeId: number
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime | null
+  @column()
+  declare userId: number
+}
+
+export class RatingSchema extends BaseModel {
+  static $columns = ['createdAt', 'id', 'postId', 'stars', 'userId'] as const
+  $columns = RatingSchema.$columns
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime
+  @column({ isPrimary: true })
+  declare id: number
+  @column()
+  declare postId: number
+  @column()
+  declare stars: number
+  @column()
+  declare userId: number
+}
+
 export class UserSchema extends BaseModel {
   static $columns = ['createdAt', 'email', 'fullName', 'id', 'password', 'updatedAt'] as const
   $columns = UserSchema.$columns

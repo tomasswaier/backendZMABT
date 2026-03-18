@@ -12,7 +12,7 @@ import {middleware} from '#start/kernel'
 import router from '@adonisjs/core/services/router'
 
 router.get('/', () => {
-  return { hello: 'world' }
+  return { message: 'meowkity', error: 'none' }
 })
 router.post('/', () => {
   return { fuck: 'me' }
