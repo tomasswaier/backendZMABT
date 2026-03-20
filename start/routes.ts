@@ -15,7 +15,7 @@ router.get('/', () => {
   return { message: 'meowkity', error: 'none' }
 })
 router.post('/', () => {
-  return { fuck: 'me' }
+  return { test: 'working' }
 })
 
 router
