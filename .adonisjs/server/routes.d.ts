@@ -8,12 +8,21 @@ export type ScannedRoutes = {
     'auth.access_token.store': { paramsTuple?: []; params?: {} }
     'auth.access_token.destroy': { paramsTuple?: []; params?: {} }
     'profile.profile.show': { paramsTuple?: []; params?: {} }
+    'profile.posts.store': { paramsTuple?: []; params?: {} }
+    'profile.posts.get_posts': { paramsTuple?: []; params?: {} }
+    'profile.posts.get_user_posts': { paramsTuple?: []; params?: {} }
   }
   GET: {
     'profile.profile.show': { paramsTuple?: []; params?: {} }
+    'profile.posts.store': { paramsTuple?: []; params?: {} }
+    'profile.posts.get_posts': { paramsTuple?: []; params?: {} }
+    'profile.posts.get_user_posts': { paramsTuple?: []; params?: {} }
   }
   HEAD: {
     'profile.profile.show': { paramsTuple?: []; params?: {} }
+    'profile.posts.store': { paramsTuple?: []; params?: {} }
+    'profile.posts.get_posts': { paramsTuple?: []; params?: {} }
+    'profile.posts.get_user_posts': { paramsTuple?: []; params?: {} }
   }
   POST: {
     'auth.new_account.store': { paramsTuple?: []; params?: {} }

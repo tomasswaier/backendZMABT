@@ -30,6 +30,24 @@ const routes = {
     tokens: [{"old":"/api/v1/account/profile","type":0,"val":"api","end":""},{"old":"/api/v1/account/profile","type":0,"val":"v1","end":""},{"old":"/api/v1/account/profile","type":0,"val":"account","end":""},{"old":"/api/v1/account/profile","type":0,"val":"profile","end":""}],
     types: placeholder as Registry['profile.profile.show']['types'],
   },
+  'profile.posts.store': {
+    methods: ["GET","HEAD"],
+    pattern: '/api/v1/posts/create',
+    tokens: [{"old":"/api/v1/posts/create","type":0,"val":"api","end":""},{"old":"/api/v1/posts/create","type":0,"val":"v1","end":""},{"old":"/api/v1/posts/create","type":0,"val":"posts","end":""},{"old":"/api/v1/posts/create","type":0,"val":"create","end":""}],
+    types: placeholder as Registry['profile.posts.store']['types'],
+  },
+  'profile.posts.get_posts': {
+    methods: ["GET","HEAD"],
+    pattern: '/api/v1/posts/get',
+    tokens: [{"old":"/api/v1/posts/get","type":0,"val":"api","end":""},{"old":"/api/v1/posts/get","type":0,"val":"v1","end":""},{"old":"/api/v1/posts/get","type":0,"val":"posts","end":""},{"old":"/api/v1/posts/get","type":0,"val":"get","end":""}],
+    types: placeholder as Registry['profile.posts.get_posts']['types'],
+  },
+  'profile.posts.get_user_posts': {
+    methods: ["GET","HEAD"],
+    pattern: '/api/v1/posts/getUser',
+    tokens: [{"old":"/api/v1/posts/getUser","type":0,"val":"api","end":""},{"old":"/api/v1/posts/getUser","type":0,"val":"v1","end":""},{"old":"/api/v1/posts/getUser","type":0,"val":"posts","end":""},{"old":"/api/v1/posts/getUser","type":0,"val":"getUser","end":""}],
+    types: placeholder as Registry['profile.posts.get_user_posts']['types'],
+  },
 } as const satisfies Record<string, AdonisEndpoint>
 
 export { routes }

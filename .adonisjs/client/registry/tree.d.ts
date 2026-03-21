@@ -15,5 +15,10 @@ export interface ApiDefinition {
     profile: {
       show: typeof routes['profile.profile.show']
     }
+    posts: {
+      store: typeof routes['profile.posts.store']
+      getPosts: typeof routes['profile.posts.get_posts']
+      getUserPosts: typeof routes['profile.posts.get_user_posts']
+    }
   }
 }

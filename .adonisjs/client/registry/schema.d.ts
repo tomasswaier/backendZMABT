@@ -55,4 +55,40 @@ export interface Registry {
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/profile_controller').default['show']>>>
     }
   }
+  'profile.posts.store': {
+    methods: ["GET","HEAD"]
+    pattern: '/api/v1/posts/create'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/posts_controller').default['store']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/posts_controller').default['store']>>>
+    }
+  }
+  'profile.posts.get_posts': {
+    methods: ["GET","HEAD"]
+    pattern: '/api/v1/posts/get'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/posts_controller').default['getPosts']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/posts_controller').default['getPosts']>>>
+    }
+  }
+  'profile.posts.get_user_posts': {
+    methods: ["GET","HEAD"]
+    pattern: '/api/v1/posts/getUser'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/posts_controller').default['getUserPosts']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/posts_controller').default['getUserPosts']>>>
+    }
+  }
 }

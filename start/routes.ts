@@ -29,12 +29,17 @@ router.post('login', [ controllers.AccessToken, 'store' ])
       .prefix('auth')
       .as('auth')
 
-    router
-      .group(() => {
-        router.get('/profile', [controllers.Profile, 'show'])
-      })
-      .prefix('account')
-      .as('profile')
-      .use(middleware.auth())
+        router.group(() => {router.get('/profile',
+                                       [ controllers.Profile, 'show' ])})
+                .prefix('account')
+                .as('profile').use(middleware.auth())
+        router.group(() => {
+  router.get('/create', [ controllers.Posts, 'store' ]);
+  router.get('/get', [ controllers.Posts, 'getPosts' ]);
+  router.get('/getUser', [ controllers.Posts, 'getUserPosts' ])
+
+
+        }).prefix('posts').as('profile').use(middleware.auth())
+
   })
   .prefix('/api/v1')
