@@ -31,7 +31,7 @@ const routes = {
     types: placeholder as Registry['profile.profile.show']['types'],
   },
   'profile.posts.store': {
-    methods: ["GET","HEAD"],
+    methods: ["POST"],
     pattern: '/api/v1/posts/create',
     tokens: [{"old":"/api/v1/posts/create","type":0,"val":"api","end":""},{"old":"/api/v1/posts/create","type":0,"val":"v1","end":""},{"old":"/api/v1/posts/create","type":0,"val":"posts","end":""},{"old":"/api/v1/posts/create","type":0,"val":"create","end":""}],
     types: placeholder as Registry['profile.posts.store']['types'],

@@ -34,7 +34,7 @@ router.post('login', [ controllers.AccessToken, 'store' ])
                 .prefix('account')
                 .as('profile').use(middleware.auth())
         router.group(() => {
-  router.get('/create', [ controllers.Posts, 'store' ]);
+  router.post('/create', [ controllers.Posts, 'store' ]);
   router.get('/get', [ controllers.Posts, 'getPosts' ]);
   router.get('/getUser', [ controllers.Posts, 'getUserPosts' ])
 

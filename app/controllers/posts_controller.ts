@@ -1,44 +1,75 @@
+import Place from "#models/place";
 import Post from "#models/post";
+import User from "#models/user";
+import {
+  postGetUserValidator,
+  postGetValidator,
+  postStoreValidator
+} from "#validators/post";
 import type {HttpContext} from '@adonisjs/core/http'
 
 export default class PostsController {
-  async getPosts({response}: HttpContext) {
+  async getPosts({request, response}: HttpContext) {
+    const data = await request.validateUsing(postGetValidator)
     try {
-      const groups = await Post.query().orderBy('created_at', 'desc').limit(10);
-      console.log(groups);
-      return response.ok(groups);
-    } catch (error) {
-      console.error("Error:", error);
-      return response.internalServerError({message : "Failed to load groups"});
-    }
-  }
-  async getUserPosts({auth, response}: HttpContext) {
-    try {
-      const user = auth.use("api").user;
-      if (user == undefined) {
-        return response.internalServerError(
-            {message : "User is not authenticated"});
-      }
-      const posts = await user!.related('posts')
-                        .query()
-                        .orderBy('created_at', 'desc')
-                        .limit(10)
-      console.log(posts);
+      const user = await User.find(data.userId)
+      const posts = await this.getPostData(user!, data.page)
       return response.ok(posts);
     } catch (error) {
       console.error("Error:", error);
       return response.internalServerError({message : "Failed to load groups"});
     }
   }
-  async store({request, response}: HttpContext) {
-    // const user = auth.use("api").user;
+  async getUserPosts({auth, request, response}: HttpContext) {
+    const data = await request.validateUsing(postGetUserValidator)
+    try {
+      const user = auth.user
+
+      if (!user) {
+        return response.unauthorized({message : 'User not authenticated'})
+      }
+      const posts = await this.getPostData(user, data.page)
+
+      return response.ok(posts)
+    } catch (error) {
+      console.error('Error:', error)
+      return response.internalServerError({message : 'Failed to load posts'})
+    }
+  }
+  getPostData(user: User, page: number) {
+    return user.related('posts')
+        .query()
+        .orderBy('created_at', 'desc')
+        .paginate(page, 10)
+  }
+
+  async store({request, response, auth}: HttpContext) {
+    const user = auth.use("api").user;
+    if (user == undefined) {
+      return ({message : "Failed to upload post", error : true});
+    }
     console.log(request);
     try {
+      const data = await request.validateUsing(postStoreValidator)
+      const aiDescription =
+          "placeholder description till we implement the ai feature"
+      const place = await Place.create({
+        aiDescription : aiDescription,
+        latitude : data.latitude,
+        longitude : data.longitude
+      });
+      await Post.create({
+        description : data.postText,
+        stars : data.rating,
+        placeId : place.id,
+        userId : user.id
+      })
 
-      return response.ok("ok");
+      return response.ok({error : false, message : "post successfully posted"});
     } catch (error) {
       console.error("Error:", error);
-      return response.internalServerError({message : "Failed to load groups"});
+      return response.internalServerError(
+          {message : "Failed to load groups", error : true});
     }
   }
 }
