@@ -55,7 +55,7 @@ export interface Registry {
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/profile_controller').default['show']>>>
     }
   }
-  'profile.posts.store': {
+  'posts.posts.store': {
     methods: ["POST"]
     pattern: '/api/v1/posts/create'
     types: {
@@ -67,21 +67,33 @@ export interface Registry {
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/posts_controller').default['store']>>> | { status: 422; response: { errors: SimpleError[] } }
     }
   }
-  'profile.posts.get_posts': {
+  'posts.posts.get_posts_fyp': {
     methods: ["GET","HEAD"]
-    pattern: '/api/v1/posts/get'
+    pattern: '/api/v1/posts/getPageFyp'
     types: {
       body: {}
       paramsTuple: []
       params: {}
-      query: ExtractQueryForGet<InferInput<(typeof import('#validators/post').postGetValidator)>>
+      query: ExtractQueryForGet<InferInput<(typeof import('#validators/post').postGetUserValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/posts_controller').default['getPostsFyp']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/posts_controller').default['getPostsFyp']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'posts.posts.get_posts': {
+    methods: ["GET","HEAD"]
+    pattern: '/api/v1/posts/getPage'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: ExtractQueryForGet<InferInput<(typeof import('#validators/post').postGetPageValidator)>>
       response: ExtractResponse<Awaited<ReturnType<import('#controllers/posts_controller').default['getPosts']>>>
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/posts_controller').default['getPosts']>>> | { status: 422; response: { errors: SimpleError[] } }
     }
   }
-  'profile.posts.get_user_posts': {
+  'posts.posts.get_user_posts': {
     methods: ["GET","HEAD"]
-    pattern: '/api/v1/posts/getUser'
+    pattern: '/api/v1/posts/getPageUser'
     types: {
       body: {}
       paramsTuple: []
@@ -89,6 +101,18 @@ export interface Registry {
       query: ExtractQueryForGet<InferInput<(typeof import('#validators/post').postGetUserValidator)>>
       response: ExtractResponse<Awaited<ReturnType<import('#controllers/posts_controller').default['getUserPosts']>>>
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/posts_controller').default['getUserPosts']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'posts.posts.get_post': {
+    methods: ["GET","HEAD"]
+    pattern: '/api/v1/posts/get'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: ExtractQueryForGet<InferInput<(typeof import('#validators/post').postGetValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/posts_controller').default['getPost']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/posts_controller').default['getPost']>>> | { status: 422; response: { errors: SimpleError[] } }
     }
   }
 }

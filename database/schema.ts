@@ -87,9 +87,9 @@ export class PlaceSchema extends BaseModel {
   @column({ isPrimary: true })
   declare id: number
   @column()
-  declare latitude: number
+  declare latitude: string
   @column()
-  declare longitude: number
+  declare longitude: string
 }
 
 export class PostImageSchema extends BaseModel {

@@ -35,11 +35,14 @@ router.post('login', [ controllers.AccessToken, 'store' ])
                 .as('profile').use(middleware.auth())
         router.group(() => {
   router.post('/create', [ controllers.Posts, 'store' ]);
-  router.get('/get', [ controllers.Posts, 'getPosts' ]);
-  router.get('/getUser', [ controllers.Posts, 'getUserPosts' ])
+  router.get('/getPageFyp', [ controllers.Posts, 'getPostsFyp' ]);
+  router.get('/getPage', [ controllers.Posts, 'getPosts' ]);
+  router.get('/getPageUser', [ controllers.Posts, 'getUserPosts' ])
+  router.get('/get', [ controllers.Posts, 'getPost' ]);
 
 
-        }).prefix('posts').as('profile').use(middleware.auth())
+        }).prefix('posts').as('posts').use(middleware.auth())
+
 
   })
   .prefix('/api/v1')

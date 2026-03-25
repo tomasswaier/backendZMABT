@@ -2,6 +2,7 @@ import Place from "#models/place";
 import Post from "#models/post";
 import User from "#models/user";
 import {
+  postGetPageValidator,
   postGetUserValidator,
   postGetValidator,
   postStoreValidator
@@ -9,15 +10,39 @@ import {
 import type {HttpContext} from '@adonisjs/core/http'
 
 export default class PostsController {
-  async getPosts({request, response}: HttpContext) {
+  async getPost({request, response}: HttpContext) {
+    console.log("nigger")
     const data = await request.validateUsing(postGetValidator)
+    try {
+      const post = await Post.find(data.postId)
+      return response.ok(post);
+    } catch (error) {
+      console.error("Error:", error);
+      return response.internalServerError({message : "Failed to load post"});
+    }
+  }
+  async getPosts({request, response}: HttpContext) {
+    const data = await request.validateUsing(postGetPageValidator)
     try {
       const user = await User.find(data.userId)
       const posts = await this.getPostData(user!, data.page)
       return response.ok(posts);
     } catch (error) {
       console.error("Error:", error);
-      return response.internalServerError({message : "Failed to load groups"});
+      return response.internalServerError({message : "Failed to load posts"});
+    }
+  }
+  async getPostsFyp({request, response}: HttpContext) {
+    const data = await request.validateUsing(postGetUserValidator)
+    try {
+      const posts = await Post.query()
+                        .orderBy('updated_at', 'desc')
+                        .paginate(data.page, 10)
+
+      return response.ok(posts);
+    } catch (error) {
+      console.error("Error:", error);
+      return response.internalServerError({message : "Failed to load posts"});
     }
   }
   async getUserPosts({auth, request, response}: HttpContext) {

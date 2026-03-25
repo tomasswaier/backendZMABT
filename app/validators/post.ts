@@ -5,6 +5,7 @@ const rating = () => vine.number().min(1).max(5)
 const longitude = () => vine.number()
 const latitude = () => vine.number()
 const userId = () => vine.number()
+const postId = () => vine.number()
 
 export const postStoreValidator = vine.create({
   postText : postText(),
@@ -13,10 +14,15 @@ export const postStoreValidator = vine.create({
   latitude : latitude()
 })
 
-export const postGetValidator = vine.create({
+export const postGetPageValidator = vine.create({
 
   userId : userId().exists({table : 'users', column : 'id'}),
   page : vine.number()
+
+})
+export const postGetValidator = vine.create({
+
+  postId : postId().exists({table : 'posts', column : 'id'}),
 
 })
 export const postGetUserValidator = vine.create({
