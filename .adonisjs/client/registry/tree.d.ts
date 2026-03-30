@@ -25,4 +25,10 @@ export interface ApiDefinition {
       getPost: typeof routes['posts.posts.get_post']
     }
   }
+  comments: {
+    comments: {
+      store: typeof routes['comments.comments.store']
+      getPage: typeof routes['comments.comments.get_page']
+    }
+  }
 }

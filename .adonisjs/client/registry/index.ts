@@ -60,6 +60,18 @@ const routes = {
     tokens: [{"old":"/api/v1/posts/get","type":0,"val":"api","end":""},{"old":"/api/v1/posts/get","type":0,"val":"v1","end":""},{"old":"/api/v1/posts/get","type":0,"val":"posts","end":""},{"old":"/api/v1/posts/get","type":0,"val":"get","end":""}],
     types: placeholder as Registry['posts.posts.get_post']['types'],
   },
+  'comments.comments.store': {
+    methods: ["POST"],
+    pattern: '/api/v1/comments/create',
+    tokens: [{"old":"/api/v1/comments/create","type":0,"val":"api","end":""},{"old":"/api/v1/comments/create","type":0,"val":"v1","end":""},{"old":"/api/v1/comments/create","type":0,"val":"comments","end":""},{"old":"/api/v1/comments/create","type":0,"val":"create","end":""}],
+    types: placeholder as Registry['comments.comments.store']['types'],
+  },
+  'comments.comments.get_page': {
+    methods: ["GET","HEAD"],
+    pattern: '/api/v1/comments/getPage',
+    tokens: [{"old":"/api/v1/comments/getPage","type":0,"val":"api","end":""},{"old":"/api/v1/comments/getPage","type":0,"val":"v1","end":""},{"old":"/api/v1/comments/getPage","type":0,"val":"comments","end":""},{"old":"/api/v1/comments/getPage","type":0,"val":"getPage","end":""}],
+    types: placeholder as Registry['comments.comments.get_page']['types'],
+  },
 } as const satisfies Record<string, AdonisEndpoint>
 
 export { routes }

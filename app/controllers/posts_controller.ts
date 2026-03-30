@@ -15,6 +15,9 @@ export default class PostsController {
     const data = await request.validateUsing(postGetValidator)
     try {
       const post = await Post.find(data.postId)
+      /*const comments =
+          await post!.related('comments').query().orderBy("updated_at",
+         "desc")*/
       return response.ok(post);
     } catch (error) {
       console.error("Error:", error);
