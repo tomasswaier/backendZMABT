@@ -25,7 +25,6 @@
           ];
         };
 				#ngrok http 8080
-				# to allow ngrok export NIXPKGS_ALLOW_UNFREE=1
 
       }
     );

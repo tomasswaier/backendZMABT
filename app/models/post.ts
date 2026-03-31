@@ -18,6 +18,8 @@ export default class Post extends BaseModel {
 
       @column() declare placeId: number
 
+      @column() declare stars: number
+
       @column() declare description: string
 
       @column

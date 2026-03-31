@@ -59,16 +59,19 @@
     "@adonisjs/auth": "^10.0.0",
     "@adonisjs/core": "^7.0.0",
     "@adonisjs/cors": "^3.0.0",
+    "@adonisjs/drive": "^4.0.0",
     "@adonisjs/lucid": "^22.1.0",
     "@adonisjs/session": "^8.0.0",
     "@adonisjs/shield": "^9.0.0",
+    "@adonisjs/static": "^2.0.1",
     "@japa/api-client": "^3.2.1",
     "@tuyau/core": "^1.0.0",
     "@vinejs/vine": "^4.3.0",
     "better-sqlite3": "^12.6.2",
     "luxon": "^3.7.2",
     "pg": "^8.20.0",
-    "reflect-metadata": "^0.2.2"
+    "reflect-metadata": "^0.2.2",
+    "swagger-ui-dist": "^5.32.1"
   },
   "hotHook": {
     "boundaries": [

@@ -4,13 +4,14 @@ import vine from '@vinejs/vine'
  * Shared rules for email and password.
  */
 const email = () => vine.string().email().maxLength(254)
+const username = () => vine.string().trim().minLength(2).maxLength(64)
 const password = () => vine.string().minLength(2).maxLength(32)
 
 /**
  * Validator to use when performing self-signup
  */
 export const signupValidator = vine.create({
-  username : vine.string().unique({table : 'users', column : 'username'}),
+  username : username().unique({table : 'users', column : 'username'}),
   email : email().unique({table : 'users', column : 'email'}),
   password : password(),
   passwordConfirmation : password().sameAs('password'),
@@ -21,6 +22,6 @@ export const signupValidator = vine.create({
  * during login
  */
 export const loginValidator = vine.create({
-  username : vine.string().trim(),
-  password : vine.string(),
+  username : username(),
+  password : password(),
 })

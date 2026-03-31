@@ -87,9 +87,9 @@ export class PlaceSchema extends BaseModel {
   @column({ isPrimary: true })
   declare id: number
   @column()
-  declare latitude: number
+  declare latitude: string
   @column()
-  declare longitude: number
+  declare longitude: string
 }
 
 export class PostImageSchema extends BaseModel {
@@ -104,7 +104,7 @@ export class PostImageSchema extends BaseModel {
 }
 
 export class PostSchema extends BaseModel {
-  static $columns = ['createdAt', 'description', 'id', 'placeId', 'updatedAt', 'userId'] as const
+  static $columns = ['createdAt', 'description', 'id', 'placeId', 'stars', 'updatedAt', 'userId'] as const
   $columns = PostSchema.$columns
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
@@ -114,6 +114,8 @@ export class PostSchema extends BaseModel {
   declare id: number
   @column()
   declare placeId: number
+  @column()
+  declare stars: number
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime | null
   @column()
