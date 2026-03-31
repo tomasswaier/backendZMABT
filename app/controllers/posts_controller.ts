@@ -1,5 +1,6 @@
 import Place from "#models/place";
 import Post from "#models/post";
+import PostImage from '#models/post_image'
 import User from "#models/user";
 import {
   postGetPageValidator,
@@ -15,10 +16,8 @@ export default class PostsController {
     const data = await request.validateUsing(postGetValidator)
     try {
       const post = await Post.find(data.postId)
-      /*const comments =
-          await post!.related('comments').query().orderBy("updated_at",
-         "desc")*/
-      return response.ok(post);
+      const postImages = await post!.related('images').query()
+      return response.ok({"post" : post, "postImages" : postImages});
     } catch (error) {
       console.error("Error:", error);
       return response.internalServerError({message : "Failed to load post"});
@@ -72,32 +71,54 @@ export default class PostsController {
   }
 
   async store({request, response, auth}: HttpContext) {
-    const user = auth.use("api").user;
-    if (user == undefined) {
-      return ({message : "Failed to upload post", error : true});
+    const user = auth.use("api").user
+
+    if (!user) {
+      return response.unauthorized(
+          {message : "Not authenticated", error : true})
     }
-    console.log(request);
+
     try {
       const data = await request.validateUsing(postStoreValidator)
-      const aiDescription =
-          "placeholder description till we implement the ai feature"
-      const place = await Place.create({
-        aiDescription : aiDescription,
-        latitude : data.latitude,
-        longitude : data.longitude
-      });
-      await Post.create({
+
+      const aiDescription = "placeholder description"
+
+      const place = await Place.create(
+          {aiDescription, latitude : data.latitude, longitude : data.longitude})
+
+      const post = await Post.create({
         description : data.postText,
         stars : data.rating,
         placeId : place.id,
         userId : user.id
       })
 
-      return response.ok({error : false, message : "post successfully posted"});
+      const image = request.file('image')
+
+      if (image) { // image upload
+        const fileName =
+            `${Date.now()}.${image.extname}`
+
+            // await image.move(app.makePath('uploads'), {name : fileName})
+            await image.moveToDisk(`uploads/${fileName}`, 'fs')
+
+        if (!image.isValid) {
+          console.log(image.errors)
+          return response.badRequest(
+              {message : "Image upload failed", error : true})
+        }
+
+        await PostImage.create(
+            {postId : post.id, imagePath : `uploads/${fileName}`})
+      }
+
+      return response.ok({error : false, message : "Post successfully created"})
+
     } catch (error) {
-      console.error("Error:", error);
+      console.error("Error:", error)
+
       return response.internalServerError(
-          {message : "Failed to load groups", error : true});
+          {message : "Failed to create post", error : true})
     }
   }
 }

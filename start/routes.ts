@@ -9,9 +9,13 @@
 
 import {controllers} from '#generated/controllers'
 import {middleware} from '#start/kernel'
+import type {HttpContext} from '@adonisjs/core/http'
+import app from '@adonisjs/core/services/app'
 import router from '@adonisjs/core/services/router'
+import fs from 'node:fs'
 import {readFile} from 'node:fs/promises'
 import {resolve} from 'node:path'
+import path from 'node:path'
 import {dirname, join} from 'path'
 import {fileURLToPath} from 'url'
 
@@ -23,6 +27,41 @@ router.get('/', () => {
 })
 router.post('/', () => {
   return { test: 'working' }
+})
+
+router.get('/uploads/:filename', async ({params, response}: HttpContext) => {
+  try {
+    // Construct the file path
+    const filePath = app.makePath('uploads', params.filename)
+
+    // Check if file exists
+    if (!fs.existsSync(filePath)) {
+      return response.status(404).send('File not found')
+    }
+
+    // Get file extension for MIME type
+    const ext = path.extname(params.filename).toLowerCase()
+    const mimeTypes: Record<string, string> = {
+      '.jpg' : 'image/jpeg',
+      '.jpeg' : 'image/jpeg',
+      '.png' : 'image/png',
+      '.gif' : 'image/gif',
+      '.webp' : 'image/webp',
+      '.svg' : 'image/svg+xml',
+    }
+
+    const mimeType = mimeTypes[ext] || 'image/jpeg'
+
+    // Set headers
+    response.header('Content-Type', mimeType)
+    response.header('Cache-Control', 'public, max-age=31536000')
+
+    // Use download() instead of stream() to avoid TypeScript errors
+    return response.download(filePath)
+  } catch (error) {
+    console.error('Error serving image:', error)
+    return response.status(500).send('Error serving image')
+  }
 })
 
 router.get('/docs', async ({response}) => {
@@ -89,5 +128,8 @@ router.get('/docs/*', async ({ params, response }) => {
               })
                 .prefix('comments')
                 .as('comments').use(middleware.auth())
+
+        // router.get('/uploads/*', async ({params, response}) => {return
+        // "todo"})
       })
       .prefix('/api/v1')

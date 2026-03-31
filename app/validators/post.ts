@@ -11,7 +11,12 @@ export const postStoreValidator = vine.create({
   postText : postText(),
   rating : rating(),
   longitude : longitude(),
-  latitude : latitude()
+  latitude : latitude(),
+  image : vine.file({
+                size : '5mb',
+                extnames : [ 'jpg', 'png', 'jpeg' ],
+              })
+              .optional(),
 })
 
 export const postGetPageValidator = vine.create({
