@@ -55,4 +55,88 @@ export interface Registry {
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/profile_controller').default['show']>>>
     }
   }
+  'posts.posts.store': {
+    methods: ["POST"]
+    pattern: '/api/v1/posts/create'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#validators/post').postStoreValidator)>>
+      paramsTuple: []
+      params: {}
+      query: ExtractQuery<InferInput<(typeof import('#validators/post').postStoreValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/posts_controller').default['store']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/posts_controller').default['store']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'posts.posts.get_posts_fyp': {
+    methods: ["GET","HEAD"]
+    pattern: '/api/v1/posts/getPageFyp'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: ExtractQueryForGet<InferInput<(typeof import('#validators/post').postGetUserValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/posts_controller').default['getPostsFyp']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/posts_controller').default['getPostsFyp']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'posts.posts.get_posts': {
+    methods: ["GET","HEAD"]
+    pattern: '/api/v1/posts/getPage'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: ExtractQueryForGet<InferInput<(typeof import('#validators/post').postGetPageValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/posts_controller').default['getPosts']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/posts_controller').default['getPosts']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'posts.posts.get_user_posts': {
+    methods: ["GET","HEAD"]
+    pattern: '/api/v1/posts/getPageUser'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: ExtractQueryForGet<InferInput<(typeof import('#validators/post').postGetUserValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/posts_controller').default['getUserPosts']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/posts_controller').default['getUserPosts']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'posts.posts.get_post': {
+    methods: ["GET","HEAD"]
+    pattern: '/api/v1/posts/get'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: ExtractQueryForGet<InferInput<(typeof import('#validators/post').postGetValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/posts_controller').default['getPost']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/posts_controller').default['getPost']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'comments.comments.store': {
+    methods: ["POST"]
+    pattern: '/api/v1/comments/create'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#validators/comment').commentStoreValidator)>>
+      paramsTuple: []
+      params: {}
+      query: ExtractQuery<InferInput<(typeof import('#validators/comment').commentStoreValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/comments_controller').default['store']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/comments_controller').default['store']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'comments.comments.get_page': {
+    methods: ["GET","HEAD"]
+    pattern: '/api/v1/comments/getPage'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: ExtractQueryForGet<InferInput<(typeof import('#validators/comment').commentPageValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/comments_controller').default['getPage']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/comments_controller').default['getPage']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
 }

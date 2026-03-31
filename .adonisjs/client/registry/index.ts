@@ -30,6 +30,48 @@ const routes = {
     tokens: [{"old":"/api/v1/account/profile","type":0,"val":"api","end":""},{"old":"/api/v1/account/profile","type":0,"val":"v1","end":""},{"old":"/api/v1/account/profile","type":0,"val":"account","end":""},{"old":"/api/v1/account/profile","type":0,"val":"profile","end":""}],
     types: placeholder as Registry['profile.profile.show']['types'],
   },
+  'posts.posts.store': {
+    methods: ["POST"],
+    pattern: '/api/v1/posts/create',
+    tokens: [{"old":"/api/v1/posts/create","type":0,"val":"api","end":""},{"old":"/api/v1/posts/create","type":0,"val":"v1","end":""},{"old":"/api/v1/posts/create","type":0,"val":"posts","end":""},{"old":"/api/v1/posts/create","type":0,"val":"create","end":""}],
+    types: placeholder as Registry['posts.posts.store']['types'],
+  },
+  'posts.posts.get_posts_fyp': {
+    methods: ["GET","HEAD"],
+    pattern: '/api/v1/posts/getPageFyp',
+    tokens: [{"old":"/api/v1/posts/getPageFyp","type":0,"val":"api","end":""},{"old":"/api/v1/posts/getPageFyp","type":0,"val":"v1","end":""},{"old":"/api/v1/posts/getPageFyp","type":0,"val":"posts","end":""},{"old":"/api/v1/posts/getPageFyp","type":0,"val":"getPageFyp","end":""}],
+    types: placeholder as Registry['posts.posts.get_posts_fyp']['types'],
+  },
+  'posts.posts.get_posts': {
+    methods: ["GET","HEAD"],
+    pattern: '/api/v1/posts/getPage',
+    tokens: [{"old":"/api/v1/posts/getPage","type":0,"val":"api","end":""},{"old":"/api/v1/posts/getPage","type":0,"val":"v1","end":""},{"old":"/api/v1/posts/getPage","type":0,"val":"posts","end":""},{"old":"/api/v1/posts/getPage","type":0,"val":"getPage","end":""}],
+    types: placeholder as Registry['posts.posts.get_posts']['types'],
+  },
+  'posts.posts.get_user_posts': {
+    methods: ["GET","HEAD"],
+    pattern: '/api/v1/posts/getPageUser',
+    tokens: [{"old":"/api/v1/posts/getPageUser","type":0,"val":"api","end":""},{"old":"/api/v1/posts/getPageUser","type":0,"val":"v1","end":""},{"old":"/api/v1/posts/getPageUser","type":0,"val":"posts","end":""},{"old":"/api/v1/posts/getPageUser","type":0,"val":"getPageUser","end":""}],
+    types: placeholder as Registry['posts.posts.get_user_posts']['types'],
+  },
+  'posts.posts.get_post': {
+    methods: ["GET","HEAD"],
+    pattern: '/api/v1/posts/get',
+    tokens: [{"old":"/api/v1/posts/get","type":0,"val":"api","end":""},{"old":"/api/v1/posts/get","type":0,"val":"v1","end":""},{"old":"/api/v1/posts/get","type":0,"val":"posts","end":""},{"old":"/api/v1/posts/get","type":0,"val":"get","end":""}],
+    types: placeholder as Registry['posts.posts.get_post']['types'],
+  },
+  'comments.comments.store': {
+    methods: ["POST"],
+    pattern: '/api/v1/comments/create',
+    tokens: [{"old":"/api/v1/comments/create","type":0,"val":"api","end":""},{"old":"/api/v1/comments/create","type":0,"val":"v1","end":""},{"old":"/api/v1/comments/create","type":0,"val":"comments","end":""},{"old":"/api/v1/comments/create","type":0,"val":"create","end":""}],
+    types: placeholder as Registry['comments.comments.store']['types'],
+  },
+  'comments.comments.get_page': {
+    methods: ["GET","HEAD"],
+    pattern: '/api/v1/comments/getPage',
+    tokens: [{"old":"/api/v1/comments/getPage","type":0,"val":"api","end":""},{"old":"/api/v1/comments/getPage","type":0,"val":"v1","end":""},{"old":"/api/v1/comments/getPage","type":0,"val":"comments","end":""},{"old":"/api/v1/comments/getPage","type":0,"val":"getPage","end":""}],
+    types: placeholder as Registry['comments.comments.get_page']['types'],
+  },
 } as const satisfies Record<string, AdonisEndpoint>
 
 export { routes }
