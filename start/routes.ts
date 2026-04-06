@@ -108,8 +108,13 @@ router.get('/docs/*', async ({ params, response }) => {
                 .prefix('auth')
                 .as('auth')
 
-        router.group(() => {router.get('/profile',
-                                       [ controllers.Profile, 'show' ])})
+        router.group(() => {
+                router.get('/profile', [ controllers.Profile, 'show' ]);
+                router.post('/follow', [ controllers.Profile, 'follow' ])
+                    .use(middleware.auth());
+                router.post('/unfollow', [ controllers.Profile, 'unfollow' ])
+                    .use(middleware.auth());
+              })
                 .prefix('account')
                 .as('profile'); //.use(middleware.auth())
         router.group(() => {

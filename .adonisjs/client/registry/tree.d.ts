@@ -14,6 +14,8 @@ export interface ApiDefinition {
   profile: {
     profile: {
       show: typeof routes['profile.profile.show']
+      follow: typeof routes['profile.profile.follow']
+      unfollow: typeof routes['profile.profile.unfollow']
     }
   }
   posts: {

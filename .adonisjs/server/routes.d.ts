@@ -8,6 +8,8 @@ export type ScannedRoutes = {
     'auth.access_token.store': { paramsTuple?: []; params?: {} }
     'auth.access_token.destroy': { paramsTuple?: []; params?: {} }
     'profile.profile.show': { paramsTuple?: []; params?: {} }
+    'profile.profile.follow': { paramsTuple?: []; params?: {} }
+    'profile.profile.unfollow': { paramsTuple?: []; params?: {} }
     'posts.posts.store': { paramsTuple?: []; params?: {} }
     'posts.posts.delete': { paramsTuple?: []; params?: {} }
     'posts.posts.get_posts_fyp': { paramsTuple?: []; params?: {} }
@@ -40,6 +42,8 @@ export type ScannedRoutes = {
     'auth.new_account.store': { paramsTuple?: []; params?: {} }
     'auth.access_token.store': { paramsTuple?: []; params?: {} }
     'auth.access_token.destroy': { paramsTuple?: []; params?: {} }
+    'profile.profile.follow': { paramsTuple?: []; params?: {} }
+    'profile.profile.unfollow': { paramsTuple?: []; params?: {} }
     'comments.comments.store': { paramsTuple?: []; params?: {} }
   }
   PUT: {

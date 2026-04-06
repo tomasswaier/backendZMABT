@@ -30,6 +30,18 @@ const routes = {
     tokens: [{"old":"/api/v1/account/profile","type":0,"val":"api","end":""},{"old":"/api/v1/account/profile","type":0,"val":"v1","end":""},{"old":"/api/v1/account/profile","type":0,"val":"account","end":""},{"old":"/api/v1/account/profile","type":0,"val":"profile","end":""}],
     types: placeholder as Registry['profile.profile.show']['types'],
   },
+  'profile.profile.follow': {
+    methods: ["POST"],
+    pattern: '/api/v1/account/follow',
+    tokens: [{"old":"/api/v1/account/follow","type":0,"val":"api","end":""},{"old":"/api/v1/account/follow","type":0,"val":"v1","end":""},{"old":"/api/v1/account/follow","type":0,"val":"account","end":""},{"old":"/api/v1/account/follow","type":0,"val":"follow","end":""}],
+    types: placeholder as Registry['profile.profile.follow']['types'],
+  },
+  'profile.profile.unfollow': {
+    methods: ["POST"],
+    pattern: '/api/v1/account/unfollow',
+    tokens: [{"old":"/api/v1/account/unfollow","type":0,"val":"api","end":""},{"old":"/api/v1/account/unfollow","type":0,"val":"v1","end":""},{"old":"/api/v1/account/unfollow","type":0,"val":"account","end":""},{"old":"/api/v1/account/unfollow","type":0,"val":"unfollow","end":""}],
+    types: placeholder as Registry['profile.profile.unfollow']['types'],
+  },
   'posts.posts.store': {
     methods: ["PUT"],
     pattern: '/api/v1/posts/create',

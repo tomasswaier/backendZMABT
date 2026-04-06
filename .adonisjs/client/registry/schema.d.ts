@@ -55,6 +55,30 @@ export interface Registry {
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/profile_controller').default['show']>>>
     }
   }
+  'profile.profile.follow': {
+    methods: ["POST"]
+    pattern: '/api/v1/account/follow'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#validators/user').followValidator)>>
+      paramsTuple: []
+      params: {}
+      query: ExtractQuery<InferInput<(typeof import('#validators/user').followValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/profile_controller').default['follow']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/profile_controller').default['follow']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'profile.profile.unfollow': {
+    methods: ["POST"]
+    pattern: '/api/v1/account/unfollow'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#validators/user').followValidator)>>
+      paramsTuple: []
+      params: {}
+      query: ExtractQuery<InferInput<(typeof import('#validators/user').followValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/profile_controller').default['unfollow']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/profile_controller').default['unfollow']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
   'posts.posts.store': {
     methods: ["PUT"]
     pattern: '/api/v1/posts/create'
