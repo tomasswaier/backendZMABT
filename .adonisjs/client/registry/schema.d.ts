@@ -56,7 +56,7 @@ export interface Registry {
     }
   }
   'posts.posts.store': {
-    methods: ["POST"]
+    methods: ["PUT"]
     pattern: '/api/v1/posts/create'
     types: {
       body: ExtractBody<InferInput<(typeof import('#validators/post').postStoreValidator)>>
@@ -67,6 +67,18 @@ export interface Registry {
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/posts_controller').default['store']>>> | { status: 422; response: { errors: SimpleError[] } }
     }
   }
+  'posts.posts.delete': {
+    methods: ["DELETE"]
+    pattern: '/api/v1/posts/delete'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#validators/post').postGetValidator)>>
+      paramsTuple: []
+      params: {}
+      query: ExtractQuery<InferInput<(typeof import('#validators/post').postGetValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/posts_controller').default['delete']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/posts_controller').default['delete']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
   'posts.posts.get_posts_fyp': {
     methods: ["GET","HEAD"]
     pattern: '/api/v1/posts/getPageFyp'
@@ -74,7 +86,7 @@ export interface Registry {
       body: {}
       paramsTuple: []
       params: {}
-      query: ExtractQueryForGet<InferInput<(typeof import('#validators/post').postGetUserValidator)>>
+      query: ExtractQueryForGet<InferInput<(typeof import('#validators/post').postGetPageValidator)>>
       response: ExtractResponse<Awaited<ReturnType<import('#controllers/posts_controller').default['getPostsFyp']>>>
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/posts_controller').default['getPostsFyp']>>> | { status: 422; response: { errors: SimpleError[] } }
     }
@@ -86,9 +98,21 @@ export interface Registry {
       body: {}
       paramsTuple: []
       params: {}
-      query: ExtractQueryForGet<InferInput<(typeof import('#validators/post').postGetPageValidator)>>
+      query: ExtractQueryForGet<InferInput<(typeof import('#validators/post').postGetProfilePageValidator)>>
       response: ExtractResponse<Awaited<ReturnType<import('#controllers/posts_controller').default['getPosts']>>>
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/posts_controller').default['getPosts']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'posts.posts.get_posts_place': {
+    methods: ["GET","HEAD"]
+    pattern: '/api/v1/posts/getPagePlace'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: ExtractQueryForGet<InferInput<(typeof import('#validators/post').postGetPagePlacesValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/posts_controller').default['getPostsPlace']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/posts_controller').default['getPostsPlace']>>> | { status: 422; response: { errors: SimpleError[] } }
     }
   }
   'posts.posts.get_user_posts': {
@@ -98,7 +122,7 @@ export interface Registry {
       body: {}
       paramsTuple: []
       params: {}
-      query: ExtractQueryForGet<InferInput<(typeof import('#validators/post').postGetUserValidator)>>
+      query: ExtractQueryForGet<InferInput<(typeof import('#validators/post').postGetPageValidator)>>
       response: ExtractResponse<Awaited<ReturnType<import('#controllers/posts_controller').default['getUserPosts']>>>
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/posts_controller').default['getUserPosts']>>> | { status: 422; response: { errors: SimpleError[] } }
     }

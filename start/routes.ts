@@ -113,10 +113,14 @@ router.get('/docs/*', async ({ params, response }) => {
                 .prefix('account')
                 .as('profile'); //.use(middleware.auth())
         router.group(() => {
-                router.post('/create', [ controllers.Posts, 'store' ])
+                router.put('/create', [ controllers.Posts, 'store' ])
+                    .use(middleware.auth());
+                router.delete('/delete', [ controllers.Posts, 'delete' ])
                     .use(middleware.auth());
                 router.get('/getPageFyp', [ controllers.Posts, 'getPostsFyp' ]);
                 router.get('/getPage', [ controllers.Posts, 'getPosts' ]);
+                router.get('/getPagePlace',
+                           [ controllers.Posts, 'getPostsPlace' ]);
                 router.get('/getPageUser',
                            [ controllers.Posts, 'getUserPosts' ]);
                 router.get('/get', [ controllers.Posts, 'getPost' ]);

@@ -19,8 +19,10 @@ export interface ApiDefinition {
   posts: {
     posts: {
       store: typeof routes['posts.posts.store']
+      delete: typeof routes['posts.posts.delete']
       getPostsFyp: typeof routes['posts.posts.get_posts_fyp']
       getPosts: typeof routes['posts.posts.get_posts']
+      getPostsPlace: typeof routes['posts.posts.get_posts_place']
       getUserPosts: typeof routes['posts.posts.get_user_posts']
       getPost: typeof routes['posts.posts.get_post']
     }

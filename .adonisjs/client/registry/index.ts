@@ -31,10 +31,16 @@ const routes = {
     types: placeholder as Registry['profile.profile.show']['types'],
   },
   'posts.posts.store': {
-    methods: ["POST"],
+    methods: ["PUT"],
     pattern: '/api/v1/posts/create',
     tokens: [{"old":"/api/v1/posts/create","type":0,"val":"api","end":""},{"old":"/api/v1/posts/create","type":0,"val":"v1","end":""},{"old":"/api/v1/posts/create","type":0,"val":"posts","end":""},{"old":"/api/v1/posts/create","type":0,"val":"create","end":""}],
     types: placeholder as Registry['posts.posts.store']['types'],
+  },
+  'posts.posts.delete': {
+    methods: ["DELETE"],
+    pattern: '/api/v1/posts/delete',
+    tokens: [{"old":"/api/v1/posts/delete","type":0,"val":"api","end":""},{"old":"/api/v1/posts/delete","type":0,"val":"v1","end":""},{"old":"/api/v1/posts/delete","type":0,"val":"posts","end":""},{"old":"/api/v1/posts/delete","type":0,"val":"delete","end":""}],
+    types: placeholder as Registry['posts.posts.delete']['types'],
   },
   'posts.posts.get_posts_fyp': {
     methods: ["GET","HEAD"],
@@ -47,6 +53,12 @@ const routes = {
     pattern: '/api/v1/posts/getPage',
     tokens: [{"old":"/api/v1/posts/getPage","type":0,"val":"api","end":""},{"old":"/api/v1/posts/getPage","type":0,"val":"v1","end":""},{"old":"/api/v1/posts/getPage","type":0,"val":"posts","end":""},{"old":"/api/v1/posts/getPage","type":0,"val":"getPage","end":""}],
     types: placeholder as Registry['posts.posts.get_posts']['types'],
+  },
+  'posts.posts.get_posts_place': {
+    methods: ["GET","HEAD"],
+    pattern: '/api/v1/posts/getPagePlace',
+    tokens: [{"old":"/api/v1/posts/getPagePlace","type":0,"val":"api","end":""},{"old":"/api/v1/posts/getPagePlace","type":0,"val":"v1","end":""},{"old":"/api/v1/posts/getPagePlace","type":0,"val":"posts","end":""},{"old":"/api/v1/posts/getPagePlace","type":0,"val":"getPagePlace","end":""}],
+    types: placeholder as Registry['posts.posts.get_posts_place']['types'],
   },
   'posts.posts.get_user_posts': {
     methods: ["GET","HEAD"],

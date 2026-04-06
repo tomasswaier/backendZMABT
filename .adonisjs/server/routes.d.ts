@@ -9,8 +9,10 @@ export type ScannedRoutes = {
     'auth.access_token.destroy': { paramsTuple?: []; params?: {} }
     'profile.profile.show': { paramsTuple?: []; params?: {} }
     'posts.posts.store': { paramsTuple?: []; params?: {} }
+    'posts.posts.delete': { paramsTuple?: []; params?: {} }
     'posts.posts.get_posts_fyp': { paramsTuple?: []; params?: {} }
     'posts.posts.get_posts': { paramsTuple?: []; params?: {} }
+    'posts.posts.get_posts_place': { paramsTuple?: []; params?: {} }
     'posts.posts.get_user_posts': { paramsTuple?: []; params?: {} }
     'posts.posts.get_post': { paramsTuple?: []; params?: {} }
     'comments.comments.store': { paramsTuple?: []; params?: {} }
@@ -20,6 +22,7 @@ export type ScannedRoutes = {
     'profile.profile.show': { paramsTuple?: []; params?: {} }
     'posts.posts.get_posts_fyp': { paramsTuple?: []; params?: {} }
     'posts.posts.get_posts': { paramsTuple?: []; params?: {} }
+    'posts.posts.get_posts_place': { paramsTuple?: []; params?: {} }
     'posts.posts.get_user_posts': { paramsTuple?: []; params?: {} }
     'posts.posts.get_post': { paramsTuple?: []; params?: {} }
     'comments.comments.get_page': { paramsTuple?: []; params?: {} }
@@ -28,6 +31,7 @@ export type ScannedRoutes = {
     'profile.profile.show': { paramsTuple?: []; params?: {} }
     'posts.posts.get_posts_fyp': { paramsTuple?: []; params?: {} }
     'posts.posts.get_posts': { paramsTuple?: []; params?: {} }
+    'posts.posts.get_posts_place': { paramsTuple?: []; params?: {} }
     'posts.posts.get_user_posts': { paramsTuple?: []; params?: {} }
     'posts.posts.get_post': { paramsTuple?: []; params?: {} }
     'comments.comments.get_page': { paramsTuple?: []; params?: {} }
@@ -36,8 +40,13 @@ export type ScannedRoutes = {
     'auth.new_account.store': { paramsTuple?: []; params?: {} }
     'auth.access_token.store': { paramsTuple?: []; params?: {} }
     'auth.access_token.destroy': { paramsTuple?: []; params?: {} }
-    'posts.posts.store': { paramsTuple?: []; params?: {} }
     'comments.comments.store': { paramsTuple?: []; params?: {} }
+  }
+  PUT: {
+    'posts.posts.store': { paramsTuple?: []; params?: {} }
+  }
+  DELETE: {
+    'posts.posts.delete': { paramsTuple?: []; params?: {} }
   }
 }
 declare module '@adonisjs/core/types/http' {

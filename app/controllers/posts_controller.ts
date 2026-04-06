@@ -3,12 +3,14 @@ import Post from "#models/post";
 import PostImage from '#models/post_image'
 import User from "#models/user";
 import {
+  postGetPagePlacesValidator,
   postGetPageValidator,
-  postGetUserValidator,
+  postGetProfilePageValidator,
   postGetValidator,
   postStoreValidator
 } from "#validators/post";
 import type {HttpContext} from '@adonisjs/core/http'
+import drive from '@adonisjs/drive/services/main'
 
 export default class PostsController {
   async getPost({request, response}: HttpContext) {
@@ -23,7 +25,7 @@ export default class PostsController {
     }
   }
   async getPosts({request, response}: HttpContext) {
-    const data = await request.validateUsing(postGetPageValidator)
+    const data = await request.validateUsing(postGetProfilePageValidator)
     try {
       const user = await User.find(data.userId)
       const posts = await this.getPostData(user!, data.page)
@@ -34,7 +36,7 @@ export default class PostsController {
     }
   }
   async getPostsFyp({request, response}: HttpContext) {
-    const data = await request.validateUsing(postGetUserValidator)
+    const data = await request.validateUsing(postGetPageValidator)
     try {
       const posts = await Post.query()
                         .orderBy('updated_at', 'desc')
@@ -46,8 +48,22 @@ export default class PostsController {
       return response.internalServerError({message : "Failed to load posts"});
     }
   }
+  async getPostsPlace({request, response}: HttpContext) {
+    const data = await request.validateUsing(postGetPagePlacesValidator)
+    try {
+      const posts = await Post.query()
+                        .where("placeId", data.placeId)
+                        .orderBy('updated_at', 'desc')
+                        .paginate(data.page, 10)
+
+      return response.ok(posts);
+    } catch (error) {
+      console.error("Error:", error);
+      return response.internalServerError({message : "Failed to load posts"});
+    }
+  }
   async getUserPosts({auth, request, response}: HttpContext) {
-    const data = await request.validateUsing(postGetUserValidator)
+    const data = await request.validateUsing(postGetPageValidator)
     try {
       const user = auth.user
 
@@ -95,9 +111,9 @@ export default class PostsController {
       const image = request.file('image')
 
       if (image) { // image upload
-        const fileName = `${Date.now()}.${image.extname}`
+        const fileName = `${Date.now()}.${image.extname}`;
 
-                         await image.moveToDisk(`uploads/${fileName}`, 'fs')
+        await image.moveToDisk(`uploads/${fileName}`, 'fs')
 
         if (!image.isValid) {
           console.log(image.errors)
@@ -116,6 +132,30 @@ export default class PostsController {
 
       return response.internalServerError(
           {message : "Failed to create post", error : true})
+    }
+  }
+  async delete({request, response, auth}: HttpContext) {
+    const data = await request.validateUsing(postGetValidator)
+    try {
+      const post = await Post.find(data.postId)
+      if (!post) {
+        return response.ok({"message" : "Post with that id does not exist"});
+      }
+      if (auth.user && post.userId != auth.user.id) {
+        return response.ok({"message" : "This post can not be deleted by you"});
+      }
+
+      const postImages = await post!.related('images').query()
+      postImages.forEach(postImage => {
+        const fileName = postImage.imagePath;
+
+        drive.use('fs').delete(`${fileName}`);
+      });
+      post.delete()
+      return response.ok({"message" : "Post delete successfully"});
+    } catch (error) {
+      console.error("Error:", error);
+      return response.internalServerError({message : "Failed to load post"});
     }
   }
 }
