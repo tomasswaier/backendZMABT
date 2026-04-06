@@ -1,4 +1,5 @@
 /*
+      // sockety cez swagger
 |--------------------------------------------------------------------------
 | Routes file
 |--------------------------------------------------------------------------
@@ -23,16 +24,16 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 
 router.get('/', () => {
-  return { message: 'meowkity', error: 'none' }
+  return { message: 'PONG', error: 'none' }
 })
 router.post('/', () => {
-  return { test: 'working' }
+  return { test: 'successful' }
 })
 
 router.get('/uploads/:filename', async ({params, response}: HttpContext) => {
   try {
     // Construct the file path
-    const filePath = app.makePath('uploads', params.filename)
+    const filePath = app.makePath('public/uploads', params.filename)
 
     // Check if file exists
     if (!fs.existsSync(filePath)) {
@@ -95,21 +96,25 @@ router.get('/docs/*', async ({ params, response }) => {
 })
   router
       .group(() => {
-    router
-      .group(() => {
-        router.post('signup', [controllers.NewAccount, 'store'])
-    router.post('login', [ controllers.AccessToken, 'store' ])
-        router.post('logout', [controllers.AccessToken, 'destroy']).use(middleware.auth())
-      })
-      .prefix('auth')
-      .as('auth')
+        // get place info (malo by vratit place)
+        // get place posts(paginated)
+        // edit post
+        router.group(() => {
+                router.post('signup', [ controllers.NewAccount, 'store' ]);
+                router.post('login', [ controllers.AccessToken, 'store' ])
+                router.post('logout', [ controllers.AccessToken, 'destroy' ])
+                    .use(middleware.auth())
+              })
+                .prefix('auth')
+                .as('auth')
 
         router.group(() => {router.get('/profile',
                                        [ controllers.Profile, 'show' ])})
                 .prefix('account')
-                .as('profile').use(middleware.auth());
+                .as('profile'); //.use(middleware.auth())
         router.group(() => {
-                router.post('/create', [ controllers.Posts, 'store' ]);
+                router.post('/create', [ controllers.Posts, 'store' ])
+                    .use(middleware.auth());
                 router.get('/getPageFyp', [ controllers.Posts, 'getPostsFyp' ]);
                 router.get('/getPage', [ controllers.Posts, 'getPosts' ]);
                 router.get('/getPageUser',
@@ -117,9 +122,10 @@ router.get('/docs/*', async ({ params, response }) => {
                 router.get('/get', [ controllers.Posts, 'getPost' ]);
               })
                 .prefix('posts')
-                .as('posts').use(middleware.auth())
+                .as('posts'); //.use(middleware.auth())
         router.group(() => {
-                router.post('/create', [ controllers.Comments, 'store' ]);
+                router.post('/create', [ controllers.Comments, 'store' ])
+                    .use(middleware.auth());
                 router.get('/getPage', [ controllers.Comments, 'getPage' ]);
                 // ]); router.get('/getPage', [ controllers.Posts, 'getPosts'
                 // ]); router.get('/getPageUser',
@@ -127,7 +133,7 @@ router.get('/docs/*', async ({ params, response }) => {
                 // router.get('/get', [ controllers.Posts, 'getPost' ]);
               })
                 .prefix('comments')
-                .as('comments').use(middleware.auth())
+                .as('comments')
 
         // router.get('/uploads/*', async ({params, response}) => {return
         // "todo"})

@@ -12,7 +12,6 @@ import type {HttpContext} from '@adonisjs/core/http'
 
 export default class PostsController {
   async getPost({request, response}: HttpContext) {
-    console.log("nigger")
     const data = await request.validateUsing(postGetValidator)
     try {
       const post = await Post.find(data.postId)
@@ -96,11 +95,9 @@ export default class PostsController {
       const image = request.file('image')
 
       if (image) { // image upload
-        const fileName =
-            `${Date.now()}.${image.extname}`
+        const fileName = `${Date.now()}.${image.extname}`
 
-            // await image.move(app.makePath('uploads'), {name : fileName})
-            await image.moveToDisk(`uploads/${fileName}`, 'fs')
+                         await image.moveToDisk(`uploads/${fileName}`, 'fs')
 
         if (!image.isValid) {
           console.log(image.errors)

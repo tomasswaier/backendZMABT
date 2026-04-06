@@ -15,7 +15,7 @@ export default class CommentsController {
       await Comment.create({
         userId : user.id,
         postId : data.postId,
-        parentCommentId : null,
+        parentCommentId : data.commentId,
         content : data.content,
       });
 
@@ -29,12 +29,17 @@ export default class CommentsController {
   async getPage({request, response}: HttpContext) {
     const data = await request.validateUsing(commentPageValidator)
     try {
-      const posts = await Comment.query()
-                        .where("postId", data.postId)
-                        .orderBy('updated_at', 'desc')
-                        .paginate(data.page, 10)
+      var query = Comment.query()
+      if (data.commentId != null && data.commentId > 0) {
+        query.where("parentCommentId", data.commentId);
+      }
+      else {
+        query.where("postId", data.postId);
+      };
+      var comments =
+          await query.orderBy('updated_at', 'desc').paginate(data.page, 10)
 
-      return response.ok(posts);
+      return response.ok(comments);
     } catch (error) {
       console.error("Error:", error);
       return response.internalServerError({message : "Failed to load posts"});
