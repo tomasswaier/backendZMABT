@@ -10,4 +10,5 @@ export const controllers = {
   Places: () => import('#controllers/places_controller'),
   Posts: () => import('#controllers/posts_controller'),
   Profile: () => import('#controllers/profile_controller'),
+  Ratings: () => import('#controllers/ratings_controller'),
 }

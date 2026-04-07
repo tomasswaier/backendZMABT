@@ -36,6 +36,12 @@ const routes = {
     tokens: [{"old":"/api/v1/posts/create","type":0,"val":"api","end":""},{"old":"/api/v1/posts/create","type":0,"val":"v1","end":""},{"old":"/api/v1/posts/create","type":0,"val":"posts","end":""},{"old":"/api/v1/posts/create","type":0,"val":"create","end":""}],
     types: placeholder as Registry['posts.posts.store']['types'],
   },
+  'posts.posts.update': {
+    methods: ["PATCH"],
+    pattern: '/api/v1/posts/update',
+    tokens: [{"old":"/api/v1/posts/update","type":0,"val":"api","end":""},{"old":"/api/v1/posts/update","type":0,"val":"v1","end":""},{"old":"/api/v1/posts/update","type":0,"val":"posts","end":""},{"old":"/api/v1/posts/update","type":0,"val":"update","end":""}],
+    types: placeholder as Registry['posts.posts.update']['types'],
+  },
   'posts.posts.get_posts_fyp': {
     methods: ["GET","HEAD"],
     pattern: '/api/v1/posts/getPageFyp',
@@ -66,11 +72,23 @@ const routes = {
     tokens: [{"old":"/api/v1/comments/create","type":0,"val":"api","end":""},{"old":"/api/v1/comments/create","type":0,"val":"v1","end":""},{"old":"/api/v1/comments/create","type":0,"val":"comments","end":""},{"old":"/api/v1/comments/create","type":0,"val":"create","end":""}],
     types: placeholder as Registry['comments.comments.store']['types'],
   },
+  'comments.comments.update': {
+    methods: ["PATCH"],
+    pattern: '/api/v1/comments/update',
+    tokens: [{"old":"/api/v1/comments/update","type":0,"val":"api","end":""},{"old":"/api/v1/comments/update","type":0,"val":"v1","end":""},{"old":"/api/v1/comments/update","type":0,"val":"comments","end":""},{"old":"/api/v1/comments/update","type":0,"val":"update","end":""}],
+    types: placeholder as Registry['comments.comments.update']['types'],
+  },
   'comments.comments.get_page': {
     methods: ["GET","HEAD"],
     pattern: '/api/v1/comments/getPage',
     tokens: [{"old":"/api/v1/comments/getPage","type":0,"val":"api","end":""},{"old":"/api/v1/comments/getPage","type":0,"val":"v1","end":""},{"old":"/api/v1/comments/getPage","type":0,"val":"comments","end":""},{"old":"/api/v1/comments/getPage","type":0,"val":"getPage","end":""}],
     types: placeholder as Registry['comments.comments.get_page']['types'],
+  },
+  'ratings.ratings.set': {
+    methods: ["POST"],
+    pattern: '/api/v1/ratings/set',
+    tokens: [{"old":"/api/v1/ratings/set","type":0,"val":"api","end":""},{"old":"/api/v1/ratings/set","type":0,"val":"v1","end":""},{"old":"/api/v1/ratings/set","type":0,"val":"ratings","end":""},{"old":"/api/v1/ratings/set","type":0,"val":"set","end":""}],
+    types: placeholder as Registry['ratings.ratings.set']['types'],
   },
 } as const satisfies Record<string, AdonisEndpoint>
 
