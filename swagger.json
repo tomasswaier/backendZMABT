@@ -7,7 +7,7 @@
   },
   "servers": [
     {
-      "url": "/api/v1",
+      "url": "http://localhost:3333/api/v1/",
       "description": "Local API server"
     }
   ],
@@ -33,7 +33,7 @@
           }
         },
         "responses": {
-          "201": { "description": "User created successfully" },
+          "200": { "description": "User created successfully" },
           "400": { "description": "Validation error" }
         }
       }
@@ -58,7 +58,7 @@
         },
         "responses": {
           "200": { "description": "Login successful, returns access token" },
-          "401": { "description": "Invalid credentials" }
+          "422": { "description": "Invalid credentials" }
         }
       }
     },
@@ -157,6 +157,49 @@
         "responses": {
           "200": { "description": "Returns the post" },
           "404": { "description": "Post not found" }
+        },
+        "security": [{ "apiKeyAuth": [] }]
+      }
+    },
+    "/comments/create": {
+      "post": {
+        "summary": "Create a new comment",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "content": { "type": "string", "maxLength": 5000 },
+                  "postId": { "type": "integer" },
+                  "commentId": { "type": "integer", "nullable": true }
+                },
+                "required": ["content", "postId"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Comment created successfully" },
+          "401": { "description": "User not authenticated" },
+          "500": { "description": "Failed to create comment" }
+        },
+        "security": [{ "apiKeyAuth": [] }]
+      }
+    },
+    "/comments/getPage": {
+      "get": {
+        "summary": "Get paginated comments for a post or parent comment",
+        "parameters": [
+          { "name": "postId", "in": "query", "schema": { "type": "integer" }, "required": true },
+          { "name": "commentId", "in": "query", "schema": { "type": "integer", "nullable": true }, "required": false },
+          { "name": "page", "in": "query", "schema": { "type": "integer" }, "required": true }
+        ],
+        "responses": {
+          "200": { "description": "Returns paginated comments" },
+          "400": { "description": "Validation error" },
+          "500": { "description": "Failed to load comments" }
         },
         "security": [{ "apiKeyAuth": [] }]
       }
