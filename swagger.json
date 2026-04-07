@@ -203,6 +203,61 @@
         },
         "security": [{ "apiKeyAuth": [] }]
       }
+    },
+    "/comments/update": {
+      "patch": {
+        "summary": "Update a comment",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "commentId": { "type": "integer" },
+                  "content": { "type": "string", "maxLength": 5000 }
+                },
+                "required": ["commentId", "content"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Comment updated successfully" },
+          "401": { "description": "User not authenticated" },
+          "403": { "description": "Cannot edit comments of other users" },
+          "404": { "description": "Comment not found" }
+        },
+        "security": [{ "apiKeyAuth": [] }]
+      }
+    },
+    "/posts/update": {
+      "patch": {
+        "summary": "Update a post",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "postId": { "type": "integer" },
+                  "postText": { "type": "string", "maxLength": 5000 },
+                  "rating": { "type": "integer", "minimum": 1, "maximum": 5 }
+                },
+                "required": ["postId", "postText", "rating"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Post updated successfully" },
+          "401": { "description": "User not authenticated" },
+          "403": { "description": "Cannot edit comments of other users" },
+          "404": { "description": "Post not found" }
+        },
+        "security": [{ "apiKeyAuth": [] }]
+      }
     }
   },
   "components": {

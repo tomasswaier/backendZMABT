@@ -67,6 +67,18 @@ export interface Registry {
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/posts_controller').default['store']>>> | { status: 422; response: { errors: SimpleError[] } }
     }
   }
+  'posts.posts.update': {
+    methods: ["PATCH"]
+    pattern: '/api/v1/posts/update'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#validators/post').postUpdateValidator)>>
+      paramsTuple: []
+      params: {}
+      query: ExtractQuery<InferInput<(typeof import('#validators/post').postUpdateValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/posts_controller').default['update']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/posts_controller').default['update']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
   'posts.posts.get_posts_fyp': {
     methods: ["GET","HEAD"]
     pattern: '/api/v1/posts/getPageFyp'
@@ -127,6 +139,18 @@ export interface Registry {
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/comments_controller').default['store']>>> | { status: 422; response: { errors: SimpleError[] } }
     }
   }
+  'comments.comments.update': {
+    methods: ["PATCH"]
+    pattern: '/api/v1/comments/update'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#validators/comment').commentUpdateValidator)>>
+      paramsTuple: []
+      params: {}
+      query: ExtractQuery<InferInput<(typeof import('#validators/comment').commentUpdateValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/comments_controller').default['update']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/comments_controller').default['update']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
   'comments.comments.get_page': {
     methods: ["GET","HEAD"]
     pattern: '/api/v1/comments/getPage'
@@ -137,6 +161,18 @@ export interface Registry {
       query: ExtractQueryForGet<InferInput<(typeof import('#validators/comment').commentPageValidator)>>
       response: ExtractResponse<Awaited<ReturnType<import('#controllers/comments_controller').default['getPage']>>>
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/comments_controller').default['getPage']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'ratings.ratings.set': {
+    methods: ["POST"]
+    pattern: '/api/v1/ratings/set'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/ratings_controller').default['set']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/ratings_controller').default['set']>>>
     }
   }
 }

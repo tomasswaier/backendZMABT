@@ -9,12 +9,15 @@ export type ScannedRoutes = {
     'auth.access_token.destroy': { paramsTuple?: []; params?: {} }
     'profile.profile.show': { paramsTuple?: []; params?: {} }
     'posts.posts.store': { paramsTuple?: []; params?: {} }
+    'posts.posts.update': { paramsTuple?: []; params?: {} }
     'posts.posts.get_posts_fyp': { paramsTuple?: []; params?: {} }
     'posts.posts.get_posts': { paramsTuple?: []; params?: {} }
     'posts.posts.get_user_posts': { paramsTuple?: []; params?: {} }
     'posts.posts.get_post': { paramsTuple?: []; params?: {} }
     'comments.comments.store': { paramsTuple?: []; params?: {} }
+    'comments.comments.update': { paramsTuple?: []; params?: {} }
     'comments.comments.get_page': { paramsTuple?: []; params?: {} }
+    'ratings.ratings.set': { paramsTuple?: []; params?: {} }
   }
   GET: {
     'profile.profile.show': { paramsTuple?: []; params?: {} }
@@ -38,6 +41,11 @@ export type ScannedRoutes = {
     'auth.access_token.destroy': { paramsTuple?: []; params?: {} }
     'posts.posts.store': { paramsTuple?: []; params?: {} }
     'comments.comments.store': { paramsTuple?: []; params?: {} }
+    'ratings.ratings.set': { paramsTuple?: []; params?: {} }
+  }
+  PATCH: {
+    'posts.posts.update': { paramsTuple?: []; params?: {} }
+    'comments.comments.update': { paramsTuple?: []; params?: {} }
   }
 }
 declare module '@adonisjs/core/types/http' {

@@ -11,7 +11,6 @@ export const commentStoreValidator = vine.create({
           .optional(), // should exist in posts as well but I don't have time
 })
 export const commentPageValidator = vine.create({
-
   postId : postId().exists({table : 'posts', column : 'id'}),
   commentId :
       commentId()
@@ -19,4 +18,8 @@ export const commentPageValidator = vine.create({
           .optional(), // should exist in posts as well but I don't have time
   page : vine.number()
 
+})
+export const commentUpdateValidator = vine.create({
+  commentId: commentId().exists({ table: 'comments', column: 'id' }),
+  content: content(),
 })
