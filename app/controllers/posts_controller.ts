@@ -1,52 +1,62 @@
-import Post from "#models/post";
-import Rating from "#models/rating";
-import User from "#models/user";
-import PostService from '#services/post_service'
+import Place from '#models/place'
+import Post from '#models/post'
+import PostImage from '#models/post_image'
+import User from '#models/user'
 import {
   postGetPagePlacesValidator,
   postGetPageValidator,
   postGetProfilePageValidator,
   postGetValidator,
-  postRateValidator,
-  postStoreValidator
-} from "#validators/post";
-import type {HttpContext} from '@adonisjs/core/http'
-import drive from '@adonisjs/drive/services/main'
+  postStoreValidator,
+  postUpdateValidator,
+} from '#validators/post'
+import type { HttpContext } from '@adonisjs/core/http'
 
 export default class PostsController {
-  async getPost({request, response}: HttpContext) {
+  async getPost({ request, response }: HttpContext) {
     const data = await request.validateUsing(postGetValidator)
+
     try {
       const post = await Post.find(data.postId)
-      const postImages = await post!.related('images').query()
-      return response.ok({"post" : post, "postImages" : postImages});
+
+      if (!post) {
+        return response.notFound({ message: 'Post not found' })
+      }
+
+      const postImages = await post.related('images').query()
+      return response.ok({ post, postImages })
     } catch (error) {
-      console.error("Error:", error);
-      return response.internalServerError({message : "Failed to load post"});
+      console.error('Error:', error)
+      return response.internalServerError({ message: 'Failed to load post' })
     }
   }
   async getPosts({request, response}: HttpContext) {
     const data = await request.validateUsing(postGetProfilePageValidator)
     try {
       const user = await User.find(data.userId)
-      const posts = await this.getPostData(user!, data.page)
-      return response.ok(posts);
+
+      if (!user) {
+        return response.notFound({ message: 'User not found' })
+      }
+
+      const posts = await this.getPostData(user, data.page)
+      return response.ok(posts)
     } catch (error) {
-      console.error("Error:", error);
-      return response.internalServerError({message : "Failed to load posts"});
+      console.error('Error:', error)
+      return response.internalServerError({ message: 'Failed to load posts' })
     }
   }
   async getPostsFyp({request, response}: HttpContext) {
     const data = await request.validateUsing(postGetPageValidator)
     try {
       const posts = await Post.query()
-                        .orderBy('updated_at', 'desc')
-                        .paginate(data.page, 10)
+        .orderBy('updated_at', 'desc')
+        .paginate(data.page, 10)
 
-      return response.ok(posts);
+      return response.ok(posts)
     } catch (error) {
-      console.error("Error:", error);
-      return response.internalServerError({message : "Failed to load posts"});
+      console.error('Error:', error)
+      return response.internalServerError({ message: 'Failed to load posts' })
     }
   }
   async getPostsPlace({request, response}: HttpContext) {
@@ -69,21 +79,22 @@ export default class PostsController {
       const user = auth.user
 
       if (!user) {
-        return response.unauthorized({message : 'User not authenticated'})
+        return response.unauthorized({ message: 'User not authenticated' })
       }
-      const posts = await this.getPostData(user, data.page)
 
+      const posts = await this.getPostData(user, data.page)
       return response.ok(posts)
     } catch (error) {
       console.error('Error:', error)
-      return response.internalServerError({message : 'Failed to load posts'})
+      return response.internalServerError({ message: 'Failed to load posts' })
     }
   }
+
   getPostData(user: User, page: number) {
     return user.related('posts')
-        .query()
-        .orderBy('created_at', 'desc')
-        .paginate(page, 10)
+      .query()
+      .orderBy('created_at', 'desc')
+      .paginate(page, 10)
   }
 
   async store({request, response, auth}: HttpContext) {
@@ -142,15 +153,63 @@ export default class PostsController {
                                   {stars : data.stars});
       var post = await Post.find(data.postId);
 
-      const result = await post!.related('ratings').query().avg('stars as avg');
-
-      const average = Math.round(result[0].$extras.avg);
-      post!.merge({stars : average}).save();
-
-      return response.ok({"message" : "rating added successfully"});
+      return response.ok({
+        error: false,
+        message: 'Post successfully created',
+      })
     } catch (error) {
-      console.error("Error:", error);
-      return response.internalServerError({message : "Failed to add rating"});
+      console.error('Error:', error)
+      return response.internalServerError({
+        message: 'Failed to create post',
+        error: true,
+      })
+    }
+  }
+
+  async update({ request, response, auth }: HttpContext) {
+    const user = auth.use('api').user
+
+    if (!user) {
+      return response.unauthorized({
+        message: 'User not authenticated',
+        error: true,
+      })
+    }
+
+    try {
+      const data = await request.validateUsing(postUpdateValidator)
+
+      const post = await Post.find(data.postId)
+
+      if (!post) {
+        return response.notFound({
+          message: 'Post not found',
+          error: true,
+        })
+      }
+
+      if (post.userId !== user.id) {
+        return response.forbidden({
+          message: 'You can only edit your own posts',
+          error: true,
+        })
+      }
+
+      post.description = data.postText
+      post.stars = data.rating
+      await post.save()
+
+      return response.ok({
+        error: false,
+        message: 'Post updated successfully',
+        data: post,
+      })
+    } catch (error) {
+      console.error('Error:', error)
+      return response.internalServerError({
+        message: 'Failed to update post',
+        error: true,
+      })
     }
   }
 }

@@ -91,6 +91,16 @@ export interface Registry {
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/posts_controller').default['store']>>> | { status: 422; response: { errors: SimpleError[] } }
     }
   }
+  'posts.posts.update': {
+    methods: ["PATCH"]
+    pattern: '/api/v1/posts/update'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#validators/post').postUpdateValidator)>>
+      paramsTuple: []
+      params: {}
+      query: ExtractQuery<InferInput<(typeof import('#validators/post').postUpdateValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/posts_controller').default['update']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/posts_controller').default['update']>>> | { status: 422; response: { errors: SimpleError[] } }
   'posts.posts.delete': {
     methods: ["DELETE"]
     pattern: '/api/v1/posts/delete'
@@ -185,6 +195,18 @@ export interface Registry {
       query: ExtractQuery<InferInput<(typeof import('#validators/comment').commentStoreValidator)>>
       response: ExtractResponse<Awaited<ReturnType<import('#controllers/comments_controller').default['store']>>>
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/comments_controller').default['store']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'comments.comments.update': {
+    methods: ["PATCH"]
+    pattern: '/api/v1/comments/update'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#validators/comment').commentUpdateValidator)>>
+      paramsTuple: []
+      params: {}
+      query: ExtractQuery<InferInput<(typeof import('#validators/comment').commentUpdateValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/comments_controller').default['update']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/comments_controller').default['update']>>> | { status: 422; response: { errors: SimpleError[] } }
     }
   }
   'comments.comments.get_page': {

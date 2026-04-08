@@ -94,8 +94,7 @@ router.get('/docs/*', async ({ params, response }) => {
   )
   return response.download(filePath)
 })
-  router
-      .group(() => {
+  router.group(() => {
         // get place info (malo by vratit place)
         // get place posts(paginated)
         // edit post
@@ -122,6 +121,8 @@ router.get('/docs/*', async ({ params, response }) => {
                     .use(middleware.auth());
                 router.delete('/delete', [ controllers.Posts, 'delete' ])
                     .use(middleware.auth());
+                router.patch('/update', [controllers.Posts, 'update'])
+                    .use(middleware.auth())
                 router.get('/getPageFyp', [ controllers.Posts, 'getPostsFyp' ]);
                 router.get('/getPage', [ controllers.Posts, 'getPosts' ]);
                 router.get('/getPagePlace',
@@ -137,6 +138,8 @@ router.get('/docs/*', async ({ params, response }) => {
         router.group(() => {
                 router.post('/create', [ controllers.Comments, 'store' ])
                     .use(middleware.auth());
+                router.patch('/update', [controllers.Comments, 'update'])
+                    .use(middleware.auth())
                 router.get('/getPage', [ controllers.Comments, 'getPage' ]);
                 router.put('/like', [ controllers.Comments, 'like' ]);
                 router.delete('/removeLike',
@@ -148,6 +151,12 @@ router.get('/docs/*', async ({ params, response }) => {
               })
                 .prefix('comments')
                 .as('comments')
+        router.group(() => {
+                router.post('/set', [controllers.Ratings, 'set'])
+                    .use(middleware.auth())
+              })
+                .prefix('ratings')
+                .as('ratings')
 
         // router.get('/uploads/*', async ({params, response}) => {return
         // "todo"})

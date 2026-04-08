@@ -21,6 +21,7 @@ export interface ApiDefinition {
   posts: {
     posts: {
       store: typeof routes['posts.posts.store']
+      update: typeof routes['posts.posts.update']
       delete: typeof routes['posts.posts.delete']
       getPostsFyp: typeof routes['posts.posts.get_posts_fyp']
       getPosts: typeof routes['posts.posts.get_posts']
@@ -33,9 +34,15 @@ export interface ApiDefinition {
   comments: {
     comments: {
       store: typeof routes['comments.comments.store']
+      update: typeof routes['comments.comments.update']
       getPage: typeof routes['comments.comments.get_page']
       like: typeof routes['comments.comments.like']
       removeLike: typeof routes['comments.comments.remove_like']
+    }
+  }
+  ratings: {
+    ratings: {
+      set: typeof routes['ratings.ratings.set']
     }
   }
 }
