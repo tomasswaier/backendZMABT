@@ -1,0 +1,40 @@
+import Place from '#models/place'
+import Post from '#models/post'
+import PostImage from '#models/post_image'
+import User from '#models/user'
+import type {MultipartFile} from '@adonisjs/core/types/bodyparser'
+export default class PostService {
+  static async createPost(user: User, data: any, image?: MultipartFile) {
+    const aiDescription = 'placeholder description'
+
+    const place = await Place.create({
+      aiDescription,
+      latitude : data.latitude,
+      longitude : data.longitude,
+    })
+
+    const post = await Post.create({
+      description : data.postText,
+      stars : data.rating,
+      placeId : place.id,
+      userId : user.id,
+    })
+
+    if (image) {
+      const fileName = `${Date.now()}.${image.extname}`
+
+                       await image.moveToDisk(`uploads/${fileName}`, 'fs')
+
+      if (!image.isValid) {
+        throw new Error('Image upload failed')
+      }
+
+      await PostImage.create({
+        postId : post.id,
+        imagePath : `uploads/${fileName}`,
+      })
+    }
+
+    return post
+  }
+}
