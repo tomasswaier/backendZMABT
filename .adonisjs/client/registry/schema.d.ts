@@ -80,7 +80,7 @@ export interface Registry {
     }
   }
   'posts.posts.store': {
-    methods: ["PUT"]
+    methods: ["POST"]
     pattern: '/api/v1/posts/create'
     types: {
       body: ExtractBody<InferInput<(typeof import('#validators/post').postStoreValidator)>>
@@ -89,6 +89,18 @@ export interface Registry {
       query: ExtractQuery<InferInput<(typeof import('#validators/post').postStoreValidator)>>
       response: ExtractResponse<Awaited<ReturnType<import('#controllers/posts_controller').default['store']>>>
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/posts_controller').default['store']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'posts.posts.delete': {
+    methods: ["DELETE"]
+    pattern: '/api/v1/posts/delete'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#validators/post').postGetValidator)>>
+      paramsTuple: []
+      params: {}
+      query: ExtractQuery<InferInput<(typeof import('#validators/post').postGetValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/posts_controller').default['delete']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/posts_controller').default['delete']>>> | { status: 422; response: { errors: SimpleError[] } }
     }
   }
   'posts.posts.update': {
@@ -101,16 +113,6 @@ export interface Registry {
       query: ExtractQuery<InferInput<(typeof import('#validators/post').postUpdateValidator)>>
       response: ExtractResponse<Awaited<ReturnType<import('#controllers/posts_controller').default['update']>>>
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/posts_controller').default['update']>>> | { status: 422; response: { errors: SimpleError[] } }
-  'posts.posts.delete': {
-    methods: ["DELETE"]
-    pattern: '/api/v1/posts/delete'
-    types: {
-      body: ExtractBody<InferInput<(typeof import('#validators/post').postGetValidator)>>
-      paramsTuple: []
-      params: {}
-      query: ExtractQuery<InferInput<(typeof import('#validators/post').postGetValidator)>>
-      response: ExtractResponse<Awaited<ReturnType<import('#controllers/posts_controller').default['delete']>>>
-      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/posts_controller').default['delete']>>> | { status: 422; response: { errors: SimpleError[] } }
     }
   }
   'posts.posts.get_posts_fyp': {
@@ -201,12 +203,12 @@ export interface Registry {
     methods: ["PATCH"]
     pattern: '/api/v1/comments/update'
     types: {
-      body: ExtractBody<InferInput<(typeof import('#validators/comment').commentUpdateValidator)>>
+      body: {}
       paramsTuple: []
       params: {}
-      query: ExtractQuery<InferInput<(typeof import('#validators/comment').commentUpdateValidator)>>
+      query: {}
       response: ExtractResponse<Awaited<ReturnType<import('#controllers/comments_controller').default['update']>>>
-      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/comments_controller').default['update']>>> | { status: 422; response: { errors: SimpleError[] } }
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/comments_controller').default['update']>>>
     }
   }
   'comments.comments.get_page': {
@@ -243,6 +245,18 @@ export interface Registry {
       query: ExtractQuery<InferInput<(typeof import('#validators/comment').commentLikeValidator)>>
       response: ExtractResponse<Awaited<ReturnType<import('#controllers/comments_controller').default['removeLike']>>>
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/comments_controller').default['removeLike']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'ratings.ratings.set': {
+    methods: ["POST"]
+    pattern: '/api/v1/ratings/set'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/ratings_controller').default['set']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/ratings_controller').default['set']>>>
     }
   }
 }
