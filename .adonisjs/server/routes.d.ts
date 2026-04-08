@@ -20,6 +20,8 @@ export type ScannedRoutes = {
     'posts.posts.rate': { paramsTuple?: []; params?: {} }
     'comments.comments.store': { paramsTuple?: []; params?: {} }
     'comments.comments.get_page': { paramsTuple?: []; params?: {} }
+    'comments.comments.like': { paramsTuple?: []; params?: {} }
+    'comments.comments.remove_like': { paramsTuple?: []; params?: {} }
   }
   GET: {
     'profile.profile.show': { paramsTuple?: []; params?: {} }
@@ -50,9 +52,11 @@ export type ScannedRoutes = {
   PUT: {
     'posts.posts.store': { paramsTuple?: []; params?: {} }
     'posts.posts.rate': { paramsTuple?: []; params?: {} }
+    'comments.comments.like': { paramsTuple?: []; params?: {} }
   }
   DELETE: {
     'posts.posts.delete': { paramsTuple?: []; params?: {} }
+    'comments.comments.remove_like': { paramsTuple?: []; params?: {} }
   }
 }
 declare module '@adonisjs/core/types/http' {

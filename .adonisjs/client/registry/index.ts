@@ -102,6 +102,18 @@ const routes = {
     tokens: [{"old":"/api/v1/comments/getPage","type":0,"val":"api","end":""},{"old":"/api/v1/comments/getPage","type":0,"val":"v1","end":""},{"old":"/api/v1/comments/getPage","type":0,"val":"comments","end":""},{"old":"/api/v1/comments/getPage","type":0,"val":"getPage","end":""}],
     types: placeholder as Registry['comments.comments.get_page']['types'],
   },
+  'comments.comments.like': {
+    methods: ["PUT"],
+    pattern: '/api/v1/comments/like',
+    tokens: [{"old":"/api/v1/comments/like","type":0,"val":"api","end":""},{"old":"/api/v1/comments/like","type":0,"val":"v1","end":""},{"old":"/api/v1/comments/like","type":0,"val":"comments","end":""},{"old":"/api/v1/comments/like","type":0,"val":"like","end":""}],
+    types: placeholder as Registry['comments.comments.like']['types'],
+  },
+  'comments.comments.remove_like': {
+    methods: ["DELETE"],
+    pattern: '/api/v1/comments/removeLike',
+    tokens: [{"old":"/api/v1/comments/removeLike","type":0,"val":"api","end":""},{"old":"/api/v1/comments/removeLike","type":0,"val":"v1","end":""},{"old":"/api/v1/comments/removeLike","type":0,"val":"comments","end":""},{"old":"/api/v1/comments/removeLike","type":0,"val":"removeLike","end":""}],
+    types: placeholder as Registry['comments.comments.remove_like']['types'],
+  },
 } as const satisfies Record<string, AdonisEndpoint>
 
 export { routes }

@@ -34,6 +34,8 @@ export interface ApiDefinition {
     comments: {
       store: typeof routes['comments.comments.store']
       getPage: typeof routes['comments.comments.get_page']
+      like: typeof routes['comments.comments.like']
+      removeLike: typeof routes['comments.comments.remove_like']
     }
   }
 }

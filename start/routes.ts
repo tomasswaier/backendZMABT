@@ -138,6 +138,9 @@ router.get('/docs/*', async ({ params, response }) => {
                 router.post('/create', [ controllers.Comments, 'store' ])
                     .use(middleware.auth());
                 router.get('/getPage', [ controllers.Comments, 'getPage' ]);
+                router.put('/like', [ controllers.Comments, 'like' ]);
+                router.delete('/removeLike',
+                              [ controllers.Comments, 'removeLike' ]);
                 // ]); router.get('/getPage', [ controllers.Posts, 'getPosts'
                 // ]); router.get('/getPageUser',
                 //           [ controllers.Posts, 'getUserPosts' ])

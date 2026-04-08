@@ -199,4 +199,28 @@ export interface Registry {
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/comments_controller').default['getPage']>>> | { status: 422; response: { errors: SimpleError[] } }
     }
   }
+  'comments.comments.like': {
+    methods: ["PUT"]
+    pattern: '/api/v1/comments/like'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#validators/comment').commentLikeValidator)>>
+      paramsTuple: []
+      params: {}
+      query: ExtractQuery<InferInput<(typeof import('#validators/comment').commentLikeValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/comments_controller').default['like']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/comments_controller').default['like']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'comments.comments.remove_like': {
+    methods: ["DELETE"]
+    pattern: '/api/v1/comments/removeLike'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#validators/comment').commentLikeValidator)>>
+      paramsTuple: []
+      params: {}
+      query: ExtractQuery<InferInput<(typeof import('#validators/comment').commentLikeValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/comments_controller').default['removeLike']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/comments_controller').default['removeLike']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
 }
