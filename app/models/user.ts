@@ -1,5 +1,4 @@
 import {
-  type AccessToken,
   DbAccessTokensProvider,
 } from '@adonisjs/auth/access_tokens'
 import {withAuthFinder} from '@adonisjs/auth/mixins/lucid'
@@ -18,26 +17,25 @@ const AuthFinder = withAuthFinder(hash, {
 
 export default class User extends compose
 (BaseModel, AuthFinder) {
-  public static table = 'users'
+  public static table = 'users';
 
-      // Access tokens
-      public static accessTokens = DbAccessTokensProvider.forModel(User, {
-        table : "auth_access_tokens",
-        expiresIn : "30 days",
-      });
+  // Access tokens
+  public static accessTokens = DbAccessTokensProvider.forModel(User, {
+    table : "auth_access_tokens",
+    expiresIn : "30 days",
+  });
 
-  @column({isPrimary : true})
-  declare id: number
+  @column({isPrimary : true}) declare id: number;
 
-      @column() declare username: string
+  @column() declare username: string;
 
-      @column() declare email: string
+  @column() declare email: string;
 
-      @column({serializeAs : null}) declare password: string
+  @column({serializeAs : null}) declare password: string;
 
-      @column() declare bio: string
+  @column() declare bio: string;
 
-      @column() declare profilePicturePath?: string|null;
+  @column() declare profilePicturePath?: string|null;
 
   @column
       .dateTime({autoCreate : true}) declare createdAt: DateTime

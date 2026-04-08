@@ -14,16 +14,21 @@ export interface ApiDefinition {
   profile: {
     profile: {
       show: typeof routes['profile.profile.show']
+      follow: typeof routes['profile.profile.follow']
+      unfollow: typeof routes['profile.profile.unfollow']
     }
   }
   posts: {
     posts: {
       store: typeof routes['posts.posts.store']
       update: typeof routes['posts.posts.update']
+      delete: typeof routes['posts.posts.delete']
       getPostsFyp: typeof routes['posts.posts.get_posts_fyp']
       getPosts: typeof routes['posts.posts.get_posts']
+      getPostsPlace: typeof routes['posts.posts.get_posts_place']
       getUserPosts: typeof routes['posts.posts.get_user_posts']
       getPost: typeof routes['posts.posts.get_post']
+      rate: typeof routes['posts.posts.rate']
     }
   }
   comments: {
@@ -31,6 +36,8 @@ export interface ApiDefinition {
       store: typeof routes['comments.comments.store']
       update: typeof routes['comments.comments.update']
       getPage: typeof routes['comments.comments.get_page']
+      like: typeof routes['comments.comments.like']
+      removeLike: typeof routes['comments.comments.remove_like']
     }
   }
   ratings: {

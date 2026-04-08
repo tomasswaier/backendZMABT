@@ -71,6 +71,7 @@
     "luxon": "^3.7.2",
     "pg": "^8.20.0",
     "reflect-metadata": "^0.2.2",
+    "socket.io": "^4.8.3",
     "swagger-ui-dist": "^5.32.1"
   },
   "hotHook": {

@@ -107,21 +107,32 @@ router.get('/docs/*', async ({ params, response }) => {
                 .prefix('auth')
                 .as('auth')
 
-        router.group(() => {router.get('/profile',
-                                       [ controllers.Profile, 'show' ])})
+        router.group(() => {
+                router.get('/profile', [ controllers.Profile, 'show' ]);
+                router.post('/follow', [ controllers.Profile, 'follow' ])
+                    .use(middleware.auth());
+                router.post('/unfollow', [ controllers.Profile, 'unfollow' ])
+                    .use(middleware.auth());
+              })
                 .prefix('account')
                 .as('profile'); //.use(middleware.auth())
         router.group(() => {
-                router.post('/create', [ controllers.Posts, 'store' ])
+                router.put('/create', [ controllers.Posts, 'store' ])
+                    .use(middleware.auth());
+                router.delete('/delete', [ controllers.Posts, 'delete' ])
                     .use(middleware.auth());
                 router.patch('/update', [controllers.Posts, 'update'])
                     .use(middleware.auth())
                 router.get('/getPageFyp', [ controllers.Posts, 'getPostsFyp' ]);
                 router.get('/getPage', [ controllers.Posts, 'getPosts' ]);
+                router.get('/getPagePlace',
+                           [ controllers.Posts, 'getPostsPlace' ]);
                 router.get('/getPageUser',
                            [ controllers.Posts, 'getUserPosts' ]);
                 router.get('/get', [ controllers.Posts, 'getPost' ]);
+                router.put('/rate', [ controllers.Posts, 'rate' ]);
               })
+
                 .prefix('posts')
                 .as('posts'); //.use(middleware.auth())
         router.group(() => {
@@ -130,6 +141,9 @@ router.get('/docs/*', async ({ params, response }) => {
                 router.patch('/update', [controllers.Comments, 'update'])
                     .use(middleware.auth())
                 router.get('/getPage', [ controllers.Comments, 'getPage' ]);
+                router.put('/like', [ controllers.Comments, 'like' ]);
+                router.delete('/removeLike',
+                              [ controllers.Comments, 'removeLike' ]);
                 // ]); router.get('/getPage', [ controllers.Posts, 'getPosts'
                 // ]); router.get('/getPageUser',
                 //           [ controllers.Posts, 'getUserPosts' ])
