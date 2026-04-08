@@ -21,8 +21,8 @@ export interface ApiDefinition {
   posts: {
     posts: {
       store: typeof routes['posts.posts.store']
-      update: typeof routes['posts.posts.update']
       delete: typeof routes['posts.posts.delete']
+      update: typeof routes['posts.posts.update']
       getPostsFyp: typeof routes['posts.posts.get_posts_fyp']
       getPosts: typeof routes['posts.posts.get_posts']
       getPostsPlace: typeof routes['posts.posts.get_posts_place']

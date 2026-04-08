@@ -43,21 +43,22 @@ const routes = {
     types: placeholder as Registry['profile.profile.unfollow']['types'],
   },
   'posts.posts.store': {
-    methods: ["PUT"],
+    methods: ["POST"],
     pattern: '/api/v1/posts/create',
     tokens: [{"old":"/api/v1/posts/create","type":0,"val":"api","end":""},{"old":"/api/v1/posts/create","type":0,"val":"v1","end":""},{"old":"/api/v1/posts/create","type":0,"val":"posts","end":""},{"old":"/api/v1/posts/create","type":0,"val":"create","end":""}],
     types: placeholder as Registry['posts.posts.store']['types'],
+  },
+  'posts.posts.delete': {
+    methods: ["DELETE"],
+    pattern: '/api/v1/posts/delete',
+    tokens: [{"old":"/api/v1/posts/delete","type":0,"val":"api","end":""},{"old":"/api/v1/posts/delete","type":0,"val":"v1","end":""},{"old":"/api/v1/posts/delete","type":0,"val":"posts","end":""},{"old":"/api/v1/posts/delete","type":0,"val":"delete","end":""}],
+    types: placeholder as Registry['posts.posts.delete']['types'],
   },
   'posts.posts.update': {
     methods: ["PATCH"],
     pattern: '/api/v1/posts/update',
     tokens: [{"old":"/api/v1/posts/update","type":0,"val":"api","end":""},{"old":"/api/v1/posts/update","type":0,"val":"v1","end":""},{"old":"/api/v1/posts/update","type":0,"val":"posts","end":""},{"old":"/api/v1/posts/update","type":0,"val":"update","end":""}],
     types: placeholder as Registry['posts.posts.update']['types'],
-  'posts.posts.delete': {
-    methods: ["DELETE"],
-    pattern: '/api/v1/posts/delete',
-    tokens: [{"old":"/api/v1/posts/delete","type":0,"val":"api","end":""},{"old":"/api/v1/posts/delete","type":0,"val":"v1","end":""},{"old":"/api/v1/posts/delete","type":0,"val":"posts","end":""},{"old":"/api/v1/posts/delete","type":0,"val":"delete","end":""}],
-    types: placeholder as Registry['posts.posts.delete']['types'],
   },
   'posts.posts.get_posts_fyp': {
     methods: ["GET","HEAD"],
@@ -124,6 +125,12 @@ const routes = {
     pattern: '/api/v1/comments/removeLike',
     tokens: [{"old":"/api/v1/comments/removeLike","type":0,"val":"api","end":""},{"old":"/api/v1/comments/removeLike","type":0,"val":"v1","end":""},{"old":"/api/v1/comments/removeLike","type":0,"val":"comments","end":""},{"old":"/api/v1/comments/removeLike","type":0,"val":"removeLike","end":""}],
     types: placeholder as Registry['comments.comments.remove_like']['types'],
+  },
+  'ratings.ratings.set': {
+    methods: ["POST"],
+    pattern: '/api/v1/ratings/set',
+    tokens: [{"old":"/api/v1/ratings/set","type":0,"val":"api","end":""},{"old":"/api/v1/ratings/set","type":0,"val":"v1","end":""},{"old":"/api/v1/ratings/set","type":0,"val":"ratings","end":""},{"old":"/api/v1/ratings/set","type":0,"val":"set","end":""}],
+    types: placeholder as Registry['ratings.ratings.set']['types'],
   },
 } as const satisfies Record<string, AdonisEndpoint>
 
