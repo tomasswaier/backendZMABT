@@ -48,6 +48,11 @@ const routes = {
     tokens: [{"old":"/api/v1/posts/create","type":0,"val":"api","end":""},{"old":"/api/v1/posts/create","type":0,"val":"v1","end":""},{"old":"/api/v1/posts/create","type":0,"val":"posts","end":""},{"old":"/api/v1/posts/create","type":0,"val":"create","end":""}],
     types: placeholder as Registry['posts.posts.store']['types'],
   },
+  'posts.posts.update': {
+    methods: ["PATCH"],
+    pattern: '/api/v1/posts/update',
+    tokens: [{"old":"/api/v1/posts/update","type":0,"val":"api","end":""},{"old":"/api/v1/posts/update","type":0,"val":"v1","end":""},{"old":"/api/v1/posts/update","type":0,"val":"posts","end":""},{"old":"/api/v1/posts/update","type":0,"val":"update","end":""}],
+    types: placeholder as Registry['posts.posts.update']['types'],
   'posts.posts.delete': {
     methods: ["DELETE"],
     pattern: '/api/v1/posts/delete',
@@ -95,6 +100,12 @@ const routes = {
     pattern: '/api/v1/comments/create',
     tokens: [{"old":"/api/v1/comments/create","type":0,"val":"api","end":""},{"old":"/api/v1/comments/create","type":0,"val":"v1","end":""},{"old":"/api/v1/comments/create","type":0,"val":"comments","end":""},{"old":"/api/v1/comments/create","type":0,"val":"create","end":""}],
     types: placeholder as Registry['comments.comments.store']['types'],
+  },
+  'comments.comments.update': {
+    methods: ["PATCH"],
+    pattern: '/api/v1/comments/update',
+    tokens: [{"old":"/api/v1/comments/update","type":0,"val":"api","end":""},{"old":"/api/v1/comments/update","type":0,"val":"v1","end":""},{"old":"/api/v1/comments/update","type":0,"val":"comments","end":""},{"old":"/api/v1/comments/update","type":0,"val":"update","end":""}],
+    types: placeholder as Registry['comments.comments.update']['types'],
   },
   'comments.comments.get_page': {
     methods: ["GET","HEAD"],

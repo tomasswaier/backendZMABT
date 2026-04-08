@@ -11,6 +11,7 @@ export type ScannedRoutes = {
     'profile.profile.follow': { paramsTuple?: []; params?: {} }
     'profile.profile.unfollow': { paramsTuple?: []; params?: {} }
     'posts.posts.store': { paramsTuple?: []; params?: {} }
+    'posts.posts.update': { paramsTuple?: []; params?: {} }
     'posts.posts.delete': { paramsTuple?: []; params?: {} }
     'posts.posts.get_posts_fyp': { paramsTuple?: []; params?: {} }
     'posts.posts.get_posts': { paramsTuple?: []; params?: {} }
@@ -19,6 +20,7 @@ export type ScannedRoutes = {
     'posts.posts.get_post': { paramsTuple?: []; params?: {} }
     'posts.posts.rate': { paramsTuple?: []; params?: {} }
     'comments.comments.store': { paramsTuple?: []; params?: {} }
+    'comments.comments.update': { paramsTuple?: []; params?: {} }
     'comments.comments.get_page': { paramsTuple?: []; params?: {} }
     'comments.comments.like': { paramsTuple?: []; params?: {} }
     'comments.comments.remove_like': { paramsTuple?: []; params?: {} }
@@ -48,6 +50,11 @@ export type ScannedRoutes = {
     'profile.profile.follow': { paramsTuple?: []; params?: {} }
     'profile.profile.unfollow': { paramsTuple?: []; params?: {} }
     'comments.comments.store': { paramsTuple?: []; params?: {} }
+    'ratings.ratings.set': { paramsTuple?: []; params?: {} }
+  }
+  PATCH: {
+    'posts.posts.update': { paramsTuple?: []; params?: {} }
+    'comments.comments.update': { paramsTuple?: []; params?: {} }
   }
   PUT: {
     'posts.posts.store': { paramsTuple?: []; params?: {} }

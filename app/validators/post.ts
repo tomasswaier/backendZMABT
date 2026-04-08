@@ -9,15 +9,14 @@ const postId = () => vine.number()
 const placeId = () => vine.number()
 
 export const postStoreValidator = vine.create({
-  postText : postText(),
-  rating : rating(),
-  longitude : longitude(),
-  latitude : latitude(),
-  image : vine.file({
-                size : '5mb',
-                extnames : [ 'jpg', 'png', 'jpeg' ],
-              })
-              .optional(),
+  postText: postText(),
+  rating: rating(),
+  longitude: longitude(),
+  latitude: latitude(),
+  image: vine.file({
+    size: '5mb',
+    extnames: ['jpg', 'png', 'jpeg'],
+  }).optional(),
 })
 
 export const postGetProfilePageValidator = vine.create({
@@ -37,10 +36,20 @@ export const postGetValidator = vine.create({
 
   postId : postId().exists({table : 'posts', column : 'id'}),
 
+export const postGetValidator = vine.create({
+  postId: postId().exists({ table: 'posts', column: 'id' }),
 })
 export const postGetPageValidator = vine.create({
   page : vine.number()
 
+export const postGetUserValidator = vine.create({
+  page: vine.number(),
+})
+
+export const postUpdateValidator = vine.create({
+  postId: postId().exists({ table: 'posts', column: 'id' }),
+  postText: postText(),
+  rating: rating(),
 })
 export const postRateValidator = vine.create({
   postId : postId().exists({table : 'posts', column : 'id'}),
