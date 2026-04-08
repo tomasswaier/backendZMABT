@@ -84,6 +84,12 @@ const routes = {
     tokens: [{"old":"/api/v1/posts/get","type":0,"val":"api","end":""},{"old":"/api/v1/posts/get","type":0,"val":"v1","end":""},{"old":"/api/v1/posts/get","type":0,"val":"posts","end":""},{"old":"/api/v1/posts/get","type":0,"val":"get","end":""}],
     types: placeholder as Registry['posts.posts.get_post']['types'],
   },
+  'posts.posts.rate': {
+    methods: ["PUT"],
+    pattern: '/api/v1/posts/rate',
+    tokens: [{"old":"/api/v1/posts/rate","type":0,"val":"api","end":""},{"old":"/api/v1/posts/rate","type":0,"val":"v1","end":""},{"old":"/api/v1/posts/rate","type":0,"val":"posts","end":""},{"old":"/api/v1/posts/rate","type":0,"val":"rate","end":""}],
+    types: placeholder as Registry['posts.posts.rate']['types'],
+  },
   'comments.comments.store': {
     methods: ["POST"],
     pattern: '/api/v1/comments/create',

@@ -129,7 +129,9 @@ router.get('/docs/*', async ({ params, response }) => {
                 router.get('/getPageUser',
                            [ controllers.Posts, 'getUserPosts' ]);
                 router.get('/get', [ controllers.Posts, 'getPost' ]);
+                router.put('/rate', [ controllers.Posts, 'rate' ]);
               })
+
                 .prefix('posts')
                 .as('posts'); //.use(middleware.auth())
         router.group(() => {

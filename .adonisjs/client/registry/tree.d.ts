@@ -27,6 +27,7 @@ export interface ApiDefinition {
       getPostsPlace: typeof routes['posts.posts.get_posts_place']
       getUserPosts: typeof routes['posts.posts.get_user_posts']
       getPost: typeof routes['posts.posts.get_post']
+      rate: typeof routes['posts.posts.rate']
     }
   }
   comments: {

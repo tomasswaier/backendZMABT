@@ -17,6 +17,7 @@ export type ScannedRoutes = {
     'posts.posts.get_posts_place': { paramsTuple?: []; params?: {} }
     'posts.posts.get_user_posts': { paramsTuple?: []; params?: {} }
     'posts.posts.get_post': { paramsTuple?: []; params?: {} }
+    'posts.posts.rate': { paramsTuple?: []; params?: {} }
     'comments.comments.store': { paramsTuple?: []; params?: {} }
     'comments.comments.get_page': { paramsTuple?: []; params?: {} }
   }
@@ -48,6 +49,7 @@ export type ScannedRoutes = {
   }
   PUT: {
     'posts.posts.store': { paramsTuple?: []; params?: {} }
+    'posts.posts.rate': { paramsTuple?: []; params?: {} }
   }
   DELETE: {
     'posts.posts.delete': { paramsTuple?: []; params?: {} }

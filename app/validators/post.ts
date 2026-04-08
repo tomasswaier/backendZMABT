@@ -42,3 +42,7 @@ export const postGetPageValidator = vine.create({
   page : vine.number()
 
 })
+export const postRateValidator = vine.create({
+  postId : postId().exists({table : 'posts', column : 'id'}),
+  stars : rating(),
+})

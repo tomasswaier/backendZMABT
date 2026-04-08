@@ -163,6 +163,18 @@ export interface Registry {
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/posts_controller').default['getPost']>>> | { status: 422; response: { errors: SimpleError[] } }
     }
   }
+  'posts.posts.rate': {
+    methods: ["PUT"]
+    pattern: '/api/v1/posts/rate'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#validators/post').postRateValidator)>>
+      paramsTuple: []
+      params: {}
+      query: ExtractQuery<InferInput<(typeof import('#validators/post').postRateValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/posts_controller').default['rate']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/posts_controller').default['rate']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
   'comments.comments.store': {
     methods: ["POST"]
     pattern: '/api/v1/comments/create'
