@@ -55,8 +55,32 @@ export interface Registry {
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/profile_controller').default['show']>>>
     }
   }
-  'posts.posts.store': {
+  'profile.profile.follow': {
     methods: ["POST"]
+    pattern: '/api/v1/account/follow'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#validators/user').followValidator)>>
+      paramsTuple: []
+      params: {}
+      query: ExtractQuery<InferInput<(typeof import('#validators/user').followValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/profile_controller').default['follow']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/profile_controller').default['follow']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'profile.profile.unfollow': {
+    methods: ["POST"]
+    pattern: '/api/v1/account/unfollow'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#validators/user').followValidator)>>
+      paramsTuple: []
+      params: {}
+      query: ExtractQuery<InferInput<(typeof import('#validators/user').followValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/profile_controller').default['unfollow']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/profile_controller').default['unfollow']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'posts.posts.store': {
+    methods: ["PUT"]
     pattern: '/api/v1/posts/create'
     types: {
       body: ExtractBody<InferInput<(typeof import('#validators/post').postStoreValidator)>>
@@ -77,6 +101,16 @@ export interface Registry {
       query: ExtractQuery<InferInput<(typeof import('#validators/post').postUpdateValidator)>>
       response: ExtractResponse<Awaited<ReturnType<import('#controllers/posts_controller').default['update']>>>
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/posts_controller').default['update']>>> | { status: 422; response: { errors: SimpleError[] } }
+  'posts.posts.delete': {
+    methods: ["DELETE"]
+    pattern: '/api/v1/posts/delete'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#validators/post').postGetValidator)>>
+      paramsTuple: []
+      params: {}
+      query: ExtractQuery<InferInput<(typeof import('#validators/post').postGetValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/posts_controller').default['delete']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/posts_controller').default['delete']>>> | { status: 422; response: { errors: SimpleError[] } }
     }
   }
   'posts.posts.get_posts_fyp': {
@@ -86,7 +120,7 @@ export interface Registry {
       body: {}
       paramsTuple: []
       params: {}
-      query: ExtractQueryForGet<InferInput<(typeof import('#validators/post').postGetUserValidator)>>
+      query: ExtractQueryForGet<InferInput<(typeof import('#validators/post').postGetPageValidator)>>
       response: ExtractResponse<Awaited<ReturnType<import('#controllers/posts_controller').default['getPostsFyp']>>>
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/posts_controller').default['getPostsFyp']>>> | { status: 422; response: { errors: SimpleError[] } }
     }
@@ -98,9 +132,21 @@ export interface Registry {
       body: {}
       paramsTuple: []
       params: {}
-      query: ExtractQueryForGet<InferInput<(typeof import('#validators/post').postGetPageValidator)>>
+      query: ExtractQueryForGet<InferInput<(typeof import('#validators/post').postGetProfilePageValidator)>>
       response: ExtractResponse<Awaited<ReturnType<import('#controllers/posts_controller').default['getPosts']>>>
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/posts_controller').default['getPosts']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'posts.posts.get_posts_place': {
+    methods: ["GET","HEAD"]
+    pattern: '/api/v1/posts/getPagePlace'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: ExtractQueryForGet<InferInput<(typeof import('#validators/post').postGetPagePlacesValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/posts_controller').default['getPostsPlace']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/posts_controller').default['getPostsPlace']>>> | { status: 422; response: { errors: SimpleError[] } }
     }
   }
   'posts.posts.get_user_posts': {
@@ -110,7 +156,7 @@ export interface Registry {
       body: {}
       paramsTuple: []
       params: {}
-      query: ExtractQueryForGet<InferInput<(typeof import('#validators/post').postGetUserValidator)>>
+      query: ExtractQueryForGet<InferInput<(typeof import('#validators/post').postGetPageValidator)>>
       response: ExtractResponse<Awaited<ReturnType<import('#controllers/posts_controller').default['getUserPosts']>>>
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/posts_controller').default['getUserPosts']>>> | { status: 422; response: { errors: SimpleError[] } }
     }
@@ -125,6 +171,18 @@ export interface Registry {
       query: ExtractQueryForGet<InferInput<(typeof import('#validators/post').postGetValidator)>>
       response: ExtractResponse<Awaited<ReturnType<import('#controllers/posts_controller').default['getPost']>>>
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/posts_controller').default['getPost']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'posts.posts.rate': {
+    methods: ["PUT"]
+    pattern: '/api/v1/posts/rate'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#validators/post').postRateValidator)>>
+      paramsTuple: []
+      params: {}
+      query: ExtractQuery<InferInput<(typeof import('#validators/post').postRateValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/posts_controller').default['rate']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/posts_controller').default['rate']>>> | { status: 422; response: { errors: SimpleError[] } }
     }
   }
   'comments.comments.store': {
@@ -163,16 +221,28 @@ export interface Registry {
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/comments_controller').default['getPage']>>> | { status: 422; response: { errors: SimpleError[] } }
     }
   }
-  'ratings.ratings.set': {
-    methods: ["POST"]
-    pattern: '/api/v1/ratings/set'
+  'comments.comments.like': {
+    methods: ["PUT"]
+    pattern: '/api/v1/comments/like'
     types: {
-      body: {}
+      body: ExtractBody<InferInput<(typeof import('#validators/comment').commentLikeValidator)>>
       paramsTuple: []
       params: {}
-      query: {}
-      response: ExtractResponse<Awaited<ReturnType<import('#controllers/ratings_controller').default['set']>>>
-      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/ratings_controller').default['set']>>>
+      query: ExtractQuery<InferInput<(typeof import('#validators/comment').commentLikeValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/comments_controller').default['like']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/comments_controller').default['like']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'comments.comments.remove_like': {
+    methods: ["DELETE"]
+    pattern: '/api/v1/comments/removeLike'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#validators/comment').commentLikeValidator)>>
+      paramsTuple: []
+      params: {}
+      query: ExtractQuery<InferInput<(typeof import('#validators/comment').commentLikeValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/comments_controller').default['removeLike']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/comments_controller').default['removeLike']>>> | { status: 422; response: { errors: SimpleError[] } }
     }
   }
 }
