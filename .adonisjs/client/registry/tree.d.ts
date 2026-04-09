@@ -18,6 +18,11 @@ export interface ApiDefinition {
       unfollow: typeof routes['profile.profile.unfollow']
     }
   }
+  place: {
+    places: {
+      getInfo: typeof routes['place.places.get_info']
+    }
+  }
   posts: {
     posts: {
       store: typeof routes['posts.posts.store']
@@ -38,11 +43,6 @@ export interface ApiDefinition {
       getPage: typeof routes['comments.comments.get_page']
       like: typeof routes['comments.comments.like']
       removeLike: typeof routes['comments.comments.remove_like']
-    }
-  }
-  ratings: {
-    ratings: {
-      set: typeof routes['ratings.ratings.set']
     }
   }
 }

@@ -1,15 +1,6 @@
 todo :
-    editovanie postov
+    editovanie postov --funguje
     mazanie postov-- funguje
-    fixnut places aby sa spravne selectovali (toto je vlastne na UI)
+    fixnut places aby sa spravne selectovali (toto je vlastne na UI) -- na backende to funguje 
     followovanie-- funguje
-    route na miesta aby vracali posty
-    
-
-
-    GET, PUT, POST a DELETE-- funguje
-    likovanie/ratings
-
-
-otazka na cviko:
-    môže byť AI podmienka  NU aj tak urobená že nám na backende beží server a poskytuje autocompletion cez mcp ?
+    route na miesta aby vracali posty-- kinda funguje

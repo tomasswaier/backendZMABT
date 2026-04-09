@@ -79,6 +79,18 @@ export interface Registry {
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/profile_controller').default['unfollow']>>> | { status: 422; response: { errors: SimpleError[] } }
     }
   }
+  'place.places.get_info': {
+    methods: ["GET","HEAD"]
+    pattern: '/api/v1/place/get'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: ExtractQueryForGet<InferInput<(typeof import('#validators/place').placeGetValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/places_controller').default['getInfo']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/places_controller').default['getInfo']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
   'posts.posts.store': {
     methods: ["POST"]
     pattern: '/api/v1/posts/create'
@@ -245,18 +257,6 @@ export interface Registry {
       query: ExtractQuery<InferInput<(typeof import('#validators/comment').commentLikeValidator)>>
       response: ExtractResponse<Awaited<ReturnType<import('#controllers/comments_controller').default['removeLike']>>>
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/comments_controller').default['removeLike']>>> | { status: 422; response: { errors: SimpleError[] } }
-    }
-  }
-  'ratings.ratings.set': {
-    methods: ["POST"]
-    pattern: '/api/v1/ratings/set'
-    types: {
-      body: {}
-      paramsTuple: []
-      params: {}
-      query: {}
-      response: ExtractResponse<Awaited<ReturnType<import('#controllers/ratings_controller').default['set']>>>
-      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/ratings_controller').default['set']>>>
     }
   }
 }

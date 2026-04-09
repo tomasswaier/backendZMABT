@@ -118,6 +118,7 @@ export default class PostsController {
 
       return response.ok({post})
     } catch (error) {
+      console.log(error)
       return response.internalServerError({message : 'Failed to create post'})
     }
   }
@@ -151,7 +152,7 @@ export default class PostsController {
 
       if (!auth.user || !auth.user.id) {
         return response.internalServerError(
-            {message : "Failed to put rating, no userId"});
+            {message : "Failed to put rating, User ERROR"});
       }
       await Rating.updateOrCreate({userId : auth.user.id, postId : data.postId},
                                   {stars : data.stars});
@@ -162,13 +163,13 @@ export default class PostsController {
           message : 'Post not found',
         })
       }
-      post.stars = data.stars;
+      /*post.stars = data.stars;
       await post.save()
 
       return response.ok({
         error : false,
         message : 'Post successfully created',
-      })
+      })*/
     } catch (error) {
       console.error('Error:', error)
       return response.internalServerError({
