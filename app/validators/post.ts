@@ -49,6 +49,8 @@ export const postUpdateValidator = vine.create({
   postId : postId().exists({table : 'posts', column : 'id'}),
   postText : postText(),
   rating : rating(),
+  longitude : longitude(),
+  latitude : latitude(),
 })
 export const postRateValidator = vine.create({
   postId : postId().exists({table : 'posts', column : 'id'}),
