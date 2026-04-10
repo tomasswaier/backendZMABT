@@ -163,13 +163,10 @@ export default class PostsController {
           message : 'Post not found',
         })
       }
-      /*post.stars = data.stars;
-      await post.save()
-
       return response.ok({
         error : false,
-        message : 'Post successfully created',
-      })*/
+        message : 'Rating successfully added',
+      })
     } catch (error) {
       console.error('Error:', error)
       return response.internalServerError({

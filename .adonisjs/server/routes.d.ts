@@ -7,9 +7,10 @@ export type ScannedRoutes = {
     'auth.new_account.store': { paramsTuple?: []; params?: {} }
     'auth.access_token.store': { paramsTuple?: []; params?: {} }
     'auth.access_token.destroy': { paramsTuple?: []; params?: {} }
-    'profile.profile.show': { paramsTuple?: []; params?: {} }
-    'profile.profile.follow': { paramsTuple?: []; params?: {} }
-    'profile.profile.unfollow': { paramsTuple?: []; params?: {} }
+    'profile.show': { paramsTuple?: []; params?: {} }
+    'profile.get': { paramsTuple?: []; params?: {} }
+    'profile.follow': { paramsTuple?: []; params?: {} }
+    'profile.unfollow': { paramsTuple?: []; params?: {} }
     'place.places.get_info': { paramsTuple?: []; params?: {} }
     'posts.posts.store': { paramsTuple?: []; params?: {} }
     'posts.posts.delete': { paramsTuple?: []; params?: {} }
@@ -27,7 +28,8 @@ export type ScannedRoutes = {
     'comments.comments.remove_like': { paramsTuple?: []; params?: {} }
   }
   GET: {
-    'profile.profile.show': { paramsTuple?: []; params?: {} }
+    'profile.show': { paramsTuple?: []; params?: {} }
+    'profile.get': { paramsTuple?: []; params?: {} }
     'place.places.get_info': { paramsTuple?: []; params?: {} }
     'posts.posts.get_posts_fyp': { paramsTuple?: []; params?: {} }
     'posts.posts.get_posts': { paramsTuple?: []; params?: {} }
@@ -37,7 +39,8 @@ export type ScannedRoutes = {
     'comments.comments.get_page': { paramsTuple?: []; params?: {} }
   }
   HEAD: {
-    'profile.profile.show': { paramsTuple?: []; params?: {} }
+    'profile.show': { paramsTuple?: []; params?: {} }
+    'profile.get': { paramsTuple?: []; params?: {} }
     'place.places.get_info': { paramsTuple?: []; params?: {} }
     'posts.posts.get_posts_fyp': { paramsTuple?: []; params?: {} }
     'posts.posts.get_posts': { paramsTuple?: []; params?: {} }
@@ -50,8 +53,8 @@ export type ScannedRoutes = {
     'auth.new_account.store': { paramsTuple?: []; params?: {} }
     'auth.access_token.store': { paramsTuple?: []; params?: {} }
     'auth.access_token.destroy': { paramsTuple?: []; params?: {} }
-    'profile.profile.follow': { paramsTuple?: []; params?: {} }
-    'profile.profile.unfollow': { paramsTuple?: []; params?: {} }
+    'profile.follow': { paramsTuple?: []; params?: {} }
+    'profile.unfollow': { paramsTuple?: []; params?: {} }
     'posts.posts.store': { paramsTuple?: []; params?: {} }
     'comments.comments.store': { paramsTuple?: []; params?: {} }
   }

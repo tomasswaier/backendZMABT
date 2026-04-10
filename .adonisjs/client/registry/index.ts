@@ -24,23 +24,29 @@ const routes = {
     tokens: [{"old":"/api/v1/auth/logout","type":0,"val":"api","end":""},{"old":"/api/v1/auth/logout","type":0,"val":"v1","end":""},{"old":"/api/v1/auth/logout","type":0,"val":"auth","end":""},{"old":"/api/v1/auth/logout","type":0,"val":"logout","end":""}],
     types: placeholder as Registry['auth.access_token.destroy']['types'],
   },
-  'profile.profile.show': {
+  'profile.show': {
     methods: ["GET","HEAD"],
     pattern: '/api/v1/account/profile',
     tokens: [{"old":"/api/v1/account/profile","type":0,"val":"api","end":""},{"old":"/api/v1/account/profile","type":0,"val":"v1","end":""},{"old":"/api/v1/account/profile","type":0,"val":"account","end":""},{"old":"/api/v1/account/profile","type":0,"val":"profile","end":""}],
-    types: placeholder as Registry['profile.profile.show']['types'],
+    types: placeholder as Registry['profile.show']['types'],
   },
-  'profile.profile.follow': {
+  'profile.get': {
+    methods: ["GET","HEAD"],
+    pattern: '/api/v1/account/get',
+    tokens: [{"old":"/api/v1/account/get","type":0,"val":"api","end":""},{"old":"/api/v1/account/get","type":0,"val":"v1","end":""},{"old":"/api/v1/account/get","type":0,"val":"account","end":""},{"old":"/api/v1/account/get","type":0,"val":"get","end":""}],
+    types: placeholder as Registry['profile.get']['types'],
+  },
+  'profile.follow': {
     methods: ["POST"],
     pattern: '/api/v1/account/follow',
     tokens: [{"old":"/api/v1/account/follow","type":0,"val":"api","end":""},{"old":"/api/v1/account/follow","type":0,"val":"v1","end":""},{"old":"/api/v1/account/follow","type":0,"val":"account","end":""},{"old":"/api/v1/account/follow","type":0,"val":"follow","end":""}],
-    types: placeholder as Registry['profile.profile.follow']['types'],
+    types: placeholder as Registry['profile.follow']['types'],
   },
-  'profile.profile.unfollow': {
+  'profile.unfollow': {
     methods: ["POST"],
     pattern: '/api/v1/account/unfollow',
     tokens: [{"old":"/api/v1/account/unfollow","type":0,"val":"api","end":""},{"old":"/api/v1/account/unfollow","type":0,"val":"v1","end":""},{"old":"/api/v1/account/unfollow","type":0,"val":"account","end":""},{"old":"/api/v1/account/unfollow","type":0,"val":"unfollow","end":""}],
-    types: placeholder as Registry['profile.profile.unfollow']['types'],
+    types: placeholder as Registry['profile.unfollow']['types'],
   },
   'place.places.get_info': {
     methods: ["GET","HEAD"],

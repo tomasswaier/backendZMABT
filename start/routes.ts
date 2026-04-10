@@ -108,15 +108,18 @@ router.get('/docs/*', async ({ params, response }) => {
                 .prefix('auth')
                 .as('auth')
 
-        router.group(() => {
-                router.get('/profile', [ controllers.Profile, 'show' ]);
-                router.post('/follow', [ controllers.Profile, 'follow' ])
-                    .use(middleware.auth());
-                router.post('/unfollow', [ controllers.Profile, 'unfollow' ])
-                    .use(middleware.auth());
-              })
-                .prefix('account')
-                .as('profile'); //.use(middleware.auth())
+        router
+            .group(() => {
+              router.get('/profile', [ controllers.Profile, 'show' ])
+                  .use(middleware.auth());
+              router.get('/get', [ controllers.Profile, 'get' ])
+                  .use(middleware.auth());
+              router.post('/follow', [ controllers.Profile, 'follow' ])
+                  .use(middleware.auth());
+              router.post('/unfollow', [ controllers.Profile, 'unfollow' ])
+                  .use(middleware.auth());
+            })
+            .prefix('account')
         router.group(() => {
                 router.get('/get', [ controllers.Places, 'getInfo' ]);
               })
@@ -147,9 +150,12 @@ router.get('/docs/*', async ({ params, response }) => {
                 router.patch('/update', [ controllers.Comments, 'update' ])
                     .use(middleware.auth())
                 router.get('/getPage', [ controllers.Comments, 'getPage' ]);
-                router.put('/like', [ controllers.Comments, 'like' ]);
-                router.delete('/removeLike',
-                              [ controllers.Comments, 'removeLike' ]);
+                router.put('/like', [ controllers.Comments, 'like' ])
+                    .use(middleware.auth());
+                router
+                    .delete('/removeLike',
+                            [ controllers.Comments, 'removeLike' ])
+                    .use(middleware.auth());
               })
                 .prefix('comments')
                 .as('comments')
