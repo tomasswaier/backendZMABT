@@ -20,8 +20,8 @@ export const commentPageValidator = vine.create({
 
 })
 export const commentUpdateValidator = vine.create({
-  commentId: commentId().exists({ table: 'comments', column: 'id' }),
-  content: content(),
+  commentId : commentId().exists({table : 'comments', column : 'id'}),
+  content : content(),
 })
 
 export const commentLikeValidator = vine.create(
