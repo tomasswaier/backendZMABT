@@ -127,10 +127,10 @@ export default class PostsController {
     try {
       const post = await Post.find(data.postId)
       if (!post) {
-        return response.ok({"message" : "Post with that id does not exist"});
+        return response.notFound({"message" : "Post with that id does not exist"});
       }
       if (auth.user && post.userId != auth.user.id) {
-        return response.ok({"message" : "This post can not be deleted by you"});
+        return response.forbidden({"message" : "This post can not be deleted by you"});
       }
 
       const postImages = await post!.related('images').query()
@@ -176,13 +176,13 @@ export default class PostsController {
     }
   }
 
-  async update({request, response, auth}: HttpContext) {
+  async update({ request, response, auth }: HttpContext) {
     const user = auth.use('api').user
 
     if (!user) {
       return response.unauthorized({
-        message : 'User not authenticated',
-        error : true,
+        message: 'User not authenticated',
+        error: true,
       })
     }
 
@@ -191,25 +191,34 @@ export default class PostsController {
 
       const post = await Post.find(data.postId)
 
-      if (post!.userId !== user.id) {
-        return response.forbidden({
-          message : 'You can only edit your own posts',
-          error : true,
+      if (!post) {
+        return response.notFound({
+          message: 'Post not found',
+          error: true,
         })
       }
 
-      post!.description = data.postText
+      if (post.userId !== user.id) {
+        return response.forbidden({
+          message: 'You can only edit your own posts',
+          error: true,
+        })
+      }
+
+      post.description = data.postText
+      post.stars = data.rating
+      await post.save()
 
       return response.ok({
-        error : false,
-        message : 'Post updated successfully',
-        data : post,
+        error: false,
+        message: 'Post updated successfully',
+        data: post,
       })
     } catch (error) {
       console.error('Error:', error)
       return response.internalServerError({
-        message : 'Failed to update post',
-        error : true,
+        message: 'Failed to update post',
+        error: true,
       })
     }
   }
