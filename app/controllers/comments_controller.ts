@@ -10,32 +10,54 @@ import type {HttpContext} from '@adonisjs/core/http'
 import db from '@adonisjs/lucid/services/db'
 
 export default class CommentsController {
-  async store({request, response, auth}: HttpContext) {
-    const user = auth.use("api").user;
-    if (user == undefined) {
-      return ({message : "Failed to upload post", error : true});
+  async store({ request, response, auth }: HttpContext) {
+    const user = auth.use('api').user
+
+    if (!user) {
+      return response.unauthorized({
+        message: 'User not authenticated',
+        error: true,
+      })
     }
 
     try {
-      const data = await request
-                       .validateUsing(commentStoreValidator)
+      const data = await request.validateUsing(commentStoreValidator)
 
-                           await Comment.create({
-                             userId : user.id,
-                             postId : data.postId,
-                             parentCommentId : data.commentId,
-                             content : data.content,
-                           })
+      if (data.commentId) {
+        const parentComment = await Comment.find(data.commentId)
+
+        if (!parentComment) {
+          return response.notFound({
+            message: 'Parent comment not found',
+            error: true,
+          })
+        }
+
+        if (parentComment.postId !== data.postId) {
+          return response.unprocessableEntity({
+            message: 'Parent comment does not belong to the specified post',
+            error: true,
+          })
+        }
+      }
+
+      const comment = await Comment.create({
+        userId: user.id,
+        postId: data.postId,
+        parentCommentId: data.commentId,
+        content: data.content,
+      })
 
       return response.ok({
-        error : false,
-        message : 'Comment successfully posted',
+        error: false,
+        message: 'Comment successfully posted',
+        data: comment,
       })
     } catch (error) {
       console.error('Error:', error)
       return response.internalServerError({
-        message : 'Failed to create comment',
-        error : true,
+        message: 'Failed to create comment',
+        error: true,
       })
     }
   }
