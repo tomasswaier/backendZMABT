@@ -43,7 +43,7 @@ export interface Registry {
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/access_token_controller').default['destroy']>>>
     }
   }
-  'profile.profile.show': {
+  'profile.show': {
     methods: ["GET","HEAD"]
     pattern: '/api/v1/account/profile'
     types: {
@@ -55,7 +55,19 @@ export interface Registry {
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/profile_controller').default['show']>>>
     }
   }
-  'profile.profile.follow': {
+  'profile.get': {
+    methods: ["GET","HEAD"]
+    pattern: '/api/v1/account/get'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: ExtractQueryForGet<InferInput<(typeof import('#validators/user').followValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/profile_controller').default['get']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/profile_controller').default['get']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'profile.follow': {
     methods: ["POST"]
     pattern: '/api/v1/account/follow'
     types: {
@@ -67,7 +79,7 @@ export interface Registry {
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/profile_controller').default['follow']>>> | { status: 422; response: { errors: SimpleError[] } }
     }
   }
-  'profile.profile.unfollow': {
+  'profile.unfollow': {
     methods: ["POST"]
     pattern: '/api/v1/account/unfollow'
     types: {
@@ -215,12 +227,12 @@ export interface Registry {
     methods: ["PATCH"]
     pattern: '/api/v1/comments/update'
     types: {
-      body: {}
+      body: ExtractBody<InferInput<(typeof import('#validators/comment').commentUpdateValidator)>>
       paramsTuple: []
       params: {}
-      query: {}
+      query: ExtractQuery<InferInput<(typeof import('#validators/comment').commentUpdateValidator)>>
       response: ExtractResponse<Awaited<ReturnType<import('#controllers/comments_controller').default['update']>>>
-      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/comments_controller').default['update']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/comments_controller').default['update']>>> | { status: 422; response: { errors: SimpleError[] } }
     }
   }
   'comments.comments.get_page': {

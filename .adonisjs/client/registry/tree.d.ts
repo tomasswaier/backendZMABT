@@ -12,11 +12,10 @@ export interface ApiDefinition {
     }
   }
   profile: {
-    profile: {
-      show: typeof routes['profile.profile.show']
-      follow: typeof routes['profile.profile.follow']
-      unfollow: typeof routes['profile.profile.unfollow']
-    }
+    show: typeof routes['profile.show']
+    get: typeof routes['profile.get']
+    follow: typeof routes['profile.follow']
+    unfollow: typeof routes['profile.unfollow']
   }
   place: {
     places: {

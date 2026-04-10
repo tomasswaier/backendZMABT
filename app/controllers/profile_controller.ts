@@ -1,12 +1,28 @@
 import Follow from '#models/follow';
+import User from '#models/user';
 import UserTransformer from '#transformers/user_transformer'
 import {followValidator} from "#validators/user";
 import type {HttpContext} from '@adonisjs/core/http'
 
 export default class ProfileController {
   async show({auth, serialize}: HttpContext) {
-    console.log("bigger")
-    return serialize(UserTransformer.transform(auth.getUserOrFail()))
+    return serialize({user : UserTransformer.transform(auth.getUserOrFail())})
+  }
+  async get({auth, request, response}: HttpContext) {
+    const currentUser = auth.user
+    if (currentUser == undefined) {
+      return response.internalServerError({message : "Error occured"});
+    }
+    const data = await request.validateUsing(followValidator)
+    const user = await User.find(data.userId)
+
+    const follows = await Follow.query().where("followerId", currentUser!.id)
+    var isFollowing = false;
+    if (follows.length > 0) {
+      isFollowing = true
+    }
+
+    return response.ok({user : user, isFollowing : isFollowing})
   }
   async follow({auth, request, response}: HttpContext) {
     const data = await request.validateUsing(followValidator)

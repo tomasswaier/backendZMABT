@@ -2,40 +2,43 @@ import {BaseModel, belongsTo, column, hasMany} from '@adonisjs/lucid/orm'
 import type {BelongsTo, HasMany} from "@adonisjs/lucid/types/relations";
 import {DateTime} from 'luxon'
 
+import Like from './like.js'
 import Post from './post.js'
 import User from './user.js'
 
 export default class Comment extends BaseModel {
-  public static table =
-      'comments'
+  public static table = 'comments'
 
-      @column({isPrimary : true}) declare id: number
+      @column({isPrimary : true}) declare id: number;
 
-      @column() declare userId: number
+  @column() declare userId: number;
 
-      @column() declare postId: number
+  @column() declare postId: number;
 
-      @column() declare parentCommentId?: number|null
+  @column() declare parentCommentId?: number|null;
 
-      @column() declare content: string
+  @column() declare content: string;
 
-      @column
-          .dateTime({autoCreate : true}) declare createdAt: DateTime
+  @column.dateTime({autoCreate : true}) declare createdAt: DateTime;
 
-      @column.dateTime({autoCreate : true, autoUpdate: true}) declare updatedAt
-      ?: DateTime|null
+  @column
+      .dateTime({autoCreate : true, autoUpdate: true}) declare updatedAt
+      ?: DateTime|null;
 
-      // ===== Relations =====
+  // ===== Relations =====
 
-      @belongsTo(() => User, {foreignKey : 'userId'}) declare user:
-          BelongsTo<typeof User>
+  @belongsTo(() => User, {foreignKey : 'userId'})
+  declare user: BelongsTo<typeof User>;
 
-      @belongsTo(() => Post, {foreignKey : 'postId'}) declare post:
-          BelongsTo<typeof Post>
+  @belongsTo(() => Post, {foreignKey : 'postId'})
+  declare post: BelongsTo<typeof Post>;
 
-      @belongsTo(() => Comment, {foreignKey : 'parentCommentId'}) declare parent
-      ?: BelongsTo<typeof Comment>
+  @belongsTo(() => Comment, {foreignKey : 'parentCommentId'})
+  declare parent?: BelongsTo<typeof Comment>;
 
-      @hasMany(() => Comment, {foreignKey : 'parentCommentId'}) declare replies:
-          HasMany<typeof Comment>
+  @hasMany(() => Comment, {foreignKey : 'parentCommentId'})
+  declare replies: HasMany<typeof Comment>;
+
+  @hasMany(() => Like, {foreignKey : 'commentId'})
+  declare likes: HasMany<typeof Like>;
 }
