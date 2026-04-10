@@ -491,7 +491,7 @@
           "403": {
             "description": "Cannot edit posts of other users"
           },
-          "500": {
+          "404": {
             "description": "Post not found"
           }
         },
