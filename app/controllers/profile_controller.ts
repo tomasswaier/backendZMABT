@@ -30,6 +30,14 @@ export default class ProfileController {
     if (user == undefined) {
       return response.internalServerError({message : "Error occured"});
     }
+
+    if (data.userId === user.id) {
+      return response.badRequest({
+        message: 'You cannot follow yourself',
+        error: true,
+      })
+    }
+
     try {
       await Follow.create({followerId : user.id, followingId : data.userId})
 

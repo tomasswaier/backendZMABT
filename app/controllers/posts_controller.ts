@@ -127,10 +127,10 @@ export default class PostsController {
     try {
       const post = await Post.find(data.postId)
       if (!post) {
-        return response.ok({"message" : "Post with that id does not exist"});
+        return response.notFound({"message" : "Post with that id does not exist"});
       }
       if (auth.user && post.userId != auth.user.id) {
-        return response.ok({"message" : "This post can not be deleted by you"});
+        return response.forbidden({"message" : "This post can not be deleted by you"});
       }
 
       const postImages = await post!.related('images').query()

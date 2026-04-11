@@ -501,6 +501,264 @@
           }
         ]
       }
+    },
+    "/posts/delete": {
+      "delete": {
+        "summary": "Delete a post",
+        "parameters": [
+          {
+            "name": "postId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Post deleted successfully"
+          },
+          "401": {
+            "description": "User not authenticated"
+          },
+          "403": {
+            "description": "Cannot delete posts of other users"
+          },
+          "422": {
+            "description": "Validation error"
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/account/follow": {
+      "post": {
+        "summary": "Follow a user",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "userId": {
+                    "type": "integer"
+                  }
+                },
+                "required": ["userId"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "User followed successfully"
+          },
+          "400": {
+            "description": "Cannot follow yourself"
+          },
+          "401": {
+            "description": "User not authenticated"
+          },
+          "422": {
+            "description": "User not found"
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/account/unfollow": {
+      "post": {
+        "summary": "Unfollow a user",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "userId": {
+                    "type": "integer"
+                  }
+                },
+                "required": ["userId"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "User unfollowed successfully"
+          },
+          "401": {
+            "description": "User not authenticated"
+          },
+          "422": {
+            "description": "User not found"
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/comments/delete": {
+      "delete": {
+        "summary": "Delete a comment",
+        "parameters": [
+          {
+            "name": "commentId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Comment deleted successfully"
+          },
+          "401": {
+            "description": "User not authenticated"
+          },
+          "403": {
+            "description": "Cannot delete comments of other users"
+          },
+          "404": {
+            "description": "Comment not found"
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/comments/like": {
+      "put": {
+        "summary": "Like a comment",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "commentId": {
+                    "type": "integer"
+                  }
+                },
+                "required": ["commentId"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Comment liked successfully"
+          },
+          "401": {
+            "description": "User not authenticated"
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/comments/removeLike": {
+      "delete": {
+        "summary": "Remove like from a comment",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "commentId": {
+                    "type": "integer"
+                  }
+                },
+                "required": ["commentId"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Comment like removed successfully"
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/ratings/set": {
+      "post": {
+        "summary": "Create or update a rating for a post",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "postId": {
+                    "type": "integer"
+                  },
+                  "stars": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 5
+                  }
+                },
+                "required": ["postId", "stars"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Rating created or updated successfully"
+          },
+          "400": {
+            "description": "Invalid rating data"
+          },
+          "401": {
+            "description": "User not authenticated"
+          },
+          "403": {
+            "description": "You cannot rate your own post"
+          },
+          "404": {
+            "description": "Post not found"
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      }
     }
   },
   "components": {
