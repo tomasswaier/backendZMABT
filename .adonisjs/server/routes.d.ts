@@ -7,11 +7,9 @@ export type ScannedRoutes = {
     'auth.new_account.store': { paramsTuple?: []; params?: {} }
     'auth.access_token.store': { paramsTuple?: []; params?: {} }
     'auth.access_token.destroy': { paramsTuple?: []; params?: {} }
-    'profile.show': { paramsTuple?: []; params?: {} }
-    'profile.get': { paramsTuple?: []; params?: {} }
-    'profile.follow': { paramsTuple?: []; params?: {} }
-    'profile.unfollow': { paramsTuple?: []; params?: {} }
-    'place.places.get_info': { paramsTuple?: []; params?: {} }
+    'profile.profile.show': { paramsTuple?: []; params?: {} }
+    'profile.profile.follow': { paramsTuple?: []; params?: {} }
+    'profile.profile.unfollow': { paramsTuple?: []; params?: {} }
     'posts.posts.store': { paramsTuple?: []; params?: {} }
     'posts.posts.delete': { paramsTuple?: []; params?: {} }
     'posts.posts.update': { paramsTuple?: []; params?: {} }
@@ -23,14 +21,14 @@ export type ScannedRoutes = {
     'posts.posts.rate': { paramsTuple?: []; params?: {} }
     'comments.comments.store': { paramsTuple?: []; params?: {} }
     'comments.comments.update': { paramsTuple?: []; params?: {} }
+    'comments.comments.delete': { paramsTuple?: []; params?: {} }
     'comments.comments.get_page': { paramsTuple?: []; params?: {} }
     'comments.comments.like': { paramsTuple?: []; params?: {} }
     'comments.comments.remove_like': { paramsTuple?: []; params?: {} }
+    'ratings.ratings.set': { paramsTuple?: []; params?: {} }
   }
   GET: {
-    'profile.show': { paramsTuple?: []; params?: {} }
-    'profile.get': { paramsTuple?: []; params?: {} }
-    'place.places.get_info': { paramsTuple?: []; params?: {} }
+    'profile.profile.show': { paramsTuple?: []; params?: {} }
     'posts.posts.get_posts_fyp': { paramsTuple?: []; params?: {} }
     'posts.posts.get_posts': { paramsTuple?: []; params?: {} }
     'posts.posts.get_posts_place': { paramsTuple?: []; params?: {} }
@@ -39,9 +37,7 @@ export type ScannedRoutes = {
     'comments.comments.get_page': { paramsTuple?: []; params?: {} }
   }
   HEAD: {
-    'profile.show': { paramsTuple?: []; params?: {} }
-    'profile.get': { paramsTuple?: []; params?: {} }
-    'place.places.get_info': { paramsTuple?: []; params?: {} }
+    'profile.profile.show': { paramsTuple?: []; params?: {} }
     'posts.posts.get_posts_fyp': { paramsTuple?: []; params?: {} }
     'posts.posts.get_posts': { paramsTuple?: []; params?: {} }
     'posts.posts.get_posts_place': { paramsTuple?: []; params?: {} }
@@ -53,22 +49,24 @@ export type ScannedRoutes = {
     'auth.new_account.store': { paramsTuple?: []; params?: {} }
     'auth.access_token.store': { paramsTuple?: []; params?: {} }
     'auth.access_token.destroy': { paramsTuple?: []; params?: {} }
-    'profile.follow': { paramsTuple?: []; params?: {} }
-    'profile.unfollow': { paramsTuple?: []; params?: {} }
-    'posts.posts.store': { paramsTuple?: []; params?: {} }
+    'profile.profile.follow': { paramsTuple?: []; params?: {} }
+    'profile.profile.unfollow': { paramsTuple?: []; params?: {} }
     'comments.comments.store': { paramsTuple?: []; params?: {} }
+    'ratings.ratings.set': { paramsTuple?: []; params?: {} }
+  }
+  PUT: {
+    'posts.posts.store': { paramsTuple?: []; params?: {} }
+    'posts.posts.rate': { paramsTuple?: []; params?: {} }
+    'comments.comments.like': { paramsTuple?: []; params?: {} }
   }
   DELETE: {
     'posts.posts.delete': { paramsTuple?: []; params?: {} }
+    'comments.comments.delete': { paramsTuple?: []; params?: {} }
     'comments.comments.remove_like': { paramsTuple?: []; params?: {} }
   }
   PATCH: {
     'posts.posts.update': { paramsTuple?: []; params?: {} }
     'comments.comments.update': { paramsTuple?: []; params?: {} }
-  }
-  PUT: {
-    'posts.posts.rate': { paramsTuple?: []; params?: {} }
-    'comments.comments.like': { paramsTuple?: []; params?: {} }
   }
 }
 declare module '@adonisjs/core/types/http' {

@@ -4,7 +4,8 @@ import {
   commentLikeValidator,
   commentPageValidator,
   commentStoreValidator,
-  commentUpdateValidator
+  commentUpdateValidator,
+  commentDeleteValidator
 } from "#validators/comment";
 import type {HttpContext} from '@adonisjs/core/http'
 import db from '@adonisjs/lucid/services/db'
@@ -161,6 +162,7 @@ export default class CommentsController {
       })
     }
   }
+
   async like({request, response, auth}: HttpContext) {
     const user = auth.use("api").user;
     if (user == undefined) {
@@ -187,6 +189,7 @@ export default class CommentsController {
           {message : "Failed to like", error : true});
     }
   }
+
   async removeLike({request, response, auth}: HttpContext) {
     const user = auth.use("api").user;
     if (user == undefined) {
@@ -208,6 +211,81 @@ export default class CommentsController {
       console.error("Error:", error);
       return response.internalServerError(
           {message : "Failed to remove like", error : true});
+    }
+  }
+
+  async delete({ request, response, auth }: HttpContext) {
+    const user = auth.use('api').user
+
+    if (!user) {
+      return response.unauthorized({
+        message: 'User not authenticated',
+        error: true,
+      })
+    }
+
+    try {
+      const data = await request.validateUsing(commentDeleteValidator)
+
+      const comment = await Comment.find(data.commentId)
+
+      if (!comment) {
+        return response.notFound({
+          message: 'Comment not found',
+          error: true,
+        })
+      }
+
+      if (comment.userId !== user.id) {
+        return response.forbidden({
+          message: 'You can only delete your own comments',
+          error: true,
+        })
+      }
+
+      if (!comment) {
+        return response.notFound({
+          message: 'Comment not found',
+          error: true,
+        })
+      }
+
+      await db.transaction(async (trx) => {
+        const idsToDelete: number[] = []
+        const queue: number[] = [comment.id]
+
+        while (queue.length > 0) {
+          const currentId = queue.shift()!
+          idsToDelete.push(currentId)
+
+          const children = await Comment.query({ client: trx })
+            .where('parentCommentId', currentId)
+            .select('id')
+
+          for (const child of children) {
+            queue.push(child.id)
+          }
+        }
+
+        await Like.query({ client: trx })
+          .whereIn('commentId', idsToDelete)
+          .delete()
+
+        await Comment.query({ client: trx })
+          .whereIn('id', idsToDelete)
+          .delete()
+      })
+
+      return response.ok({
+        error: false,
+        message: 'Comment deleted successfully',
+      })
+    } catch (error) {
+      console.error('Error:', error)
+      return response.internalServerError({
+        message: 'Failed to delete comment',
+        error: true,
+      })
     }
   }
 }

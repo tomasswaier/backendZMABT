@@ -94,8 +94,7 @@ router.get('/docs/*', async ({ params, response }) => {
   )
   return response.download(filePath)
 })
-  router
-      .group(() => {
+  router.group(() => {
         // get place info (malo by vratit place)
         // get place posts(paginated)
         // edit post
@@ -108,29 +107,21 @@ router.get('/docs/*', async ({ params, response }) => {
                 .prefix('auth')
                 .as('auth')
 
-        router
-            .group(() => {
-              router.get('/profile', [ controllers.Profile, 'show' ])
-                  .use(middleware.auth());
-              router.get('/get', [ controllers.Profile, 'get' ])
-                  .use(middleware.auth());
-              router.post('/follow', [ controllers.Profile, 'follow' ])
-                  .use(middleware.auth());
-              router.post('/unfollow', [ controllers.Profile, 'unfollow' ])
-                  .use(middleware.auth());
-            })
-            .prefix('account')
         router.group(() => {
-                router.get('/get', [ controllers.Places, 'getInfo' ]);
+                router.get('/profile', [ controllers.Profile, 'show' ]);
+                router.post('/follow', [ controllers.Profile, 'follow' ])
+                    .use(middleware.auth());
+                router.post('/unfollow', [ controllers.Profile, 'unfollow' ])
+                    .use(middleware.auth());
               })
-                .prefix('place')
-                .as('place');
+                .prefix('account')
+                .as('profile'); //.use(middleware.auth())
         router.group(() => {
-                router.post('/create', [ controllers.Posts, 'store' ])
+                router.put('/create', [ controllers.Posts, 'store' ])
                     .use(middleware.auth());
                 router.delete('/delete', [ controllers.Posts, 'delete' ])
                     .use(middleware.auth());
-                router.patch('/update', [ controllers.Posts, 'update' ])
+                router.patch('/update', [controllers.Posts, 'update'])
                     .use(middleware.auth())
                 router.get('/getPageFyp', [ controllers.Posts, 'getPostsFyp' ]);
                 router.get('/getPage', [ controllers.Posts, 'getPosts' ]);
@@ -147,20 +138,27 @@ router.get('/docs/*', async ({ params, response }) => {
         router.group(() => {
                 router.post('/create', [ controllers.Comments, 'store' ])
                     .use(middleware.auth());
-                router.patch('/update', [ controllers.Comments, 'update' ])
+                router.patch('/update', [controllers.Comments, 'update'])
+                    .use(middleware.auth())
+                router.delete('/delete', [ controllers.Comments, 'delete' ])
                     .use(middleware.auth())
                 router.get('/getPage', [ controllers.Comments, 'getPage' ]);
-                router.put('/like', [ controllers.Comments, 'like' ])
-                    .use(middleware.auth());
-                router
-                    .delete('/removeLike',
-                            [ controllers.Comments, 'removeLike' ])
-                    .use(middleware.auth());
+                router.put('/like', [ controllers.Comments, 'like' ]);
+                router.delete('/removeLike',
+                              [ controllers.Comments, 'removeLike' ]);
+                // ]); router.get('/getPage', [ controllers.Posts, 'getPosts'
+                // ]); router.get('/getPageUser',
+                //           [ controllers.Posts, 'getUserPosts' ])
+                // router.get('/get', [ controllers.Posts, 'getPost' ]);
               })
                 .prefix('comments')
                 .as('comments')
-        /*router.group(() => {router.post('/set', [ controllers.Ratings, 'set'
-           ]) .use(middleware.auth())}) .prefix('ratings') .as('ratings')*/
+        router.group(() => {
+                router.post('/set', [controllers.Ratings, 'set'])
+                    .use(middleware.auth())
+              })
+                .prefix('ratings')
+                .as('ratings')
 
         // router.get('/uploads/*', async ({params, response}) => {return
         // "todo"})

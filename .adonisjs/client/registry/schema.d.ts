@@ -43,7 +43,7 @@ export interface Registry {
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/access_token_controller').default['destroy']>>>
     }
   }
-  'profile.show': {
+  'profile.profile.show': {
     methods: ["GET","HEAD"]
     pattern: '/api/v1/account/profile'
     types: {
@@ -55,19 +55,7 @@ export interface Registry {
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/profile_controller').default['show']>>>
     }
   }
-  'profile.get': {
-    methods: ["GET","HEAD"]
-    pattern: '/api/v1/account/get'
-    types: {
-      body: {}
-      paramsTuple: []
-      params: {}
-      query: ExtractQueryForGet<InferInput<(typeof import('#validators/user').followValidator)>>
-      response: ExtractResponse<Awaited<ReturnType<import('#controllers/profile_controller').default['get']>>>
-      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/profile_controller').default['get']>>> | { status: 422; response: { errors: SimpleError[] } }
-    }
-  }
-  'profile.follow': {
+  'profile.profile.follow': {
     methods: ["POST"]
     pattern: '/api/v1/account/follow'
     types: {
@@ -79,7 +67,7 @@ export interface Registry {
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/profile_controller').default['follow']>>> | { status: 422; response: { errors: SimpleError[] } }
     }
   }
-  'profile.unfollow': {
+  'profile.profile.unfollow': {
     methods: ["POST"]
     pattern: '/api/v1/account/unfollow'
     types: {
@@ -91,20 +79,8 @@ export interface Registry {
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/profile_controller').default['unfollow']>>> | { status: 422; response: { errors: SimpleError[] } }
     }
   }
-  'place.places.get_info': {
-    methods: ["GET","HEAD"]
-    pattern: '/api/v1/place/get'
-    types: {
-      body: {}
-      paramsTuple: []
-      params: {}
-      query: ExtractQueryForGet<InferInput<(typeof import('#validators/place').placeGetValidator)>>
-      response: ExtractResponse<Awaited<ReturnType<import('#controllers/places_controller').default['getInfo']>>>
-      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/places_controller').default['getInfo']>>> | { status: 422; response: { errors: SimpleError[] } }
-    }
-  }
   'posts.posts.store': {
-    methods: ["POST"]
+    methods: ["PUT"]
     pattern: '/api/v1/posts/create'
     types: {
       body: ExtractBody<InferInput<(typeof import('#validators/post').postStoreValidator)>>
@@ -235,6 +211,18 @@ export interface Registry {
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/comments_controller').default['update']>>> | { status: 422; response: { errors: SimpleError[] } }
     }
   }
+  'comments.comments.delete': {
+    methods: ["DELETE"]
+    pattern: '/api/v1/comments/delete'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#validators/comment').commentDeleteValidator)>>
+      paramsTuple: []
+      params: {}
+      query: ExtractQuery<InferInput<(typeof import('#validators/comment').commentDeleteValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/comments_controller').default['delete']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/comments_controller').default['delete']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
   'comments.comments.get_page': {
     methods: ["GET","HEAD"]
     pattern: '/api/v1/comments/getPage'
@@ -269,6 +257,18 @@ export interface Registry {
       query: ExtractQuery<InferInput<(typeof import('#validators/comment').commentLikeValidator)>>
       response: ExtractResponse<Awaited<ReturnType<import('#controllers/comments_controller').default['removeLike']>>>
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/comments_controller').default['removeLike']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'ratings.ratings.set': {
+    methods: ["POST"]
+    pattern: '/api/v1/ratings/set'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/ratings_controller').default['set']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/ratings_controller').default['set']>>>
     }
   }
 }
