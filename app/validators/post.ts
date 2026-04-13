@@ -27,8 +27,6 @@ export const postGetProfilePageValidator = vine.create({
 
 })
 export const postGetPagePlacesValidator = vine.create({
-
-  userId : userId().exists({table : 'users', column : 'id'}),
   placeId : placeId().exists({table : 'places', column : 'id'}),
   page : vine.number()
 

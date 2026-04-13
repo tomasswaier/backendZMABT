@@ -96,7 +96,7 @@
           "200": {
             "description": "Login successful, returns access token"
           },
-          "422": {
+          "400": {
             "description": "Invalid credentials"
           }
         }
@@ -139,7 +139,7 @@
       }
     },
     "/posts/create": {
-      "post": {
+      "put": {
         "summary": "Create a new post",
         "requestBody": {
           "required": true,
@@ -175,7 +175,7 @@
           }
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "Post created successfully"
           },
           "400": {
@@ -275,6 +275,42 @@
         ]
       }
     },
+    "/posts/getPagePlace": {
+      "get": {
+        "summary": "Get paginated posts for a place",
+        "parameters": [
+          {
+            "name": "placeId",
+            "in": "query",
+            "schema": {
+              "type": "integer"
+            },
+            "required": true
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns paginated posts for a place"
+          },
+          "422": {
+            "description": "Invalid place id"
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      }
+    },
     "/posts/get": {
       "get": {
         "summary": "Get a single post by ID",
@@ -293,7 +329,7 @@
             "description": "Returns the post"
           },
           "422": {
-            "description": "Post not found"
+            "description": "Post id invalid"
           }
         },
         "security": [
@@ -339,9 +375,6 @@
           },
           "401": {
             "description": "User not authenticated"
-          },
-          "404": {
-            "description": "Parent comment not found"
           },
           "422": {
             "description": "Parent comment does not belong to the specified post"
@@ -526,7 +559,7 @@
             "description": "Cannot delete posts of other users"
           },
           "422": {
-            "description": "Validation error"
+            "description": "Post id does is invalid"
           }
         },
         "security": [
@@ -566,7 +599,7 @@
             "description": "User not authenticated"
           },
           "422": {
-            "description": "User not found"
+            "description": "User id is Invalid"
           }
         },
         "security": [
@@ -599,11 +632,14 @@
           "200": {
             "description": "User unfollowed successfully"
           },
+          "400": {
+            "description": "Cannot unfollow yourself"
+          },
           "401": {
             "description": "User not authenticated"
           },
           "422": {
-            "description": "User not found"
+            "description": "User id is invalid"
           }
         },
         "security": [
@@ -672,37 +708,35 @@
           },
           "401": {
             "description": "User not authenticated"
+          },
+          "422": {
+            "description": "Comment not found"
           }
-        },
-        "security": [
-          {
-            "apiKeyAuth": []
-          }
-        ]
+        }
       }
     },
     "/comments/removeLike": {
       "delete": {
         "summary": "Remove like from a comment",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "commentId": {
-                    "type": "integer"
-                  }
-                },
-                "required": ["commentId"]
-              }
+        "parameters": [
+          {
+            "name": "commentId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer"
             }
           }
-        },
+        ],
         "responses": {
           "200": {
             "description": "Comment like removed successfully"
+          },
+          "401": {
+            "description": "User not authenticated"
+          },
+          "422": {
+            "description": "Comment not found"
           }
         },
         "security": [
@@ -751,6 +785,36 @@
           },
           "404": {
             "description": "Post not found"
+          }
+        }
+      }
+    },
+    "/account/updateBio": {
+      "patch": {
+        "summary": "Update authenticated user's bio",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "bio": {
+                    "type": "string",
+                    "maxLength": 250
+                  }
+                },
+                "required": ["bio"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Bio updated successfully"
+          },
+          "401": {
+            "description": "User not authenticated"
           }
         },
         "security": [

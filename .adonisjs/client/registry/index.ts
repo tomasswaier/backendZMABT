@@ -42,6 +42,12 @@ const routes = {
     tokens: [{"old":"/api/v1/account/unfollow","type":0,"val":"api","end":""},{"old":"/api/v1/account/unfollow","type":0,"val":"v1","end":""},{"old":"/api/v1/account/unfollow","type":0,"val":"account","end":""},{"old":"/api/v1/account/unfollow","type":0,"val":"unfollow","end":""}],
     types: placeholder as Registry['profile.profile.unfollow']['types'],
   },
+  'profile.profile.update_bio': {
+    methods: ["PATCH"],
+    pattern: '/api/v1/account/updateBio',
+    tokens: [{"old":"/api/v1/account/updateBio","type":0,"val":"api","end":""},{"old":"/api/v1/account/updateBio","type":0,"val":"v1","end":""},{"old":"/api/v1/account/updateBio","type":0,"val":"account","end":""},{"old":"/api/v1/account/updateBio","type":0,"val":"updateBio","end":""}],
+    types: placeholder as Registry['profile.profile.update_bio']['types'],
+  },
   'posts.posts.store': {
     methods: ["PUT"],
     pattern: '/api/v1/posts/create',

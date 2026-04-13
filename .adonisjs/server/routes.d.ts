@@ -10,6 +10,7 @@ export type ScannedRoutes = {
     'profile.profile.show': { paramsTuple?: []; params?: {} }
     'profile.profile.follow': { paramsTuple?: []; params?: {} }
     'profile.profile.unfollow': { paramsTuple?: []; params?: {} }
+    'profile.profile.update_bio': { paramsTuple?: []; params?: {} }
     'posts.posts.store': { paramsTuple?: []; params?: {} }
     'posts.posts.delete': { paramsTuple?: []; params?: {} }
     'posts.posts.update': { paramsTuple?: []; params?: {} }
@@ -65,6 +66,7 @@ export type ScannedRoutes = {
     'comments.comments.remove_like': { paramsTuple?: []; params?: {} }
   }
   PATCH: {
+    'profile.profile.update_bio': { paramsTuple?: []; params?: {} }
     'posts.posts.update': { paramsTuple?: []; params?: {} }
     'comments.comments.update': { paramsTuple?: []; params?: {} }
   }

@@ -32,6 +32,7 @@ export default class PostsController {
       return response.internalServerError({message : 'Failed to load post'})
     }
   }
+
   async getPosts({request, response}: HttpContext) {
     const data = await request.validateUsing(postGetProfilePageValidator)
     try {
@@ -61,6 +62,7 @@ export default class PostsController {
       return response.internalServerError({message : 'Failed to load posts'})
     }
   }
+  
   async getPostsPlace({request, response}: HttpContext) {
     const data = await request.validateUsing(postGetPagePlacesValidator)
     try {
@@ -75,6 +77,7 @@ export default class PostsController {
       return response.internalServerError({message : "Failed to load posts"});
     }
   }
+
   async getUserPosts({auth, request, response}: HttpContext) {
     const data = await request.validateUsing(postGetPageValidator)
     try {
@@ -122,6 +125,7 @@ export default class PostsController {
       return response.internalServerError({message : 'Failed to create post'})
     }
   }
+
   async delete({request, response, auth}: HttpContext) {
     const data = await request.validateUsing(postGetValidator)
     try {
@@ -146,6 +150,7 @@ export default class PostsController {
       return response.internalServerError({message : "Failed to load post"});
     }
   }
+
   async rate({request, response, auth}: HttpContext) {
     const data = await request.validateUsing(postRateValidator)
     try {

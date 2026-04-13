@@ -16,6 +16,7 @@ export interface ApiDefinition {
       show: typeof routes['profile.profile.show']
       follow: typeof routes['profile.profile.follow']
       unfollow: typeof routes['profile.profile.unfollow']
+      updateBio: typeof routes['profile.profile.update_bio']
     }
   }
   posts: {

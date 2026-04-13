@@ -113,6 +113,8 @@ router.get('/docs/*', async ({ params, response }) => {
                     .use(middleware.auth());
                 router.post('/unfollow', [ controllers.Profile, 'unfollow' ])
                     .use(middleware.auth());
+                router.patch('/updateBio', [ controllers.Profile, 'updateBio' ])
+                    .use(middleware.auth());
               })
                 .prefix('account')
                 .as('profile'); //.use(middleware.auth())
