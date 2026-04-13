@@ -55,11 +55,6 @@ export type ScannedRoutes = {
     'comments.comments.store': { paramsTuple?: []; params?: {} }
     'ratings.ratings.set': { paramsTuple?: []; params?: {} }
   }
-  PATCH: {
-    'profile.profile.update_bio': { paramsTuple?: []; params?: {} }
-    'posts.posts.update': { paramsTuple?: []; params?: {} }
-    'comments.comments.update': { paramsTuple?: []; params?: {} }
-  }
   PUT: {
     'posts.posts.store': { paramsTuple?: []; params?: {} }
     'posts.posts.rate': { paramsTuple?: []; params?: {} }
@@ -69,6 +64,11 @@ export type ScannedRoutes = {
     'posts.posts.delete': { paramsTuple?: []; params?: {} }
     'comments.comments.delete': { paramsTuple?: []; params?: {} }
     'comments.comments.remove_like': { paramsTuple?: []; params?: {} }
+  }
+  PATCH: {
+    'profile.profile.update_bio': { paramsTuple?: []; params?: {} }
+    'posts.posts.update': { paramsTuple?: []; params?: {} }
+    'comments.comments.update': { paramsTuple?: []; params?: {} }
   }
 }
 declare module '@adonisjs/core/types/http' {
