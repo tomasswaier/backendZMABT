@@ -79,6 +79,18 @@ export interface Registry {
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/profile_controller').default['unfollow']>>> | { status: 422; response: { errors: SimpleError[] } }
     }
   }
+  'profile.profile.update_bio': {
+    methods: ["PATCH"]
+    pattern: '/api/v1/account/updateBio'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#validators/user').updateBioValidator)>>
+      paramsTuple: []
+      params: {}
+      query: ExtractQuery<InferInput<(typeof import('#validators/user').updateBioValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/profile_controller').default['updateBio']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/profile_controller').default['updateBio']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
   'posts.posts.store': {
     methods: ["PUT"]
     pattern: '/api/v1/posts/create'
