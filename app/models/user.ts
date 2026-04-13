@@ -5,7 +5,7 @@ import {withAuthFinder} from '@adonisjs/auth/mixins/lucid'
 import {compose} from '@adonisjs/core/helpers'
 import hash from '@adonisjs/core/services/hash'
 import {BaseModel, column, hasMany} from '@adonisjs/lucid/orm'
-import type {HasMany} from "@adonisjs/lucid/types/relations";
+import type {HasMany} from '@adonisjs/lucid/types/relations'
 import {DateTime} from 'luxon'
 
 import Post from './post.js'
@@ -17,12 +17,12 @@ const AuthFinder = withAuthFinder(hash, {
 
 export default class User extends compose
 (BaseModel, AuthFinder) {
+
   public static table = 'users';
 
-  // Access tokens
   public static accessTokens = DbAccessTokensProvider.forModel(User, {
-    table : "auth_access_tokens",
-    expiresIn : "30 days",
+    table : 'auth_access_tokens',
+    expiresIn : '30 days',
   });
 
   @column({isPrimary : true}) declare id: number;
@@ -31,17 +31,18 @@ export default class User extends compose
 
   @column() declare email: string;
 
-  @column({serializeAs : null}) declare password: string;
+  @column({serializeAs : null}) declare password?: string|null;
 
   @column() declare bio: string;
 
   @column() declare profilePicturePath?: string|null;
 
-  @column
-      .dateTime({autoCreate : true}) declare createdAt: DateTime
+  @column.dateTime({autoCreate : true}) declare createdAt: DateTime;
 
-      @column.dateTime({autoCreate : true, autoUpdate : true})
-          declare updatedAt: DateTime|null
-      @hasMany(() => Post, {foreignKey : 'userId'}) declare posts:
-          HasMany<typeof Post>;
+  @column
+      .dateTime({autoCreate : true, autoUpdate : true})
+          declare updatedAt: DateTime|null;
+
+  @hasMany(() => Post, {foreignKey : 'userId'})
+  declare posts: HasMany<typeof Post>;
 }

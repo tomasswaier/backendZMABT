@@ -102,6 +102,7 @@ router.get('/docs/*', async ({ params, response }) => {
         router.group(() => {
                 router.post('signup', [ controllers.NewAccount, 'store' ]);
                 router.post('login', [ controllers.AccessToken, 'store' ])
+                router.post('google', [ controllers.NewAccount, 'google' ])
                 router.post('logout', [ controllers.AccessToken, 'destroy' ])
                     .use(middleware.auth())
               })

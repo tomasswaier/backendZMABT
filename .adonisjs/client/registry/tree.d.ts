@@ -5,6 +5,8 @@ export interface ApiDefinition {
   auth: {
     newAccount: {
       store: typeof routes['auth.new_account.store']
+      google: typeof routes['auth.new_account.google']
+      apple: typeof routes['auth.new_account.apple']
     }
     accessToken: {
       store: typeof routes['auth.access_token.store']

@@ -6,6 +6,8 @@ export type ScannedRoutes = {
   ALL: {
     'auth.new_account.store': { paramsTuple?: []; params?: {} }
     'auth.access_token.store': { paramsTuple?: []; params?: {} }
+    'auth.new_account.google': { paramsTuple?: []; params?: {} }
+    'auth.new_account.apple': { paramsTuple?: []; params?: {} }
     'auth.access_token.destroy': { paramsTuple?: []; params?: {} }
     'profile.show': { paramsTuple?: []; params?: {} }
     'profile.get': { paramsTuple?: []; params?: {} }
@@ -52,6 +54,8 @@ export type ScannedRoutes = {
   POST: {
     'auth.new_account.store': { paramsTuple?: []; params?: {} }
     'auth.access_token.store': { paramsTuple?: []; params?: {} }
+    'auth.new_account.google': { paramsTuple?: []; params?: {} }
+    'auth.new_account.apple': { paramsTuple?: []; params?: {} }
     'auth.access_token.destroy': { paramsTuple?: []; params?: {} }
     'profile.follow': { paramsTuple?: []; params?: {} }
     'profile.unfollow': { paramsTuple?: []; params?: {} }

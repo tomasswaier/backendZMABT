@@ -137,9 +137,26 @@ export class RatingSchema extends BaseModel {
   declare userId: number
 }
 
+export class UserIdentitySchema extends BaseModel {
+  static $columns = ['createdAt', 'id', 'provider', 'providerUserId', 'userId'] as const
+  $columns = UserIdentitySchema.$columns
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime | null
+  @column({ isPrimary: true })
+  declare id: number
+  @column()
+  declare provider: string
+  @column()
+  declare providerUserId: string
+  @column()
+  declare userId: number | null
+}
+
 export class UserSchema extends BaseModel {
-  static $columns = ['bio', 'createdAt', 'email', 'id', 'password', 'profilePicturePath', 'updatedAt', 'username'] as const
+  static $columns = ['authProvider', 'bio', 'createdAt', 'email', 'id', 'password', 'profilePicturePath', 'providerUserId', 'updatedAt', 'username'] as const
   $columns = UserSchema.$columns
+  @column()
+  declare authProvider: string | null
   @column()
   declare bio: string
   @column.dateTime({ autoCreate: true })
@@ -149,9 +166,11 @@ export class UserSchema extends BaseModel {
   @column({ isPrimary: true })
   declare id: number
   @column({ serializeAs: null })
-  declare password: string
+  declare password: string | null
   @column()
   declare profilePicturePath: string | null
+  @column()
+  declare providerUserId: string | null
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime | null
   @column()
