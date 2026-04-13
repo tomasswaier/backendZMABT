@@ -146,8 +146,6 @@ router.get('/docs/*', async ({ params, response }) => {
                 .prefix('posts')
                 .as('posts'); //.use(middleware.auth())
         router.group(() => {
-                router.post('/create', [ controllers.Comments, 'store' ])
-                    .use(middleware.auth());
                 router.patch('/update', [ controllers.Comments, 'update' ])
                     .use(middleware.auth())
                 router.get('/getPage', [ controllers.Comments, 'getPage' ]);
