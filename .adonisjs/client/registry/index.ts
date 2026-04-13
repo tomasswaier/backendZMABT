@@ -18,6 +18,18 @@ const routes = {
     tokens: [{"old":"/api/v1/auth/login","type":0,"val":"api","end":""},{"old":"/api/v1/auth/login","type":0,"val":"v1","end":""},{"old":"/api/v1/auth/login","type":0,"val":"auth","end":""},{"old":"/api/v1/auth/login","type":0,"val":"login","end":""}],
     types: placeholder as Registry['auth.access_token.store']['types'],
   },
+  'auth.new_account.google': {
+    methods: ["POST"],
+    pattern: '/api/v1/auth/google',
+    tokens: [{"old":"/api/v1/auth/google","type":0,"val":"api","end":""},{"old":"/api/v1/auth/google","type":0,"val":"v1","end":""},{"old":"/api/v1/auth/google","type":0,"val":"auth","end":""},{"old":"/api/v1/auth/google","type":0,"val":"google","end":""}],
+    types: placeholder as Registry['auth.new_account.google']['types'],
+  },
+  'auth.new_account.apple': {
+    methods: ["POST"],
+    pattern: '/api/v1/auth/apple',
+    tokens: [{"old":"/api/v1/auth/apple","type":0,"val":"api","end":""},{"old":"/api/v1/auth/apple","type":0,"val":"v1","end":""},{"old":"/api/v1/auth/apple","type":0,"val":"auth","end":""},{"old":"/api/v1/auth/apple","type":0,"val":"apple","end":""}],
+    types: placeholder as Registry['auth.new_account.apple']['types'],
+  },
   'auth.access_token.destroy': {
     methods: ["POST"],
     pattern: '/api/v1/auth/logout',
