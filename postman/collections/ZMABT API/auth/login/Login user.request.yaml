@@ -1,0 +1,35 @@
+$kind: http-request
+url: "{{baseUrl}}/auth/login"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "username": "st",
+      "password": "string"
+    }
+examples: ./.resources/Login user.resources/examples
+order: 1000
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status code is 200", () => {
+        pm.response.to.have.status(200);
+      });
+      pm.test("Response time is less than 2000ms", () => {
+        pm.expect(pm.response.responseTime).to.be.below(2000);
+      });
+      pm.test("Response is JSON", () => {
+        pm.response.to.be.json;
+      });
+      pm.test("Response contains access token", () => {
+        const json = pm.response.json();
+        pm.expect(json).to.have.property("token");
+        pm.expect(json.token).to.be.a("string").and.not.empty;
+      });
+      if (pm.response.code === 200) {
+        pm.environment.set("bearerToken", pm.response.json().token);
+      }

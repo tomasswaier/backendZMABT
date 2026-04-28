@@ -1,0 +1,32 @@
+$kind: http-request
+url: "{{baseUrl}}/auth/signup"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "username": "string",
+      "email": "51HfIEdaL@TcKT.xp",
+      "password": "string",
+      "passwordConfirmation": "string"
+    }
+examples: ./.resources/Create a new user account.resources/examples
+order: 1000
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status code is 200", () => {
+        pm.response.to.have.status(200);
+      });
+      pm.test("Response time is less than 2000ms", () => {
+        pm.expect(pm.response.responseTime).to.be.below(2000);
+      });
+      pm.test("Response is JSON", () => {
+        pm.response.to.be.json;
+      });
+      pm.test("Response body is present", () => {
+        pm.expect(pm.response.json()).to.be.an("object");
+      });

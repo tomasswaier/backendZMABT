@@ -1,0 +1,36 @@
+$kind: http-request
+url: "{{baseUrl}}/account/unfollow"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "userId": 5842
+    }
+auth:
+  type: bearer
+  credentials:
+    token: "{{bearerToken}}"
+examples: ./.resources/Unfollow a user.resources/examples
+order: 1000
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status code is 200", () => {
+        pm.response.to.have.status(200);
+      });
+      pm.test("Response time is less than 2000ms", () => {
+        pm.expect(pm.response.responseTime).to.be.below(2000);
+      });
+      pm.test("Response is JSON", () => {
+        pm.response.to.be.json;
+      });
+      pm.test("Not unauthorized (401)", () => {
+        pm.expect(pm.response.code).to.not.equal(401);
+      });
+      pm.test("Not an invalid user id error (422)", () => {
+        pm.expect(pm.response.code).to.not.equal(422);
+      });

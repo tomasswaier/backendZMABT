@@ -1,0 +1,41 @@
+$kind: http-request
+url: "{{baseUrl}}/comments/create"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "content": "string",
+      "postId": 8497,
+      "commentId": 9296
+    }
+auth:
+  type: bearer
+  credentials:
+    token: "{{bearerToken}}"
+examples: ./.resources/Create a new comment.resources/examples
+order: 1000
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status code is 200", () => {
+        pm.response.to.have.status(200);
+      });
+      pm.test("Response time is less than 2000ms", () => {
+        pm.expect(pm.response.responseTime).to.be.below(2000);
+      });
+      pm.test("Response is JSON", () => {
+        pm.response.to.be.json;
+      });
+      pm.test("Created comment object is returned", () => {
+        pm.expect(pm.response.json()).to.be.an("object");
+      });
+      pm.test("Not unauthorized (401)", () => {
+        pm.expect(pm.response.code).to.not.equal(401);
+      });
+      pm.test("Not an invalid id error (422)", () => {
+        pm.expect(pm.response.code).to.not.equal(422);
+      });

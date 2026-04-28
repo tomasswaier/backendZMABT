@@ -1,0 +1,29 @@
+$kind: socket.io-request
+url: 'http://localhost:3333'
+auth:
+  type: bearer
+  credentials:
+    - key: token
+      value: '{{bearerToken}}'
+headers:
+  - key: Authorization
+    value: 'Bearer {{bearerToken}}'
+queryParams:
+  - key: token
+    value: '{{bearerToken}}'
+events:
+  - name: authError
+    subscribeOnConnect: true
+    description: Emitted by server if token is missing or invalid
+  - name: userJoined
+    subscribeOnConnect: true
+    description: Emitted by server when a user joins a post room
+  - name: newComment
+    subscribeOnConnect: true
+    description: Emitted by server when a comment is saved successfully
+  - name: commentError
+    subscribeOnConnect: true
+    description: Emitted by server when saving a comment fails
+settings:
+  path: /socket.io
+order: 1000

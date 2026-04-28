@@ -49,19 +49,23 @@ export default class PostsController {
       return response.internalServerError({message : 'Failed to load posts'})
     }
   }
-  async getPostsFyp({request, response}: HttpContext) {
-    const data = await request.validateUsing(postGetPageValidator)
-    try {
-      const posts = await Post.query()
-                        .orderBy('updated_at', 'desc')
-                        .paginate(data.page, 10)
+  
+async getPostsFyp({ request, response }: HttpContext) {
+  const data = await request.validateUsing(postGetPageValidator)
+  try {
+    const posts = await Post.query()
+      .preload('user', (query) => {
+        query.select(['id', 'username'])
+      })
+      .orderBy('updated_at', 'desc')
+      .paginate(data.page, 10)
 
-      return response.ok(posts)
-    } catch (error) {
-      console.error('Error:', error)
-      return response.internalServerError({message : 'Failed to load posts'})
-    }
+    return response.ok(posts)
+  } catch (error) {
+    console.error('Error:', error)
+    return response.internalServerError({ message: 'Failed to load posts' })
   }
+}
   
   async getPostsPlace({request, response}: HttpContext) {
     const data = await request.validateUsing(postGetPagePlacesValidator)

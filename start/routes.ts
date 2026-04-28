@@ -119,7 +119,7 @@ router.get('/docs/*', async ({ params, response }) => {
                 .prefix('account')
                 .as('profile'); //.use(middleware.auth())
         router.group(() => {
-                router.put('/create', [ controllers.Posts, 'store' ])
+                router.post('/create', [ controllers.Posts, 'store' ])
                     .use(middleware.auth());
                 router.delete('/delete', [ controllers.Posts, 'delete' ])
                     .use(middleware.auth());

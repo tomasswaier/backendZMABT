@@ -1,0 +1,47 @@
+$kind: http-request
+url: "{{baseUrl}}/posts/create"
+method: PUT
+headers:
+body:
+  type: form-data
+  content:
+    - name: postText
+      type: text
+      value: "string"
+    - name: rating
+      type: text
+      value: "3"
+    - name: longitude
+      type: text
+      value: "632.7309020646398"
+    - name: latitude
+      type: text
+      value: "5678.649860816818"
+    - name: image
+      type: file
+      value: "./database.png"
+auth:
+  type: bearer
+  credentials:
+    token: "{{bearerToken}}"
+examples: ./.resources/Create a new post.resources/examples
+order: 1000
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status code is 200", () => {
+        pm.response.to.have.status(200);
+      });
+      pm.test("Response time is less than 2000ms", () => {
+        pm.expect(pm.response.responseTime).to.be.below(2000);
+      });
+      pm.test("Response is JSON", () => {
+        pm.response.to.be.json;
+      });
+      pm.test("No validation error (400)", () => {
+        pm.expect(pm.response.code).to.not.equal(400);
+      });
+      pm.test("Created post object is returned", () => {
+        pm.expect(pm.response.json()).to.be.an("object");
+      });

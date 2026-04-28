@@ -52,23 +52,23 @@ export type ScannedRoutes = {
     'auth.access_token.destroy': { paramsTuple?: []; params?: {} }
     'profile.profile.follow': { paramsTuple?: []; params?: {} }
     'profile.profile.unfollow': { paramsTuple?: []; params?: {} }
+    'posts.posts.store': { paramsTuple?: []; params?: {} }
     'comments.comments.store': { paramsTuple?: []; params?: {} }
     'ratings.ratings.set': { paramsTuple?: []; params?: {} }
   }
-  PUT: {
-    'posts.posts.store': { paramsTuple?: []; params?: {} }
-    'posts.posts.rate': { paramsTuple?: []; params?: {} }
-    'comments.comments.like': { paramsTuple?: []; params?: {} }
+  PATCH: {
+    'profile.profile.update_bio': { paramsTuple?: []; params?: {} }
+    'posts.posts.update': { paramsTuple?: []; params?: {} }
+    'comments.comments.update': { paramsTuple?: []; params?: {} }
   }
   DELETE: {
     'posts.posts.delete': { paramsTuple?: []; params?: {} }
     'comments.comments.delete': { paramsTuple?: []; params?: {} }
     'comments.comments.remove_like': { paramsTuple?: []; params?: {} }
   }
-  PATCH: {
-    'profile.profile.update_bio': { paramsTuple?: []; params?: {} }
-    'posts.posts.update': { paramsTuple?: []; params?: {} }
-    'comments.comments.update': { paramsTuple?: []; params?: {} }
+  PUT: {
+    'posts.posts.rate': { paramsTuple?: []; params?: {} }
+    'comments.comments.like': { paramsTuple?: []; params?: {} }
   }
 }
 declare module '@adonisjs/core/types/http' {

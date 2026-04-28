@@ -1,0 +1,13 @@
+# Use this workspace to collaborate
+workspace:
+  id: c74513bc-1cea-490d-825e-1c6c13567294
+
+localResources:
+  specs:
+    - ..\swagger.json
+
+# Each entry here maps a local resource to one or more corresponding objects in Postman Cloud
+
+cloudResources:
+  collections:
+    ..\postman\collections\ZMABT API: a699d3cd-00cf-472a-b088-d1dbb01d6835

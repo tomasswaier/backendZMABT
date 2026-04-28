@@ -17,10 +17,15 @@ app.ready(() => {
   (global as any).io = io;
 
   io.on("connection", async (socket: Socket) => {
-    console.log("Client connected")
+    console.log("CONNECTED")
+    console.log("handshake.auth =", socket.handshake.auth)
+    console.log("handshake.query =", socket.handshake.query)
 
     try {
-      const token = socket.handshake.auth?.token
+      //const token = socket.handshake.auth?.token
+          const token =
+          socket.handshake.auth?.token ||
+          socket.handshake.headers?.authorization?.replace("Bearer ", "")
 
       if (!token) {
         socket.emit('authError', {message : 'Missing token'})

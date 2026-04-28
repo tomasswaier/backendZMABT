@@ -1,0 +1,30 @@
+$kind: http-request
+url: "{{baseUrl}}/posts/delete?postId=4550"
+method: DELETE
+queryParams:
+  postId: "4550"
+auth:
+  type: bearer
+  credentials:
+    token: "{{bearerToken}}"
+examples: ./.resources/Delete a post.resources/examples
+order: 1000
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status code is 200", () => {
+        pm.response.to.have.status(200);
+      });
+      pm.test("Response time is less than 2000ms", () => {
+        pm.expect(pm.response.responseTime).to.be.below(2000);
+      });
+      pm.test("Not unauthorized (401)", () => {
+        pm.expect(pm.response.code).to.not.equal(401);
+      });
+      pm.test("Not forbidden (403)", () => {
+        pm.expect(pm.response.code).to.not.equal(403);
+      });
+      pm.test("Not an invalid post id error (422)", () => {
+        pm.expect(pm.response.code).to.not.equal(422);
+      });

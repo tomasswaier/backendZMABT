@@ -1,0 +1,4 @@
+$kind: collection
+description: API documentation for ZMABT backend
+variables:
+  baseUrl: http://localhost:3333/api/v1/

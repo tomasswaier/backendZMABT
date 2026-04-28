@@ -92,7 +92,7 @@ export interface Registry {
     }
   }
   'posts.posts.store': {
-    methods: ["PUT"]
+    methods: ["POST"]
     pattern: '/api/v1/posts/create'
     types: {
       body: ExtractBody<InferInput<(typeof import('#validators/post').postStoreValidator)>>
