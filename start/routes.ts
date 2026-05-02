@@ -114,7 +114,7 @@ router.get('/docs/*', async ({ params, response }) => {
               router.get('/profile', [ controllers.Profile, 'show' ])
                   .use(middleware.auth());
               router.get('/get', [ controllers.Profile, 'get' ])
-                  .use(middleware.auth());
+              //.use(middleware.auth());
               router.post('/follow', [ controllers.Profile, 'follow' ])
                   .use(middleware.auth());
               router.post('/unfollow', [ controllers.Profile, 'unfollow' ])
@@ -123,6 +123,7 @@ router.get('/docs/*', async ({ params, response }) => {
             .prefix('account')
         router.group(() => {
                 router.get('/get', [ controllers.Places, 'getInfo' ]);
+                router.get('/getAll', [ controllers.Places, 'getAll' ]);
               })
                 .prefix('place')
                 .as('place');

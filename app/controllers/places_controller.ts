@@ -25,6 +25,7 @@ export default class PlacesController {
         .where("longitude", longitude)
         .limit(1);
   }
+  async getAll() { return await Place.all() }
   async getInfo({request, response}: HttpContext) {
     const data = await request.validateUsing(placeGetValidator)
     var place = null

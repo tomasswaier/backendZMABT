@@ -7,13 +7,13 @@ export type ScannedRoutes = {
     'auth.new_account.store': { paramsTuple?: []; params?: {} }
     'auth.access_token.store': { paramsTuple?: []; params?: {} }
     'auth.new_account.google': { paramsTuple?: []; params?: {} }
-    'auth.new_account.apple': { paramsTuple?: []; params?: {} }
     'auth.access_token.destroy': { paramsTuple?: []; params?: {} }
     'profile.show': { paramsTuple?: []; params?: {} }
     'profile.get': { paramsTuple?: []; params?: {} }
     'profile.follow': { paramsTuple?: []; params?: {} }
     'profile.unfollow': { paramsTuple?: []; params?: {} }
     'place.places.get_info': { paramsTuple?: []; params?: {} }
+    'place.places.get_all': { paramsTuple?: []; params?: {} }
     'posts.posts.store': { paramsTuple?: []; params?: {} }
     'posts.posts.delete': { paramsTuple?: []; params?: {} }
     'posts.posts.update': { paramsTuple?: []; params?: {} }
@@ -23,7 +23,6 @@ export type ScannedRoutes = {
     'posts.posts.get_user_posts': { paramsTuple?: []; params?: {} }
     'posts.posts.get_post': { paramsTuple?: []; params?: {} }
     'posts.posts.rate': { paramsTuple?: []; params?: {} }
-    'comments.comments.store': { paramsTuple?: []; params?: {} }
     'comments.comments.update': { paramsTuple?: []; params?: {} }
     'comments.comments.get_page': { paramsTuple?: []; params?: {} }
     'comments.comments.like': { paramsTuple?: []; params?: {} }
@@ -33,6 +32,7 @@ export type ScannedRoutes = {
     'profile.show': { paramsTuple?: []; params?: {} }
     'profile.get': { paramsTuple?: []; params?: {} }
     'place.places.get_info': { paramsTuple?: []; params?: {} }
+    'place.places.get_all': { paramsTuple?: []; params?: {} }
     'posts.posts.get_posts_fyp': { paramsTuple?: []; params?: {} }
     'posts.posts.get_posts': { paramsTuple?: []; params?: {} }
     'posts.posts.get_posts_place': { paramsTuple?: []; params?: {} }
@@ -44,6 +44,7 @@ export type ScannedRoutes = {
     'profile.show': { paramsTuple?: []; params?: {} }
     'profile.get': { paramsTuple?: []; params?: {} }
     'place.places.get_info': { paramsTuple?: []; params?: {} }
+    'place.places.get_all': { paramsTuple?: []; params?: {} }
     'posts.posts.get_posts_fyp': { paramsTuple?: []; params?: {} }
     'posts.posts.get_posts': { paramsTuple?: []; params?: {} }
     'posts.posts.get_posts_place': { paramsTuple?: []; params?: {} }
@@ -55,12 +56,10 @@ export type ScannedRoutes = {
     'auth.new_account.store': { paramsTuple?: []; params?: {} }
     'auth.access_token.store': { paramsTuple?: []; params?: {} }
     'auth.new_account.google': { paramsTuple?: []; params?: {} }
-    'auth.new_account.apple': { paramsTuple?: []; params?: {} }
     'auth.access_token.destroy': { paramsTuple?: []; params?: {} }
     'profile.follow': { paramsTuple?: []; params?: {} }
     'profile.unfollow': { paramsTuple?: []; params?: {} }
     'posts.posts.store': { paramsTuple?: []; params?: {} }
-    'comments.comments.store': { paramsTuple?: []; params?: {} }
   }
   DELETE: {
     'posts.posts.delete': { paramsTuple?: []; params?: {} }

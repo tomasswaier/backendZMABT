@@ -24,12 +24,6 @@ const routes = {
     tokens: [{"old":"/api/v1/auth/google","type":0,"val":"api","end":""},{"old":"/api/v1/auth/google","type":0,"val":"v1","end":""},{"old":"/api/v1/auth/google","type":0,"val":"auth","end":""},{"old":"/api/v1/auth/google","type":0,"val":"google","end":""}],
     types: placeholder as Registry['auth.new_account.google']['types'],
   },
-  'auth.new_account.apple': {
-    methods: ["POST"],
-    pattern: '/api/v1/auth/apple',
-    tokens: [{"old":"/api/v1/auth/apple","type":0,"val":"api","end":""},{"old":"/api/v1/auth/apple","type":0,"val":"v1","end":""},{"old":"/api/v1/auth/apple","type":0,"val":"auth","end":""},{"old":"/api/v1/auth/apple","type":0,"val":"apple","end":""}],
-    types: placeholder as Registry['auth.new_account.apple']['types'],
-  },
   'auth.access_token.destroy': {
     methods: ["POST"],
     pattern: '/api/v1/auth/logout',
@@ -65,6 +59,12 @@ const routes = {
     pattern: '/api/v1/place/get',
     tokens: [{"old":"/api/v1/place/get","type":0,"val":"api","end":""},{"old":"/api/v1/place/get","type":0,"val":"v1","end":""},{"old":"/api/v1/place/get","type":0,"val":"place","end":""},{"old":"/api/v1/place/get","type":0,"val":"get","end":""}],
     types: placeholder as Registry['place.places.get_info']['types'],
+  },
+  'place.places.get_all': {
+    methods: ["GET","HEAD"],
+    pattern: '/api/v1/place/getAll',
+    tokens: [{"old":"/api/v1/place/getAll","type":0,"val":"api","end":""},{"old":"/api/v1/place/getAll","type":0,"val":"v1","end":""},{"old":"/api/v1/place/getAll","type":0,"val":"place","end":""},{"old":"/api/v1/place/getAll","type":0,"val":"getAll","end":""}],
+    types: placeholder as Registry['place.places.get_all']['types'],
   },
   'posts.posts.store': {
     methods: ["POST"],
@@ -119,12 +119,6 @@ const routes = {
     pattern: '/api/v1/posts/rate',
     tokens: [{"old":"/api/v1/posts/rate","type":0,"val":"api","end":""},{"old":"/api/v1/posts/rate","type":0,"val":"v1","end":""},{"old":"/api/v1/posts/rate","type":0,"val":"posts","end":""},{"old":"/api/v1/posts/rate","type":0,"val":"rate","end":""}],
     types: placeholder as Registry['posts.posts.rate']['types'],
-  },
-  'comments.comments.store': {
-    methods: ["POST"],
-    pattern: '/api/v1/comments/create',
-    tokens: [{"old":"/api/v1/comments/create","type":0,"val":"api","end":""},{"old":"/api/v1/comments/create","type":0,"val":"v1","end":""},{"old":"/api/v1/comments/create","type":0,"val":"comments","end":""},{"old":"/api/v1/comments/create","type":0,"val":"create","end":""}],
-    types: placeholder as Registry['comments.comments.store']['types'],
   },
   'comments.comments.update': {
     methods: ["PATCH"],

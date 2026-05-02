@@ -43,18 +43,6 @@ export interface Registry {
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/new_account_controller').default['google']>>>
     }
   }
-  'auth.new_account.apple': {
-    methods: ["POST"]
-    pattern: '/api/v1/auth/apple'
-    types: {
-      body: {}
-      paramsTuple: []
-      params: {}
-      query: {}
-      response: ExtractResponse<Awaited<ReturnType<import('#controllers/new_account_controller').default['apple']>>>
-      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/new_account_controller').default['apple']>>>
-    }
-  }
   'auth.access_token.destroy': {
     methods: ["POST"]
     pattern: '/api/v1/auth/logout'
@@ -125,6 +113,18 @@ export interface Registry {
       query: ExtractQueryForGet<InferInput<(typeof import('#validators/place').placeGetValidator)>>
       response: ExtractResponse<Awaited<ReturnType<import('#controllers/places_controller').default['getInfo']>>>
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/places_controller').default['getInfo']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'place.places.get_all': {
+    methods: ["GET","HEAD"]
+    pattern: '/api/v1/place/getAll'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/places_controller').default['getAll']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/places_controller').default['getAll']>>>
     }
   }
   'posts.posts.store': {
@@ -233,18 +233,6 @@ export interface Registry {
       query: ExtractQuery<InferInput<(typeof import('#validators/post').postRateValidator)>>
       response: ExtractResponse<Awaited<ReturnType<import('#controllers/posts_controller').default['rate']>>>
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/posts_controller').default['rate']>>> | { status: 422; response: { errors: SimpleError[] } }
-    }
-  }
-  'comments.comments.store': {
-    methods: ["POST"]
-    pattern: '/api/v1/comments/create'
-    types: {
-      body: ExtractBody<InferInput<(typeof import('#validators/comment').commentStoreValidator)>>
-      paramsTuple: []
-      params: {}
-      query: ExtractQuery<InferInput<(typeof import('#validators/comment').commentStoreValidator)>>
-      response: ExtractResponse<Awaited<ReturnType<import('#controllers/comments_controller').default['store']>>>
-      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/comments_controller').default['store']>>> | { status: 422; response: { errors: SimpleError[] } }
     }
   }
   'comments.comments.update': {

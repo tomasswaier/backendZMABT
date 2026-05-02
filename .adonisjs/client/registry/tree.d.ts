@@ -6,7 +6,6 @@ export interface ApiDefinition {
     newAccount: {
       store: typeof routes['auth.new_account.store']
       google: typeof routes['auth.new_account.google']
-      apple: typeof routes['auth.new_account.apple']
     }
     accessToken: {
       store: typeof routes['auth.access_token.store']
@@ -22,6 +21,7 @@ export interface ApiDefinition {
   place: {
     places: {
       getInfo: typeof routes['place.places.get_info']
+      getAll: typeof routes['place.places.get_all']
     }
   }
   posts: {
@@ -39,7 +39,6 @@ export interface ApiDefinition {
   }
   comments: {
     comments: {
-      store: typeof routes['comments.comments.store']
       update: typeof routes['comments.comments.update']
       getPage: typeof routes['comments.comments.get_page']
       like: typeof routes['comments.comments.like']
