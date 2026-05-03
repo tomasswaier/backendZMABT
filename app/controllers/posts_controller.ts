@@ -1,3 +1,4 @@
+import Place from '#models/place'
 import Post from '#models/post'
 import Rating from '#models/rating'
 import User from '#models/user'
@@ -141,13 +142,21 @@ async getPostsFyp({ request, response }: HttpContext) {
         return response.forbidden({"message" : "This post can not be deleted by you"});
       }
 
+      const placeId = post.placeId
+
       const postImages = await post!.related('images').query()
       postImages.forEach(postImage => {
         const fileName = postImage.imagePath;
 
         drive.use('fs').delete(`${fileName}`);
       });
-      post.delete()
+      await post.delete()
+
+      const remainingPosts = await Post.query().where('placeId', placeId).count('* as total')
+      if (Number(remainingPosts[0].$extras.total) === 0) {
+        await Place.query().where('id', placeId).delete()
+      }
+
       return response.ok({"message" : "Post delete successfully"});
     } catch (error) {
       console.error("Error:", error);

@@ -122,13 +122,60 @@
     },
     "/account/profile": {
       "get": {
-        "summary": "Get authenticated user's profile",
+        "summary": "Get user profile",
+        "description": "Without userId returns the authenticated user's own profile. With userId returns another user's profile and whether the authenticated user follows them.",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "query",
+            "required": false,
+            "schema": { "type": "integer" },
+            "description": "ID of the user to view. Omit to get own profile."
+          }
+        ],
         "responses": {
           "200": {
-            "description": "Returns authenticated user's profile"
+            "description": "Own profile (no userId)",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "ownProfile": {
+                    "summary": "Own profile (no userId)",
+                    "value": {
+                      "user": {
+                        "id": 1,
+                        "username": "johndoe",
+                        "email": "john@example.com",
+                        "bio": "...",
+                        "createdAt": "2026-01-01T00:00:00.000Z",
+                        "updatedAt": "2026-01-01T00:00:00.000Z"
+                      }
+                    }
+                  },
+                  "otherProfile": {
+                    "summary": "Other user's profile (with userId)",
+                    "value": {
+                      "user": {
+                        "id": 5,
+                        "username": "janedoe",
+                        "email": "jane@example.com",
+                        "bio": "...",
+                        "profilePicturePath": "uploads/abc.jpg",
+                        "createdAt": "2026-01-01T00:00:00.000Z",
+                        "updatedAt": "2026-01-01T00:00:00.000Z"
+                      },
+                      "isFollowing": true
+                    }
+                  }
+                }
+              }
+            }
           },
           "401": {
             "description": "User not authenticated"
+          },
+          "404": {
+            "description": "User not found"
           }
         },
         "security": [
@@ -785,6 +832,89 @@
           },
           "404": {
             "description": "Post not found"
+          }
+        }
+      }
+    },
+    "/places": {
+      "get": {
+        "summary": "Get all places",
+        "description": "Returns all places with their coordinates. Used to render pins on the map.",
+        "responses": {
+          "200": {
+            "description": "List of all places",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": { "type": "integer" },
+                      "latitude": { "type": "number" },
+                      "longitude": { "type": "number" },
+                      "aiDescription": { "type": "string" },
+                      "createdAt": { "type": "string", "format": "date-time" }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/places/info": {
+      "get": {
+        "summary": "Get place detail with average rating",
+        "description": "Returns a single place by ID or coordinates, along with its average star rating.",
+        "parameters": [
+          {
+            "name": "placeId",
+            "in": "query",
+            "required": false,
+            "schema": { "type": "integer" }
+          },
+          {
+            "name": "latitude",
+            "in": "query",
+            "required": false,
+            "schema": { "type": "number" }
+          },
+          {
+            "name": "longitude",
+            "in": "query",
+            "required": false,
+            "schema": { "type": "number" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns the place and its average rating",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "place": {
+                      "type": "object",
+                      "nullable": true,
+                      "properties": {
+                        "id": { "type": "integer" },
+                        "latitude": { "type": "number" },
+                        "longitude": { "type": "number" },
+                        "aiDescription": { "type": "string" },
+                        "createdAt": { "type": "string", "format": "date-time" }
+                      }
+                    },
+                    "rating": { "type": "number", "nullable": true }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation error"
           }
         }
       }

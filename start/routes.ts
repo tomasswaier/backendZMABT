@@ -67,11 +67,16 @@ router.get('/uploads/:filename', async ({params, response}: HttpContext) => {
 
 router.get('/docs', async ({response}) => {
   const filePath = resolve('./node_modules/swagger-ui-dist/index.html')
+  const html = await readFile(filePath, 'utf-8')
+  return response.type('html').send(html)
+})
 
-  const html = await readFile(filePath, 'utf-8');
-
-  return response.type('html').send(html.replace(
-      'https://petstore.swagger.io/v2/swagger.json', '/swagger.json'))
+router.get('/docs/swagger-initializer.js', async ({response}) => {
+  const filePath = resolve('./node_modules/swagger-ui-dist/swagger-initializer.js')
+  const js = await readFile(filePath, 'utf-8')
+  return response.type('application/javascript').send(
+    js.replace('https://petstore.swagger.io/v2/swagger.json', '/swagger.json')
+  )
 });
 
 router.get('/swagger.json', async ({response}) => {
@@ -101,6 +106,7 @@ router.get('/docs/*', async ({ params, response }) => {
         router.group(() => {
                 router.post('signup', [ controllers.NewAccount, 'store' ]);
                 router.post('login', [ controllers.AccessToken, 'store' ])
+                router.post('google', [ controllers.AccessToken, 'googleLogin' ])
                 router.post('logout', [ controllers.AccessToken, 'destroy' ])
                     .use(middleware.auth())
               })
@@ -109,11 +115,15 @@ router.get('/docs/*', async ({ params, response }) => {
 
         router.group(() => {
                 router.get('/profile', [ controllers.Profile, 'show' ]);
+                router.get('/profile/:userId', [ controllers.Profile, 'get' ])
+                    .use(middleware.auth());
                 router.post('/follow', [ controllers.Profile, 'follow' ])
                     .use(middleware.auth());
                 router.post('/unfollow', [ controllers.Profile, 'unfollow' ])
                     .use(middleware.auth());
                 router.patch('/updateBio', [ controllers.Profile, 'updateBio' ])
+                    .use(middleware.auth());
+                router.patch('/fcm-token', [ controllers.Profile, 'saveFcmToken' ])
                     .use(middleware.auth());
               })
                 .prefix('account')
@@ -161,6 +171,12 @@ router.get('/docs/*', async ({ params, response }) => {
               })
                 .prefix('ratings')
                 .as('ratings')
+        router.group(() => {
+                router.get('/', [ controllers.Places, 'index' ])
+                router.get('/info', [ controllers.Places, 'getInfo' ])
+              })
+                .prefix('places')
+                .as('places')
 
         // router.get('/uploads/*', async ({params, response}) => {return
         // "todo"})

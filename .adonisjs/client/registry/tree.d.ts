@@ -8,15 +8,18 @@ export interface ApiDefinition {
     }
     accessToken: {
       store: typeof routes['auth.access_token.store']
+      googleLogin: typeof routes['auth.access_token.google_login']
       destroy: typeof routes['auth.access_token.destroy']
     }
   }
   profile: {
     profile: {
       show: typeof routes['profile.profile.show']
+      get: typeof routes['profile.profile.get']
       follow: typeof routes['profile.profile.follow']
       unfollow: typeof routes['profile.profile.unfollow']
       updateBio: typeof routes['profile.profile.update_bio']
+      saveFcmToken: typeof routes['profile.profile.save_fcm_token']
     }
   }
   posts: {
@@ -45,6 +48,12 @@ export interface ApiDefinition {
   ratings: {
     ratings: {
       set: typeof routes['ratings.ratings.set']
+    }
+  }
+  places: {
+    places: {
+      index: typeof routes['places.places.index']
+      getInfo: typeof routes['places.places.get_info']
     }
   }
 }

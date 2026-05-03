@@ -46,6 +46,10 @@ export default class PlacesController {
     const rating = await this.getRating(place)
     return response.ok({place : place, rating : rating});
   }
+  async index({response}: HttpContext) {
+    const places = await Place.all()
+    return response.ok(places)
+  }
   async getRating(place: Place|null) {
     if (!place) {
       return undefined

@@ -138,7 +138,7 @@ export class RatingSchema extends BaseModel {
 }
 
 export class UserSchema extends BaseModel {
-  static $columns = ['bio', 'createdAt', 'email', 'id', 'password', 'profilePicturePath', 'updatedAt', 'username'] as const
+  static $columns = ['bio', 'createdAt', 'email', 'fcmToken', 'googleId', 'id', 'password', 'profilePicturePath', 'updatedAt', 'username'] as const
   $columns = UserSchema.$columns
   @column()
   declare bio: string
@@ -146,6 +146,10 @@ export class UserSchema extends BaseModel {
   declare createdAt: DateTime
   @column()
   declare email: string
+  @column()
+  declare fcmToken: string | null
+  @column()
+  declare googleId: string | null
   @column({ isPrimary: true })
   declare id: number
   @column({ serializeAs: null })

@@ -31,6 +31,18 @@ export interface Registry {
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/access_token_controller').default['store']>>> | { status: 422; response: { errors: SimpleError[] } }
     }
   }
+  'auth.access_token.google_login': {
+    methods: ["POST"]
+    pattern: '/api/v1/auth/google'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/access_token_controller').default['googleLogin']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/access_token_controller').default['googleLogin']>>>
+    }
+  }
   'auth.access_token.destroy': {
     methods: ["POST"]
     pattern: '/api/v1/auth/logout'
@@ -53,6 +65,18 @@ export interface Registry {
       query: {}
       response: ExtractResponse<Awaited<ReturnType<import('#controllers/profile_controller').default['show']>>>
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/profile_controller').default['show']>>>
+    }
+  }
+  'profile.profile.get': {
+    methods: ["GET","HEAD"]
+    pattern: '/api/v1/account/profile/:userId'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { userId: ParamValue }
+      query: ExtractQueryForGet<InferInput<(typeof import('#validators/user').followValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/profile_controller').default['get']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/profile_controller').default['get']>>> | { status: 422; response: { errors: SimpleError[] } }
     }
   }
   'profile.profile.follow': {
@@ -89,6 +113,18 @@ export interface Registry {
       query: ExtractQuery<InferInput<(typeof import('#validators/user').updateBioValidator)>>
       response: ExtractResponse<Awaited<ReturnType<import('#controllers/profile_controller').default['updateBio']>>>
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/profile_controller').default['updateBio']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'profile.profile.save_fcm_token': {
+    methods: ["PATCH"]
+    pattern: '/api/v1/account/fcm-token'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/profile_controller').default['saveFcmToken']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/profile_controller').default['saveFcmToken']>>>
     }
   }
   'posts.posts.store': {
@@ -281,6 +317,30 @@ export interface Registry {
       query: {}
       response: ExtractResponse<Awaited<ReturnType<import('#controllers/ratings_controller').default['set']>>>
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/ratings_controller').default['set']>>>
+    }
+  }
+  'places.places.index': {
+    methods: ["GET","HEAD"]
+    pattern: '/api/v1/places'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/places_controller').default['index']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/places_controller').default['index']>>>
+    }
+  }
+  'places.places.get_info': {
+    methods: ["GET","HEAD"]
+    pattern: '/api/v1/places/info'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: ExtractQueryForGet<InferInput<(typeof import('#validators/place').placeGetValidator)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/places_controller').default['getInfo']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/places_controller').default['getInfo']>>> | { status: 422; response: { errors: SimpleError[] } }
     }
   }
 }

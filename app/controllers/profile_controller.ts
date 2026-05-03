@@ -4,9 +4,25 @@ import UserTransformer from '#transformers/user_transformer'
 import {followValidator} from "#validators/user";
 import { updateBioValidator } from '#validators/user';
 import type {HttpContext} from '@adonisjs/core/http'
+import { sendPushNotification } from '#services/fcm_service'
 
 export default class ProfileController {
-  async show({auth, serialize}: HttpContext) {
+  async show({auth, request, response, serialize}: HttpContext) {
+    const userId = Number(request.input('userId'))
+    if (userId) {
+      const currentUser = auth.user
+      if (!currentUser) {
+        return response.internalServerError({message : 'Error occured'})
+      }
+      const user = await User.find(userId)
+      if (!user) {
+        return response.notFound({message : 'User not found'})
+      }
+      const follows = await Follow.query()
+          .where('followerId', currentUser.id)
+          .where('followingId', userId)
+      return response.ok({user, isFollowing : follows.length > 0})
+    }
     return serialize({user : UserTransformer.transform(auth.getUserOrFail())})
   }
   async get({auth, request, response}: HttpContext) {
@@ -17,11 +33,10 @@ export default class ProfileController {
     const data = await request.validateUsing(followValidator)
     const user = await User.find(data.userId)
 
-    const follows = await Follow.query().where("followerId", currentUser!.id)
-    var isFollowing = false;
-    if (follows.length > 0) {
-      isFollowing = true
-    }
+    const follows = await Follow.query()
+        .where("followerId", currentUser!.id)
+        .where("followingId", data.userId)
+    var isFollowing = follows.length > 0
 
     return response.ok({user : user, isFollowing : isFollowing})
   }
@@ -42,11 +57,33 @@ export default class ProfileController {
     try {
       await Follow.create({followerId : user.id, followingId : data.userId})
 
+      const followedUser = await User.find(data.userId)
+      if (followedUser?.fcmToken) {
+        await sendPushNotification(
+          followedUser.fcmToken,
+          'New follower',
+          `${user.username ?? user.email} started following you`
+        )
+      }
+
       return response.ok({message : "follow saved successfully"})
     } catch (error) {
       console.error("Error:", error);
       return response.internalServerError({message : "Failed to save follow."});
     }
+  }
+
+  async saveFcmToken({ auth, request, response }: HttpContext) {
+    const user = auth.user
+    if (!user) return response.unauthorized({ message: 'Unauthorized' })
+
+    const fcmToken = request.input('fcmToken')
+    if (!fcmToken) return response.badRequest({ message: 'fcmToken is required' })
+
+    user.fcmToken = fcmToken
+    await user.save()
+
+    return response.ok({ message: 'FCM token saved' })
   }
   async unfollow({auth, request, response}: HttpContext) {
     const data = await request.validateUsing(followValidator)

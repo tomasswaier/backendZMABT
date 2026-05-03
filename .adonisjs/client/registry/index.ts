@@ -18,6 +18,12 @@ const routes = {
     tokens: [{"old":"/api/v1/auth/login","type":0,"val":"api","end":""},{"old":"/api/v1/auth/login","type":0,"val":"v1","end":""},{"old":"/api/v1/auth/login","type":0,"val":"auth","end":""},{"old":"/api/v1/auth/login","type":0,"val":"login","end":""}],
     types: placeholder as Registry['auth.access_token.store']['types'],
   },
+  'auth.access_token.google_login': {
+    methods: ["POST"],
+    pattern: '/api/v1/auth/google',
+    tokens: [{"old":"/api/v1/auth/google","type":0,"val":"api","end":""},{"old":"/api/v1/auth/google","type":0,"val":"v1","end":""},{"old":"/api/v1/auth/google","type":0,"val":"auth","end":""},{"old":"/api/v1/auth/google","type":0,"val":"google","end":""}],
+    types: placeholder as Registry['auth.access_token.google_login']['types'],
+  },
   'auth.access_token.destroy': {
     methods: ["POST"],
     pattern: '/api/v1/auth/logout',
@@ -29,6 +35,12 @@ const routes = {
     pattern: '/api/v1/account/profile',
     tokens: [{"old":"/api/v1/account/profile","type":0,"val":"api","end":""},{"old":"/api/v1/account/profile","type":0,"val":"v1","end":""},{"old":"/api/v1/account/profile","type":0,"val":"account","end":""},{"old":"/api/v1/account/profile","type":0,"val":"profile","end":""}],
     types: placeholder as Registry['profile.profile.show']['types'],
+  },
+  'profile.profile.get': {
+    methods: ["GET","HEAD"],
+    pattern: '/api/v1/account/profile/:userId',
+    tokens: [{"old":"/api/v1/account/profile/:userId","type":0,"val":"api","end":""},{"old":"/api/v1/account/profile/:userId","type":0,"val":"v1","end":""},{"old":"/api/v1/account/profile/:userId","type":0,"val":"account","end":""},{"old":"/api/v1/account/profile/:userId","type":0,"val":"profile","end":""},{"old":"/api/v1/account/profile/:userId","type":1,"val":"userId","end":""}],
+    types: placeholder as Registry['profile.profile.get']['types'],
   },
   'profile.profile.follow': {
     methods: ["POST"],
@@ -47,6 +59,12 @@ const routes = {
     pattern: '/api/v1/account/updateBio',
     tokens: [{"old":"/api/v1/account/updateBio","type":0,"val":"api","end":""},{"old":"/api/v1/account/updateBio","type":0,"val":"v1","end":""},{"old":"/api/v1/account/updateBio","type":0,"val":"account","end":""},{"old":"/api/v1/account/updateBio","type":0,"val":"updateBio","end":""}],
     types: placeholder as Registry['profile.profile.update_bio']['types'],
+  },
+  'profile.profile.save_fcm_token': {
+    methods: ["PATCH"],
+    pattern: '/api/v1/account/fcm-token',
+    tokens: [{"old":"/api/v1/account/fcm-token","type":0,"val":"api","end":""},{"old":"/api/v1/account/fcm-token","type":0,"val":"v1","end":""},{"old":"/api/v1/account/fcm-token","type":0,"val":"account","end":""},{"old":"/api/v1/account/fcm-token","type":0,"val":"fcm-token","end":""}],
+    types: placeholder as Registry['profile.profile.save_fcm_token']['types'],
   },
   'posts.posts.store': {
     methods: ["POST"],
@@ -143,6 +161,18 @@ const routes = {
     pattern: '/api/v1/ratings/set',
     tokens: [{"old":"/api/v1/ratings/set","type":0,"val":"api","end":""},{"old":"/api/v1/ratings/set","type":0,"val":"v1","end":""},{"old":"/api/v1/ratings/set","type":0,"val":"ratings","end":""},{"old":"/api/v1/ratings/set","type":0,"val":"set","end":""}],
     types: placeholder as Registry['ratings.ratings.set']['types'],
+  },
+  'places.places.index': {
+    methods: ["GET","HEAD"],
+    pattern: '/api/v1/places',
+    tokens: [{"old":"/api/v1/places","type":0,"val":"api","end":""},{"old":"/api/v1/places","type":0,"val":"v1","end":""},{"old":"/api/v1/places","type":0,"val":"places","end":""}],
+    types: placeholder as Registry['places.places.index']['types'],
+  },
+  'places.places.get_info': {
+    methods: ["GET","HEAD"],
+    pattern: '/api/v1/places/info',
+    tokens: [{"old":"/api/v1/places/info","type":0,"val":"api","end":""},{"old":"/api/v1/places/info","type":0,"val":"v1","end":""},{"old":"/api/v1/places/info","type":0,"val":"places","end":""},{"old":"/api/v1/places/info","type":0,"val":"info","end":""}],
+    types: placeholder as Registry['places.places.get_info']['types'],
   },
 } as const satisfies Record<string, AdonisEndpoint>
 

@@ -6,7 +6,7 @@ export default class CommentService {
     const comment = await Comment.create({
       userId : userId,
       postId : data.postId,
-      parentCommentId : data.commentId ?? null,
+      parentCommentId : data.parentCommentId ?? data.commentId ?? null,
       content : data.content,
     })
 

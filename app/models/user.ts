@@ -37,6 +37,10 @@ export default class User extends compose
 
   @column() declare profilePicturePath?: string|null;
 
+  @column({serializeAs : null}) declare googleId?: string|null;
+
+  @column({serializeAs : null}) declare fcmToken?: string|null;
+
   @column
       .dateTime({autoCreate : true}) declare createdAt: DateTime
 
