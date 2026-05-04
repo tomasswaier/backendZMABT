@@ -28,16 +28,20 @@ export default class NewAccountController {
   }
   async google({request, response}: HttpContext) {
     try {
+      // vibe coded bcs no time and idk how much I need to do
       const {idToken} = request.only([ 'idToken' ])
 
       if (!idToken) {
+        console.log("id token not provided")
         return response.badRequest({error : true, message : 'Missing token'})
       }
+      else {console.log("id token provided")}
 
-      // 🔐 1. Verify token with Google
+      console.log(process.env.GOOGLE_CLIENT_ID)
       const ticket = await client.verifyIdToken({
         idToken,
         audience : process.env.GOOGLE_CLIENT_ID,
+
       })
 
       const payload = ticket.getPayload()
@@ -51,15 +55,11 @@ export default class NewAccountController {
       const name = payload.name || 'user'
       const providerUserId = payload.sub
 
-      // 🔥 2. Find existing user by email
       let user = await User.query().where('email', email).first()
 
-      // 🆕 3. Create user if not exists
       if (!user) {
-        // generate username (IMPORTANT)
         let username = name.replace(/\s+/g, '').toLowerCase()
 
-        // ensure uniqueness
         const existing = await User.query().where('username', username).first()
         if (existing) {
           username = `${username}_${Math.floor(Math.random() * 10000)}`
@@ -68,12 +68,11 @@ export default class NewAccountController {
         user = await User.create({
           email,
           username,
-          password : null, // SSO user has no password
+          password : null,
           bio : '',
         })
       }
 
-      // 🔗 4. Link identity (user_identities table)
       await Database.table('user_identities')
           .insert({
             user_id : user.id,
@@ -83,7 +82,6 @@ export default class NewAccountController {
           .onConflict([ 'provider', 'provider_user_id' ])
           .ignore()
 
-      // 🎟 5. Generate YOUR app token (same system you already use)
       const token = await User.accessTokens.create(user)
 
       return response.ok({

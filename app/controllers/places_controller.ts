@@ -12,13 +12,13 @@ export default class PlacesController {
     var place = await this.get(longitude, latitude)
 
     if (place == undefined || place.length == 0) {
-      const place = await Place.create({
+      const newPlace = await Place.create({
         latitude : latitude,
         longitude : longitude,
         aiDescription : aiDescription
       });
-      await PushService.sendPlaceNotification(userId, place.id)
-      return place
+      await PushService.sendPlaceNotification(userId, newPlace.id)
+      return newPlace
     }
     return place[0]
   }
