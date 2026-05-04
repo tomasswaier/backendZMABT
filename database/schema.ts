@@ -153,7 +153,7 @@ export class UserIdentitySchema extends BaseModel {
 }
 
 export class UserSchema extends BaseModel {
-  static $columns = ['authProvider', 'bio', 'createdAt', 'email', 'id', 'password', 'profilePicturePath', 'providerUserId', 'updatedAt', 'username'] as const
+  static $columns = ['authProvider', 'bio', 'createdAt', 'email', 'fcmToken', 'id', 'password', 'profilePicturePath', 'providerUserId', 'updatedAt', 'username'] as const
   $columns = UserSchema.$columns
   @column()
   declare authProvider: string | null
@@ -163,6 +163,8 @@ export class UserSchema extends BaseModel {
   declare createdAt: DateTime
   @column()
   declare email: string
+  @column()
+  declare fcmToken: string | null
   @column({ isPrimary: true })
   declare id: number
   @column({ serializeAs: null })

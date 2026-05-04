@@ -111,7 +111,6 @@ export default class PostsController {
       console.log("addingPost")
       const data = await request.validateUsing(postStoreValidator)
       const image = request.file('image')
-      console.log(data)
 
       const post =
           await PostService.createPost(user.id, data, image ? image : undefined)

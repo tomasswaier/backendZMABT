@@ -15,8 +15,7 @@ export default class PostService {
     const aiDescription = await this.getAiDescription()
 
     const place = await PlacesController.store(aiDescription, data.longitude,
-                                               data.latitude)
-    console.log(place)
+                                               data.latitude, userId)
 
     const post = await Post.create({
       description : data.postText,

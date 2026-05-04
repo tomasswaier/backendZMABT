@@ -87,8 +87,9 @@ export default class CommentsController {
   }
 
   async getPage({auth, request, response}: HttpContext) {
-    const data = await request.validateUsing(commentPageValidator)
-    const user = auth.user
+    const data = await request.validateUsing(commentPageValidator);
+    console.log(await auth.check());
+    const user = auth.user;
     try {
       const query = Comment.query()
 
@@ -101,11 +102,12 @@ export default class CommentsController {
       // vibecoded
       if (user) {
         query.select('*').select(db.raw(`EXISTS (
-            SELECT 1 FROM likes
-            WHERE likes.comment_id = comments.id
-            AND likes.user_id = ?
-          ) as "isLiked"`,
+    SELECT 1 FROM likes l
+    WHERE l.comment_id = comments.id
+    AND l.user_id = ?
+)::boolean as "isLiked"`,
                                         [ user.id ]))
+
       } // till ere
 
       const comments =
@@ -123,15 +125,18 @@ export default class CommentsController {
       })
 
       serialized.data = serialized.data.map((comment, index) => {
-        const extras = comments.all()[index].$extras
+        const extras = comments.all()[index].$extras;
+
+        console.log("extras:", extras)
+        console.log("raw isLiked:", extras.isLiked, typeof extras.isLiked)
 
         return {
-        ...comment, likeCount: Number(extras.likeCount),
-            isLiked: extras.isLiked,
+          ...comment, likeCount: Number(extras.likeCount),
+              isLiked: extras.isLiked,
         }
       })
 
-        return response.ok(serialized)
+      return response.ok(serialized)
     } catch (error) {
       console.error('Error:', error)
       return response.internalServerError({

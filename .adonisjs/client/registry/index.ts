@@ -6,6 +6,12 @@ import type { ApiDefinition } from './tree.d.ts'
 const placeholder: any = {}
 
 const routes = {
+  'notifications.save_token': {
+    methods: ["POST"],
+    pattern: '/fcm-token',
+    tokens: [{"old":"/fcm-token","type":0,"val":"fcm-token","end":""}],
+    types: placeholder as Registry['notifications.save_token']['types'],
+  },
   'auth.new_account.store': {
     methods: ["POST"],
     pattern: '/api/v1/auth/signup',

@@ -4,6 +4,7 @@ type ParamValue = string | number | bigint | boolean
 
 export type ScannedRoutes = {
   ALL: {
+    'notifications.save_token': { paramsTuple?: []; params?: {} }
     'auth.new_account.store': { paramsTuple?: []; params?: {} }
     'auth.access_token.store': { paramsTuple?: []; params?: {} }
     'auth.new_account.google': { paramsTuple?: []; params?: {} }
@@ -53,6 +54,7 @@ export type ScannedRoutes = {
     'comments.comments.get_page': { paramsTuple?: []; params?: {} }
   }
   POST: {
+    'notifications.save_token': { paramsTuple?: []; params?: {} }
     'auth.new_account.store': { paramsTuple?: []; params?: {} }
     'auth.access_token.store': { paramsTuple?: []; params?: {} }
     'auth.new_account.google': { paramsTuple?: []; params?: {} }

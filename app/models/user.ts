@@ -26,6 +26,7 @@ export default class User extends compose
   });
 
   @column({isPrimary : true}) declare id: number;
+  @column() public fcmToken?: string;
 
   @column() declare username: string;
 

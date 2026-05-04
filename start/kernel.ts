@@ -9,6 +9,7 @@
 */
 
 import '#start/ws'
+import '#start/firebase'
 
 import router from '@adonisjs/core/services/router'
 import server from '@adonisjs/core/services/server'
@@ -48,4 +49,5 @@ router.use([
  */
 export const middleware = router.named({
   auth : () => import('#middleware/auth_middleware'),
+  silentAuth : () => import('#middleware/silent_auth_middleware'),
 })

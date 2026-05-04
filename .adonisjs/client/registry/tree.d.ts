@@ -2,6 +2,9 @@
 import type { routes } from './index.ts'
 
 export interface ApiDefinition {
+  notifications: {
+    saveToken: typeof routes['notifications.save_token']
+  }
   auth: {
     newAccount: {
       store: typeof routes['auth.new_account.store']

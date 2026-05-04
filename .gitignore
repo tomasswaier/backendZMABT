@@ -3,6 +3,7 @@ node_modules
 build
 tmp/*
 !tmp/.gitkeep
+app/google-services.json
 
 # Secrets
 .env

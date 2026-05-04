@@ -1,21 +1,24 @@
 import Place from "#models/place";
 import Post from "#models/post";
+import PushService from '#services/push_service'
 import {placeGetValidator} from '#validators/place'
 import type {HttpContext} from '@adonisjs/core/http'
 
 // anyone questions why I have a services for stuff i dont need and controllers
 // in place of services I do need I'll remove your G spot
 export default class PlacesController {
-  static async store(aiDescription: string, longitude: number,
-                     latitude: number) {
+  static async store(aiDescription: string, longitude: number, latitude: number,
+                     userId: number) {
     var place = await this.get(longitude, latitude)
 
     if (place == undefined || place.length == 0) {
-      return await Place.create({
+      const place = await Place.create({
         latitude : latitude,
         longitude : longitude,
         aiDescription : aiDescription
       });
+      await PushService.sendPlaceNotification(userId, place.id)
+      return place
     }
     return place[0]
   }

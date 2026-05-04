@@ -29,6 +29,9 @@ router.get('/', () => {
 router.post('/', () => {
   return { test: 'successful' }
 })
+// notification management meow
+router.post('/fcm-token', [ controllers.Notifications, 'saveToken' ])
+    .use(middleware.auth())
 
 router.get('/uploads/:filename', async ({params, response}: HttpContext) => {
   try {
@@ -149,7 +152,8 @@ router.get('/docs/*', async ({ params, response }) => {
         router.group(() => {
                 router.patch('/update', [ controllers.Comments, 'update' ])
                     .use(middleware.auth())
-                router.get('/getPage', [ controllers.Comments, 'getPage' ]);
+                router.get('/getPage', [ controllers.Comments, 'getPage' ])
+                    .use(middleware.silentAuth());
                 router.put('/like', [ controllers.Comments, 'like' ])
                     .use(middleware.auth());
                 router
