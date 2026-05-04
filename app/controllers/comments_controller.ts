@@ -88,7 +88,7 @@ export default class CommentsController {
 
   async getPage({auth, request, response}: HttpContext) {
     const data = await request.validateUsing(commentPageValidator);
-    console.log(await auth.check());
+    // console.log(await auth.check());
     const user = auth.user;
     try {
       const query = Comment.query()
@@ -126,9 +126,6 @@ export default class CommentsController {
 
       serialized.data = serialized.data.map((comment, index) => {
         const extras = comments.all()[index].$extras;
-
-        console.log("extras:", extras)
-        console.log("raw isLiked:", extras.isLiked, typeof extras.isLiked)
 
         return {
           ...comment, likeCount: Number(extras.likeCount),

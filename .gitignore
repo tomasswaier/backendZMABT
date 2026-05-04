@@ -4,9 +4,11 @@ build
 tmp/*
 !tmp/.gitkeep
 app/google-services.json
+public/uploads/*
 
 # Secrets
 .env
+.env.test
 .env.local
 .env.production.local
 .env.development.local
