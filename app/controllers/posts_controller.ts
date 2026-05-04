@@ -177,6 +177,7 @@ export default class PostsController {
 
   async update({request, response, auth}: HttpContext) {
     const user = auth.use('api').user
+    console.log("calling update")
 
     if (!user) {
       return response.unauthorized({
@@ -190,14 +191,26 @@ export default class PostsController {
 
       const post = await Post.find(data.postId)
 
-      if (post!.userId !== user.id) {
+      if (!post) {
+        return response.notFound({
+          message : 'Post not found',
+          error : true,
+        })
+      }
+
+      if (post.userId !== user.id) {
         return response.forbidden({
           message : 'You can only edit your own posts',
           error : true,
         })
       }
 
-      post!.description = data.postText
+      // ✅ update fields
+      post.description = data.postText
+      post.stars = data.rating
+
+                       // ✅ THIS WAS MISSING
+                       await post.save()
 
       return response.ok({
         error : false,

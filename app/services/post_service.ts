@@ -71,8 +71,8 @@ export default class PostService {
       }
 
       const data = await response.json()
-      console.log(data)
-      console.log(data.choices[0].message.content)
+      // console.log(data)
+      // console.log(data.choices[0].message.content)
       return data.choices[0].message.content.trim()
 
     } catch (error) {
