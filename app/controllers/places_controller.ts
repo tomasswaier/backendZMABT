@@ -23,6 +23,10 @@ export default class PlacesController {
     return place[0]
   }
   static async get(longitude: number, latitude: number) {
+    console.log(await Place.query()
+                    .where("latitude", latitude)
+                    .where("longitude", longitude)
+                    .limit(1))
     return await Place.query()
         .where("latitude", latitude)
         .where("longitude", longitude)
